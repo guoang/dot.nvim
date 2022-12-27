@@ -12,13 +12,20 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup {
   debug = false,
   sources = {
+    formatting.stylua,
     formatting.prettier.with {
       extra_filetypes = { "toml" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    formatting.black.with { extra_args = { "--fast" } },
-    formatting.stylua,
-    formatting.google_java_format,
+    formatting.markdownlint,
+    formatting.autopep8.with {
+      extra_args = { "-a", "-a" },
+    },
+    formatting.reorder_python_imports,
+    formatting.cmake_format,
+    -- diagnostics.pylint,  -- too many errors
     diagnostics.flake8,
+    diagnostics.markdownlint,
+    diagnostics.cmake_lint,
   },
 }
