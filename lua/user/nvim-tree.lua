@@ -67,4 +67,7 @@ nvim_tree.setup {
       },
     },
   },
+  hijack_directories = {
+    auto_open = false,
+  },
 }

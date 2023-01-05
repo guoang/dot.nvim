@@ -17,7 +17,35 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
-vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    local path_ok, plenary_path = pcall(require, "plenary.path")
+    if not path_ok then
+      return
+    end
+    local bufnr = vim.fn.bufnr()
+    local bufnr_last = vim.fn.bufnr('$')
+    local bufname = vim.fn.bufname()
+    if #bufname > 0 then
+      local path = plenary_path.new(bufname)
+      if #bufname and path:exists() and path:is_dir() then
+        if bufnr == 1 and bufnr_last == 2 then
+          vim.fn.chdir(bufname)
+          vim.cmd("Alpha")
+          vim.api.nvim_buf_delete(bufnr, {})
+        end
+      end
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  callback = function()
+    if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
+      vim.cmd("quit")
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
 	callback = function()
