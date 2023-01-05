@@ -7,8 +7,16 @@ if not path_ok then
 	return
 end
 
-local WIDTH = 160
-local POSITION = "center"
+local replace_space = true
+local POSITION = "left"
+
+local line_offset = function()
+  local w = vim.fn.winwidth('%')
+  if w > 160 then
+    return (w - 160) / 2
+  end
+  return 0
+end
 
 -- header & footer
 -- {{{
@@ -36,8 +44,7 @@ local footer = {
       type = "text",
       val = "The computing scientist's main challenge is not to get confused by the complexities of his own making.",
       opts = {
-        position = POSITION,
-        width = WIDTH,
+        position = 'center',
         hl = "Comment",
       },
     },
@@ -45,8 +52,7 @@ local footer = {
       type = "text",
       val = "- Edsger W. Dijkstra",
       opts = {
-        position = POSITION,
-        width = WIDTH,
+        position = 'center',
         hl = "Comment",
       },
     },
@@ -61,7 +67,6 @@ local footer = {
 local button = function(sc, txt, keybind)
 	local opts = {
 		position = POSITION,
-    width = WIDTH,
 		cursor = 1,
     hl = {}
   }
@@ -86,7 +91,7 @@ end
 -- mru
 -- {{{
 
-local mru_width = 50
+local mru_width = 45
 local default_mru_ignore = { "gitcommit" }
 local mru_opts = {
   ignore = function(path, ext)
@@ -177,7 +182,7 @@ end
 -- col
 -- {{{
 
-local col_padding = 5
+local col_padding = 1
 
 local trim = function(s)
   return s:match "^(.-)%s*$"
@@ -206,7 +211,7 @@ local col = function(columns)
 
 	-- add as much right-padding to align the text block
 	local pad = function(column, idx)
-    local len = maxlen(column, idx) + 1
+    local len = maxlen(column, idx) + 2
     -- process all the items but last,
     -- because we dont wand extra padding after last column
     for i = 1, nline do
@@ -214,11 +219,16 @@ local col = function(columns)
         table.insert(column, {"title", "",})
       end
       local str = column[i][idx]
+      if replace_space then
+        str = str:gsub("<Spc>", "␠")
+      end
       if #str < len then
         if column[i][1] == "file" or column[i][1] == "button" then
-          column[i][idx] = padding(str, len + 1)
-        else
           column[i][idx] = padding(str, len)
+        elseif string.find(str, "␠") ~= nil then
+          column[i][idx] = padding(str, len)
+        else
+          column[i][idx] = padding(str, len - 2)
         end
       end
     end
@@ -238,7 +248,6 @@ local col = function(columns)
       opts = {
         hl = {},
         position = POSITION,
-        width = WIDTH,
       },
     }
 
@@ -268,14 +277,14 @@ local col = function(columns)
         end
         for k = hl_start, #columns[j][i] do
           local hl = columns[j][i][k]
-          local h1 = hl[2] + #line.val - #txt
-          local h2 = hl[3] + #line.val - #txt
+          local h1 = hl[2] + #line.val - #txt + line_offset()
+          local h2 = hl[3] + #line.val - #txt + line_offset()
           table.insert(line.opts.hl, {hl[1], h1, h2})
         end
       end
     end
     -- insert result into output table
-    line.val = padding(line.val, WIDTH)
+    line.val = string.rep(' ', line_offset()) .. line.val
     table.insert(values, line)
   end
 
@@ -286,152 +295,162 @@ end
 -- keymaps
 -- {{{
 
-local find_things = {
-  { "title",  "Find",                            { "SpecialComment", 0, 4 }},
-	{ "keymap", "<Spc>ff  Files",                  { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fp  Projects",               { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fr  Recent files",           { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fs  Sessions",               { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fg  text by live Grep",      { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fw  Word under cursor",      { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fl  Lsp document symbol",    { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fb  text in current Buffer", { "DevIconLeex",    0, 7 }},
-	{ "keymap", "<Spc>fL  Lsp workspace symbol",   { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	-- { "keymap", "<Spc>ft  Treesitter symbol",      { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fB  Buffers",                { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fR  Registers",              { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fc  vim Commands",           { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fC  vim Color schemes",      { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fh  vim Help",               { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fk  vim Keymaps",            { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	{ "keymap", "<Spc>fa  vim Auto commands",      { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
-	-- { "keymap", "<Spc>fm  Man pages",              { "DevIconLeex",    0, 7 }, { "Comment", 8, 30 }},
+local finding1 = {
+  { "title",  "     File Explorer",      { "SpecialComment", 0, 30 }},
+	{ "keymap", " <Spc>e  Explore Files",  { "DevIconLeex",    0, 5 }},
+  { "keymap", "" },
+  { "title",  "     Finding",            { "SpecialComment", 0, 18 }},
+	{ "keymap", "<Spc>ff  Files",          { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fp  Projects",       { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fr  Recent files",   { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fs  Sessions",       { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fg  live Grep",      { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fw  cursor Word ",   { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fb  text in Buffer", { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fl  Lsp symbols",    { "DevIconLeex",    0, 7 }},
+	{ "keymap", "<Spc>fL  Lsp symbols",    { "DevIconLeex",    0, 7 },   { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fB  open Buffers",   { "DevIconLeex",    0, 7 },   { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fR  Registers",      { "DevIconLeex",    0, 7 },   { "Comment", 7, 30 }},
+}
+
+local finding2 = {
+	{ "keymap", "<Spc>fm  Man pages",         { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fh  vim Help",          { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fk  vim Keymaps",       { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fc  vim Commands",      { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fC  vim Color schemes", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fa  vim Auto commands", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>ft  T-sitter symbols",  { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
 }
 
 local git = {
-  { "title", "Git", { "SpecialComment", 0, 3 } },
-	{ "keymap", "<Spc>gl  Lazygit",          { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gd  Diff",             { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gs  Status",           { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gc  Commits",          { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gb  Branches",         { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gB  Blame",            { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gr  Reset Hunk",       { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gR  Reset Buffer",     { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gS  Stage Hunk",       { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gU  Undo Stage Hunk",  { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gj  Next Hunk",        { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gn  Next Hunk",        { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gk  Prev Hunk",        { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gp  Prev Hunk",        { "DevIconLeex", 0, 7 }},
-	{ "keymap", "<Spc>gP  Preview Hunk",     { "DevIconLeex", 0, 7 }},
+  { "title",  "     Git",          { "SpecialComment", 0, 13 }},
+	{ "keymap", "<Spc>gl  Lazygit",      { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gd  Diff",         { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gs  Status",       { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gc  Commits",      { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gb  Branches",     { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gB  Blame",        { "DevIconLeex",    0, 6 }},
+	{ "keymap", "<Spc>gr  Reset Hunk",   { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gR  Reset Buffer", { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gn  Next Hunk",    { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gp  Prev Hunk",    { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gS  Stage Hunk",   { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gU  Unstage Hunk", { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
+	{ "keymap", "<Spc>gP  Preview Hunk", { "DevIconLeex",    0, 6 }, { "Comment", 7, 20}},
 }
 
 local terminal = {
-  { "title",  "Terminal",                            { "SpecialComment", 0, 8 }},
-  { "keymap", "<C-\\>    toggle terminal",           { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>tf  Floating window",            { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>th  Horizontal window",          { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>tv  Vertical window",            { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>ts  Send selection to terminal", { "DevIconLeex",    0, 7 }},
+  { "",  "",},
+  { "title",  "      Terminal",              { "SpecialComment", 0, 18 }},
+  { "keymap", "<C-\\> toggle terminal",      { "DevIconLeex",    0, 5 }},
+  { "keymap", "<Spc>th   Horizontal window", { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>tv   Vertical window",   { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>tf   Floating window",   { "DevIconLeex",    0, 7 }, { "Comment", 7, 30}},
+  { "keymap", "<Spc>ts   Send to terminal",  { "DevIconLeex",    0, 7 }, { "Comment", 7, 30}},
 }
 
 local trouble = {
-  { "title",  "Trouble",                             { "SpecialComment", 0, 8 }},
-  { "keymap", "<Spc>tt  Toggle trouble window",      { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>tw  workspace_diagnostics",      { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>td  document_diagnostics",       { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>tq  quickfix",                   { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>tl  loclist",                    { "DevIconLeex",    0, 7 }},
+  { "",  "",},
+  { "title",  "     Trouble",                    { "SpecialComment", 0, 18 }},
+  { "keymap", "<Spc>tt  Toggle trouble window",      { "DevIconLeex",    0, 7 }, },
+  { "keymap", "<Spc>tw  workspace_diagnostics",      { "DevIconLeex",    0, 7 }, },
+  { "keymap", "<Spc>td  document_diagnostics",       { "DevIconLeex",    0, 7 }, { "Comment", 7, 30}},
+  { "keymap", "<Spc>tq  quickfix",                   { "DevIconLeex",    0, 7 }, { "Comment", 7, 30}},
+  { "keymap", "<Spc>tl  loclist",                    { "DevIconLeex",    0, 7 }, { "Comment", 7, 30}},
 }
 
 local lsp = {
-  { "title", "LSP", { "SpecialComment", 0, 3 } },
-  { "keymap", "<Spc>li  Info",              { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>lf  Format",            { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>lI  Install",           { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>la  code Action",       { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>ll  CodeLens Action",   { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>lr  Rename",            { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>ls  Signature",         { "DevIconLeex", 0, 7 }},
+  { "title", "     LSP", { "SpecialComment", 0, 13 } },
+  { "keymap", "<Spc>li  Info",              { "DevIconLeex", 0, 6 }},
+  { "keymap", "<Spc>lf  Format",            { "DevIconLeex", 0, 6 }},
+  { "keymap", "<Spc>lI  Install",           { "DevIconLeex", 0, 6 }},
+  { "keymap", "<Spc>la  code Action",       { "DevIconLeex", 0, 6 }, { "Comment", 7, 25}},
+  { "keymap", "<Spc>ll  CodeLens Action",   { "DevIconLeex", 0, 6 }, { "Comment", 7, 25}},
+  { "keymap", "<Spc>lr  Rename",            { "DevIconLeex", 0, 6 }, { "Comment", 7, 25}},
+  { "keymap", "<Spc>ls  Signature",         { "DevIconLeex", 0, 6 }, { "Comment", 7, 25}},
   { "keymap", "" },
-  { "keymap", "      K  hover",             { "DevIconLeex", 0, 7 }},
-  { "keymap", "     gd  go Definition",     { "DevIconLeex", 0, 7 }},
-  { "keymap", "     gD  go Declaration",    { "DevIconLeex", 0, 7 }},
-  { "keymap", "     gI  go Implementation", { "DevIconLeex", 0, 7 }},
-  { "keymap", "     gr  go References",     { "DevIconLeex", 0, 7 }},
+  { "keymap", "  K  hover",             { "DevIconLeex", 0, 3 }},
+  { "keymap", " gd  go Definition",     { "DevIconLeex", 0, 3 }},
+  { "keymap", " gr  go References",     { "DevIconLeex", 0, 3 }},
+  { "keymap", " gD  go Declaration",    { "DevIconLeex", 0, 3 }, { "Comment", 4, 30}},
+  { "keymap", " gI  go Implementation", { "DevIconLeex", 0, 3 }, { "Comment", 4, 30}},
 }
 
 local dap = {
-  { "title", "DAP", { "SpecialComment", 0, 3 }},
-  { "keymap", "<Spc>dc  Run/Continue",      { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>db  toggle Breakpoint", { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>dB  clear Breakpoint",  { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>di  step In",           { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>do  step Over",         { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>dO  step Out",          { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>dr  toggle Repl",       { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>dR  Run last",          { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>dt  Terminate",         { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>du  toggle Ui",         { "DevIconLeex", 0, 7 }},
+  { "title",  "     DAP",              { "SpecialComment", 0, 13 }},
+  { "keymap", "<Spc>dc  Run/Continue", { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>db  toggle Bp",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>dB  clear Bp",     { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>di  step In",      { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>do  step Over",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>dO  step Out",     { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>dt  Terminate",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>du  toggle Ui",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>dr  toggle Repl",  { "DevIconLeex",    0, 7 },   { "Comment", 7, 20}},
+  { "keymap", "<Spc>dR  Run last",     { "DevIconLeex",    0, 7 },   { "Comment", 7, 20}},
 }
 
 local switches = {
-  { "title", "Switches", { "SpecialComment", 0, 8 }},
-  { "keymap", "<Spc>ss  word under cursor",     { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>si  Im-select auto insert", { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>sd  Diagnostic visible",    { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>sq  Quickfix list",         { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>sl  Location list",         { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>sc  colorColumn",           { "DevIconLeex", 0, 7 }},
-  { "keymap", "<Spc>sS  Spell checking",        { "DevIconLeex", 0, 7 }},
+  { "",       ""},
+  { "title",  "     Switches",           { "SpecialComment", 0, 18 }},
+  { "keymap", "<Spc>ss  cursor word",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>sd  Diagnostic",     { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>si  Im-select auto", { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>sc  color Column",   { "DevIconLeex",    0, 7 },   { "Comment", 7, 30}},
+  { "keymap", "<Spc>sS  Spell checking", { "DevIconLeex",    0, 7 },   { "Comment", 7, 30}},
 }
 
 local runit = {
-  { "title",  "Run it",                     { "SpecialComment", 0, 6 }},
-  { "keymap", "<Spc>rb  run Build",         { "DevIconLeex",    0, 7 }},
+  { "title",  "     Run it",           { "SpecialComment", 0, 16 }},
+  { "keymap", "<Spc>rr  Run all step", { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rc  Config",       { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rb  Build",        { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rb  Test",         { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>ri  Install",      { "DevIconLeex",    0, 7 }},
   { "title",  "" },
-  { "title",  "Replace",                    { "SpecialComment", 0, 7 }},
-  { "keymap", "<Spc>Rw  Word under cursor", { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>Rd  in current Doc",    { "DevIconLeex",    0, 7 }},
+  { "title",  "     Replace",          { "SpecialComment", 0, 17 }},
+  { "keymap", "<Spc>RR  do Replace",   { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>Rw  cursor Word",  { "DevIconLeex",    0, 7 }},
 }
 
 local naming = {
-  { "title", "Naming", { "SpecialComment", 0, 6 }},
-  { "keymap", "crs      snake_case", { "DevIconLeex", 0, 7 }},
-  { "keymap", "cru      UPPER_CASE", { "DevIconLeex", 0, 7 }},
-  { "keymap", "crm      MixedCase",  { "DevIconLeex", 0, 7 }},
-  { "keymap", "crc      camelCase",  { "DevIconLeex", 0, 7 }},
-  { "keymap", "cr-      dash-case",  { "DevIconLeex", 0, 7 }},
-  { "keymap", "cr.      dot.case",   { "DevIconLeex", 0, 7 }},
-  { "keymap", "cr<Spc>  space case", { "DevIconLeex", 0, 7 }},
+  { "title",  "        Naming",         { "SpecialComment", 0, 20 }},
+  { "keymap", "   crs  snake_case",     { "DevIconLeex",    0, 7 }},
+  { "keymap", "   crm  MixedCase",      { "DevIconLeex",    0, 7 }},
+  { "keymap", "   crc  camelCase",      { "DevIconLeex",    0, 7 }, { "Comment", 8, 20}},
+  { "keymap", "   cru  UPPER_CASE",     { "DevIconLeex",    0, 7 }, { "Comment", 8, 20}},
+  { "keymap", "   cr-  dash-case",      { "DevIconLeex",    0, 7 }, { "Comment", 8, 20}},
+  { "keymap", "   cr.  dot.case",       { "DevIconLeex",    0, 7 }, { "Comment", 8, 20}},
+  { "keymap", "   cr<Spc>  space case", { "DevIconLeex",    0, 10 }, { "Comment", 8, 20}},
 }
 
 local navigation = {
-  { "title",  "Navigation",                         { "SpecialComment", 0, 10 }},
-  { "keymap", "f/F/t/T      1-char motion",         { "DevIconLeex",    0, 11 },  { "Grey", 1, 2 },  { "Grey",    3,  4 },   { "Grey", 5, 6 }},
-  { "keymap", "s/S          2-char motion",         { "DevIconLeex",    0, 11 },  { "Grey", 1, 2 }},
-  { "keymap", "x/X          2-char motion (o)",     { "DevIconLeex",    0, 11 },  { "Grey", 1, 2 },  { "Comment", 13, 30 }},
-  { "keymap", "<C-b/f>      left/right (i)",        { "DevIconLeex",    0, 11 },  { "Grey", 4, 5 }},
-  { "keymap", "<C-a/e>      home/end (i)",          { "DevIconLeex",    0, 11 },  { "Grey", 4, 5 }},
-  { "keymap", "<C-h/l/j/k>  move between windows",  { "DevIconLeex",    0, 11 },  { "Grey", 4, 5 },  { "Grey",    6,  7 },   { "Grey", 8, 9 }},
-  { "keymap", "H/L          move between buffers",  { "DevIconLeex",    0, 11 },  { "Grey", 1, 2 }},
-  { "keymap", "]>/)/}/m     next >,),},method",     { "DevIconLeex",    0, 11 },  { "Grey", 2, 3 },  { "Grey",    4,  5 },   { "Grey", 6, 7 },  { "Comment", 13, 35 }},
-  { "keymap", "[</(/{/m     previous >,),},method", { "DevIconLeex",    0, 11 },  { "Grey", 2, 3 },  { "Grey",    4,  5 },   { "Grey", 6, 7 },  { "Comment", 13, 35 }},
+  { "title",  "          Navigation",            { "SpecialComment", 0, 20 }},
+  { "keymap", "     s/S  2-char motion",         { "DevIconLeex",    0, 9 },  { "Grey", 6, 7 }},
+  { "keymap", "     x/X  2-char motion (o)",     { "DevIconLeex",    0, 9 },  { "Grey", 6, 7 },  { "Comment", 10, 30 }},
+  { "keymap", "     H/L  left/right buffer",     { "DevIconLeex",    0, 9 },  { "Grey", 6, 7 }},
+  { "keymap", " f/F/t/T  1-char motion",         { "DevIconLeex",    0, 9 },  { "Grey", 2, 3 },  { "Grey",    4,  5 },   { "Grey", 6, 7 }},
+  { "keymap", " <C-h/l>  left/right window",     { "DevIconLeex",    0, 9 },  { "Grey", 5, 6 }},
+  { "keymap", " <C-j/k>  above/below window",    { "DevIconLeex",    0, 9 },  { "Grey", 5, 6 }},
+  { "keymap", " <C-b/f>  left/right (i)",        { "DevIconLeex",    0, 9 },  { "Grey", 5, 6 }},
+  { "keymap", " <C-a/e>  home/end (i)",          { "DevIconLeex",    0, 9 },  { "Grey", 5, 6 }},
+  { "keymap", "]>/)/}/m  next >,),},method",     { "DevIconLeex",    0, 9 },  { "Grey", 2, 3 },  { "Grey",    4,  5 },   { "Grey", 6, 7 },  { "Comment", 10, 35 }},
+  { "keymap", "[</(/{/m  prev <,(,{,method",     { "DevIconLeex",    0, 9 },  { "Grey", 2, 3 },  { "Grey",    4,  5 },   { "Grey", 6, 7 },  { "Comment", 10, 35 }},
 }
 
 local editing = {
-  { "title",  "Editing",                            { "SpecialComment", 0, 10 }},
-  { "keymap", "gi        Insert at last position",  { "DevIconLeex",    0, 8 }},
-  { "keymap", "ga        Alignment",                { "DevIconLeex",    0, 8 }},
-  { "keymap", "gcc       toggle Comment line",      { "DevIconLeex",    0, 8 }},
-  { "keymap", "gcb       toggle Comment block",     { "DevIconLeex",    0, 8 }},
-  { "keymap", "cs        change surround mark",     { "DevIconLeex",    0, 8 }},
-  { "keymap", "ds        delete surround mark",     { "DevIconLeex",    0, 8 }},
-  { "keymap", "ys        add surround mark",        { "DevIconLeex",    0, 8 }},
-  { "keymap", "<C-w>     delete previous word (i)", { "DevIconLeex",    0, 8 }},
-  { "keymap", "<C-l>     fast wrap pairs(i)",       { "DevIconLeex",    0, 8 }},
-  { "keymap", "\"/<C-r>   paste in (nv)/(i) mode",  { "DevIconLeex",    0, 8 },   { "Grey", 1, 2}},
+  { "title",  "           Editing",              { "SpecialComment", 0, 20 }},
+  { "keymap", "       ga  Alignment",            { "DevIconLeex",    0, 10 }},
+  { "keymap", "       gi  Insert at last pos",   { "DevIconLeex",    0, 10 }},
+  { "keymap", "      gcc  toggle Comment line",  { "DevIconLeex",    0, 10 }},
+  { "keymap", "      gcb  toggle Comment block", { "DevIconLeex",    0, 10 }},
+  { "keymap", "       cs  change surround mark", { "DevIconLeex",    0, 10 }},
+  { "keymap", "       ds  delete surround mark", { "DevIconLeex",    0, 10 }},
+  { "keymap", "       ys  add surround mark",    { "DevIconLeex",    0, 10 }},
+  { "keymap", "    <C-w>  delete prev word (i)", { "DevIconLeex",    0, 10 }},
+  { "keymap", "    <C-l>  fast wrap pairs(i)",   { "DevIconLeex",    0, 10 }},
+  { "keymap", "  <C-r>/\"  paste (i)/(nv)",      { "DevIconLeex",    0, 10 },   { "Grey", 7, 8 }, { "Comment", 9, 30 }},
 }
 
 --}}}
@@ -444,7 +463,7 @@ local editing = {
 
 local shortcut = function()
   local content = {
-    { "title", " Recent files & Shortcuts", { "SpecialComment", 0, 30 }},
+    { "title", "    Recent files & Shortcuts", { "SpecialComment", 0, 30 }},
   }
   for _, v in pairs(mru(vim.fn.getcwd(), 5)) do
     table.insert(content, v)
@@ -461,10 +480,10 @@ local section_keymaps_1 = {
   type = "group",
   val = function() 
     local sc = shortcut()
-    if maxlen(sc, 2) < 30 then
+    if maxlen(sc, 2) < 40 then
       return col({ sc, navigation, editing, naming})
     else
-      return col({ sc, navigation, editing})
+      return col({ sc, navigation, editing, naming })
     end
   end,
   opts = { spacing = 0 },
@@ -472,15 +491,25 @@ local section_keymaps_1 = {
 
 local section_keymaps_2 = {
   type = "group",
-  val = col({ find_things, git, lsp, dap}),
+  val = function() return col({ finding1, git, lsp, dap, runit, }) end,
   opts = { spacing = 0 },
 }
 
 local section_keymaps_3 = {
   type = "group",
-  val = col({ terminal, trouble, switches, runit, }),
+  val = function() return col({ finding2, terminal, trouble, switches, }) end,
   opts = { spacing = 0 },
 }
+
+local line_before_footer = function()
+  local height = vim.fn.winheight('%')
+  local content_height = 50
+  if height - content_height > 2 then
+    return height - content_height
+  else
+    return 2
+  end
+end
 
 local opts = {
   layout = {
@@ -490,11 +519,10 @@ local opts = {
     -- section_mru,
     -- { type = "padding", val = 2 },
     section_keymaps_1,
-    { type = "padding", val = 1 },
-    section_keymaps_2,
-    { type = "padding", val = 1 },
-    section_keymaps_3,
     { type = "padding", val = 2 },
+    section_keymaps_2,
+    section_keymaps_3,
+    { type = "padding", val = line_before_footer },
     footer,
   },
   opts = {

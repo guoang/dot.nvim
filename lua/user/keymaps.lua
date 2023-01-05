@@ -122,9 +122,9 @@ keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>",                   {
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    { silent = true, desc = "git Commits"         })
 
 -- Spectre
+keymap("n", "<leader>RR", "viw:lua require('spectre').open_file_search()<cr>",               { silent = true, desc = "spectre Replace in current buffer" })
 keymap("n", "<leader>Rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", { silent = true, desc = "spectre replace Word under cursor" })
 keymap("v", "<leader>Rw", "<esc>:lua require('spectre').open_visual()<cr>",                  { silent = true, desc = "spectre replace Word selected"     })
-keymap("n", "<leader>Rd", "viw:lua require('spectre').open_file_search()<cr>",               { silent = true, desc = "spectre replace in current Document"   })
 
 -- LSP
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>",                                 { silent = true, desc = "lsp Info"              })
