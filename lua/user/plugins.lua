@@ -77,12 +77,13 @@ return packer.startup(function(use)
   use { "tpope/vim-speeddating" }
   use { "tpope/vim-repeat" }
   use { "rmagatti/auto-session" }
-  use { "guoang/session-lens" }
   use { "AndrewRadev/switch.vim" }
+  -- use { "edluffy/hologram.nvim", config = function() require'hologram'.setup{ auto_display = true } end }
 
   -- My local plugins
   use { "~/git/im-select.nvim" }
   use { "~/git/buildit.nvim" }
+  use { "~/git/session-lens" }
 
   -- Colorschemes
   use { "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" }
@@ -118,6 +119,8 @@ return packer.startup(function(use)
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
+  use { "nvim-telescope/telescope-symbols.nvim" }
+
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",

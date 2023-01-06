@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     if #bufname > 0 then
       local path = plenary_path.new(bufname)
       if #bufname and path:exists() and path:is_dir() then
-        if bufnr == 1 and bufnr_last == 2 then
+        if bufnr == 1 and bufnr_last <= 2 then
           vim.fn.chdir(bufname)
           vim.cmd("Alpha")
           vim.api.nvim_buf_delete(bufnr, {})

@@ -83,11 +83,11 @@ keymap("n", "<leader>fL", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { 
 keymap("n", "<leader>ft", "<cmd>Telescope treesitter<cr>",                    { silent = true, desc = "find symbols by Treesitter"  })
 keymap("n", "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     { silent = true, desc = "find text in current Buffer" })
 keymap("n", "<leader>fB", "<cmd>Telescope buffers<cr>",                       { silent = true, desc = "find Buffers"                })
+keymap("n", "<leader>fM", "<cmd>Telescope man_pages<cr>",                     { silent = true, desc = "find Man pages"              })
 keymap("n", "<leader>fR", "<cmd>Telescope registers<cr>",                     { silent = true, desc = "find Registers"              })
 keymap("n", "<leader>fc", "<cmd>Telescope commands<cr>",                      { silent = true, desc = "find vim Commands"           })
 keymap("n", "<leader>fC", "<cmd>Telescope colorscheme<cr>",                   { silent = true, desc = "find vim Colorscheme"        })
 keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",                     { silent = true, desc = "find vim Help"               })
-keymap("n", "<leader>fm", "<cmd>Telescope man_pages<cr>",                     { silent = true, desc = "find Man pages"              })
 keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { silent = true, desc = "find vim Keymaps"            })
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
 

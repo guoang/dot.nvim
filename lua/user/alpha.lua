@@ -8,10 +8,9 @@ if not path_ok then
 end
 
 local replace_space = true
-local POSITION = "left"
 
 local line_offset = function()
-  local w = vim.fn.winwidth('%')
+  local w = vim.fn.winwidth(1)
   if w > 160 then
     return (w - 160) / 2
   end
@@ -66,7 +65,7 @@ local footer = {
 
 local button = function(sc, txt, keybind)
 	local opts = {
-		position = POSITION,
+		position = 'left',
 		cursor = 1,
     hl = {}
   }
@@ -247,7 +246,7 @@ local col = function(columns)
       val = "",
       opts = {
         hl = {},
-        position = POSITION,
+        position = 'left',
       },
     }
 
@@ -314,7 +313,7 @@ local finding1 = {
 }
 
 local finding2 = {
-	{ "keymap", "<Spc>fm  Man pages",         { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
+	{ "keymap", "<Spc>fM  Man pages",         { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
 	{ "keymap", "<Spc>fh  vim Help",          { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
 	{ "keymap", "<Spc>fk  vim Keymaps",       { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
 	{ "keymap", "<Spc>fc  vim Commands",      { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 }},
