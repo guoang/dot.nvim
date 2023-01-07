@@ -14,7 +14,7 @@ npairs.setup({
 	},
 
 	fast_wrap = {
-		map = "<C-l>",
+		map = "<C-]>",
 		chars = { "{", "[", "(", '"', "'" },
 		pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
 		offset = 0, -- Offset from pattern match

@@ -16,7 +16,8 @@ im_select.setup({
   im_insert = "com.apple.keylayout.ABC",
   im_insert_ft = {
     TelescopePrompt = "com.apple.keylayout.ABC",
-    markdown = "com.apple.inputmethod.SCIM.Shuangpin",
+    -- markdown = "com.apple.inputmethod.SCIM.Shuangpin",
+    markdown = "com.sogou.inputmethod.sogou.pinyin",
   },
   -- Create auto command to select `im_normal` when `InsertLeave`
   auto_select_normal = true,

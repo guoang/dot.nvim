@@ -11,10 +11,19 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "gitcommit", "markdown" },
 	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
+		-- vim.opt_local.wrap = true
+		-- vim.opt_local.spell = true
     vim.opt_local.colorcolumn = "80"
 	end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "markdown" },
+	callback = function()
+    vim.b.switch_custom_definitions = {
+      { "- [ ]", "- [X]"},
+    }
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {

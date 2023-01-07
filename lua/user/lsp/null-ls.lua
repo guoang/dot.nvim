@@ -17,7 +17,9 @@ null_ls.setup {
       extra_filetypes = { "toml" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    formatting.markdownlint,
+    formatting.markdownlint.with {
+      extra_args = { "--disable=MD004" },
+    },
     formatting.autopep8.with {
       extra_args = { "-a", "-a" },
     },
@@ -25,7 +27,9 @@ null_ls.setup {
     formatting.cmake_format,
     -- diagnostics.pylint,  -- too many errors
     diagnostics.flake8,
-    diagnostics.markdownlint,
+    diagnostics.markdownlint.with {
+      extra_args = { "--disable=MD004" },
+    },
     diagnostics.cmake_lint,
   },
 }

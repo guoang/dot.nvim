@@ -386,8 +386,11 @@ local dap = {
   { "keymap", "<Spc>dO  step Out",     { "DevIconLeex",    0, 7 }},
   { "keymap", "<Spc>dt  Terminate",    { "DevIconLeex",    0, 7 }},
   { "keymap", "<Spc>du  toggle Ui",    { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>dr  toggle Repl",  { "DevIconLeex",    0, 7 },   { "Comment", 7, 20}},
   { "keymap", "<Spc>dR  Run last",     { "DevIconLeex",    0, 7 },   { "Comment", 7, 20}},
+  { "title",  "" },
+  { "title",  "     Replace",          { "SpecialComment", 0, 17 }},
+  { "keymap", "<Spc>RR  do Replace",   { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>Rw  cursor Word",  { "DevIconLeex",    0, 7 }},
 }
 
 local switches = {
@@ -401,16 +404,12 @@ local switches = {
 }
 
 local runit = {
-  { "title",  "     Run it",           { "SpecialComment", 0, 16 }},
-  { "keymap", "<Spc>rr  Run all step", { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>rc  Config",       { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>rb  Build",        { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>rb  Test",         { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>ri  Install",      { "DevIconLeex",    0, 7 }},
-  { "title",  "" },
-  { "title",  "     Replace",          { "SpecialComment", 0, 17 }},
-  { "keymap", "<Spc>RR  do Replace",   { "DevIconLeex",    0, 7 }},
-  { "keymap", "<Spc>Rw  cursor Word",  { "DevIconLeex",    0, 7 }},
+  { "title",  "     Run it",      { "SpecialComment", 0, 16 }},
+  { "keymap", "<Spc>rr  Run all", { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rc  Config",  { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rb  Build",   { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>rb  Test",    { "DevIconLeex",    0, 7 }},
+  { "keymap", "<Spc>ri  Install", { "DevIconLeex",    0, 7 }},
 }
 
 local naming = {
@@ -452,6 +451,34 @@ local editing = {
   { "keymap", "  <C-r>/\"  paste (i)/(nv)",      { "DevIconLeex",    0, 10 },   { "Grey", 7, 8 }, { "Comment", 9, 30 }},
 }
 
+local zettelkasten1 = {
+  { "title",  "     Zettelkasten",         { "SpecialComment", 0, 20 } },
+  { "keymap", "<Spc>zz  panel",            { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zf  Find notes",       { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zg  Grep notes",       { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zl  follow Link",      { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zL  insert Link",      { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zd  find Daily",       { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zD  go toDay",         { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zw  find Weekly",      { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zW  go Weekly",        { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zn  new Note",         { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zN  new tmpl Note",    { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zr  Rename note",      { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zy  Yank note link",   { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zc  show calendar",    { "DevIconLeex",    0, 7 },    },
+}
+
+local zettelkasten2 = {
+  { "keymap", "<Spc>zi  paste Img & link", { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zI  insert Img link",  { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zb  show Backlinks",   { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zF  find Friends",     { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zp  Preview img",      { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zm  browse Media",     { "DevIconLeex",    0, 7 },    },
+  { "keymap", "<Spc>zt  show Tags",        { "DevIconLeex",    0, 7 },    },
+}
+
 --}}}
 
 -- layout
@@ -490,13 +517,13 @@ local section_keymaps_1 = {
 
 local section_keymaps_2 = {
   type = "group",
-  val = function() return col({ finding1, git, lsp, dap, runit, }) end,
+  val = function() return col({ finding1, git, lsp, dap, runit, zettelkasten1 }) end,
   opts = { spacing = 0 },
 }
 
 local section_keymaps_3 = {
   type = "group",
-  val = function() return col({ finding2, terminal, trouble, switches, }) end,
+  val = function() return col({ finding2, terminal, trouble, switches, zettelkasten2}) end,
   opts = { spacing = 0 },
 }
 

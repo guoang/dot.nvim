@@ -79,11 +79,13 @@ return packer.startup(function(use)
   use { "rmagatti/auto-session" }
   use { "AndrewRadev/switch.vim" }
   -- use { "edluffy/hologram.nvim", config = function() require'hologram'.setup{ auto_display = true } end }
+  use { "renerocksai/calendar-vim" }
 
   -- My local plugins
   use { "~/git/im-select.nvim" }
   use { "~/git/buildit.nvim" }
   use { "~/git/session-lens" }
+  use { "~/git/telekasten.nvim" }
 
   -- Colorschemes
   use { "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" }

@@ -174,3 +174,26 @@ keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<
 
 -- RunIt
 keymap("n", "<leader>rb", "<cmd>lua require('buildit').buildit_build_auto()<cr>", { silent = true, desc = "buildit run Build" })
+
+-- Telekasten
+keymap("n", "<leader>zz", "<cmd>:lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })
+keymap("n", "<leader>zf", "<cmd>:lua require('telekasten').find_notes()<cr>",                { silent = true, noremap = true, desc = "zettelkasten Find notes" })
+keymap("n", "<leader>zg", "<cmd>:lua require('telekasten').search_notes()<cr>",              { silent = true, noremap = true, desc = "zettelkasten Grep notes" })
+keymap("n", "<leader>zl", "<cmd>:lua require('telekasten').follow_link()<cr>",               { silent = true, noremap = true, desc = "zettelkasten follow Link" })
+keymap("n", "<leader>zL", "<cmd>:lua require('telekasten').insert_link({ i=true })<cr>",     { silent = true, noremap = true, desc = "zettelkasten insert Link" })
+keymap("n", "<leader>zd", "<cmd>:lua require('telekasten').find_daily_notes()<cr>",          { silent = true, noremap = true, desc = "zettelkasten find Daily" })
+keymap("n", "<leader>zD", "<cmd>:lua require('telekasten').goto_today()<cr>",                { silent = true, noremap = true, desc = "zettelkasten go toDay" })
+keymap("n", "<leader>zw", "<cmd>:lua require('telekasten').find_weekly_notes()<cr>",         { silent = true, noremap = true, desc = "zettelkasten find Weekly" })
+keymap("n", "<leader>zW", "<cmd>:lua require('telekasten').goto_thisweek()<cr>",             { silent = true, noremap = true, desc = "zettelkasten go Weekly" })
+keymap("n", "<leader>zn", "<cmd>:lua require('telekasten').new_note()<cr>",                  { silent = true, noremap = true, desc = "zettelkasten new Note" })
+keymap("n", "<leader>zN", "<cmd>:lua require('telekasten').new_templated_note()<cr>",        { silent = true, noremap = true, desc = "zettelkasten new templated Note" })
+keymap("n", "<leader>zr", "<cmd>:lua require('telekasten').rename_note()<cr>",               { silent = true, noremap = true, desc = "zettelkasten Rename note" })
+keymap("n", "<leader>zy", "<cmd>:lua require('telekasten').yank_notelink()<cr>",             { silent = true, noremap = true, desc = "zettelkasten Yank note link" })
+keymap("n", "<leader>zc", "<cmd>:lua require('telekasten').show_calendar()<cr>",             { silent = true, noremap = true, desc = "zettelkasten show calendar" })
+keymap("n", "<leader>zi", "<cmd>:lua require('telekasten').paste_img_and_link()<cr>",        { silent = true, noremap = true, desc = "zettelkasten paste Img and link" })
+keymap("n", "<leader>zI", "<cmd>:lua require('telekasten').insert_img_link({ i=true })<cr>", { silent = true, noremap = true, desc = "zettelkasten insert img link" })
+keymap("n", "<leader>zb", "<cmd>:lua require('telekasten').show_backlinks()<cr>",            { silent = true, noremap = true, desc = "zettelkasten show backlinks" })
+keymap("n", "<leader>zF", "<cmd>:lua require('telekasten').find_friends()<cr>",              { silent = true, noremap = true, desc = "zettelkasten find Friends" })
+keymap("n", "<leader>zp", "<cmd>:lua require('telekasten').preview_img()<cr>",               { silent = true, noremap = true, desc = "zettelkasten preview img" })
+keymap("n", "<leader>zm", "<cmd>:lua require('telekasten').browse_media()<cr>",              { silent = true, noremap = true, desc = "zettelkasten browse media" })
+keymap("n", "<leader>zt", "<cmd>:lua require('telekasten').show_tags()<cr>",                 { silent = true, noremap = true, desc = "zettelkasten show tags" })
