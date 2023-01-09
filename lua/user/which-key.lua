@@ -31,6 +31,8 @@ local mappings = {
   s = { name = "Switch" },
   r = { name = "RunIt" },
   R = { name = "Replace" },
+  b = { name = "Buffer" },
+  z = { name = "Zettelkasten" },
 }
 
 which_key.setup(setup)

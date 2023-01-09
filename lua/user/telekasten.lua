@@ -3,6 +3,8 @@ if not status_ok then
 	return
 end
 
+vim.g.calendar_no_mappings = 1
+
 local home = vim.fn.expand("~/zettelkasten")
 -- NOTE for Windows users:
 -- - don't use Windows
