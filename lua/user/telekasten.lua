@@ -45,7 +45,7 @@ telekasten.setup({
         - string input for os.date()
         - or custom lua function that returns a string
     --]]
-	uuid_type = "",
+  uuid_type = "%Y%m%d%H%M",
 	-- UUID separator
 	uuid_sep = "-",
 

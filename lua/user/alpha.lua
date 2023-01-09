@@ -166,9 +166,9 @@ local function mru(cwd, cnt, opts)
       local fn_start = txt:match(".*[/\\]")
       if fn_start ~= nil then
         hl_path = { "Comment", 5 + #ico, #fn_start }
-        oldfiles[#oldfiles + 1] = { "file", txt, short_fn, hl_sc, hl_ico, hl_path }
+        oldfiles[#oldfiles + 1] = { "file", txt, fn, hl_sc, hl_ico, hl_path }
       else
-        oldfiles[#oldfiles + 1] = { "file", txt, short_fn, hl_sc, hl_ico }
+        oldfiles[#oldfiles + 1] = { "file", txt, fn, hl_sc, hl_ico }
       end
     end
   end
