@@ -63,35 +63,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     if not ok then
       return
     end
-    local groups_ok, bufferline_groups = pcall(require, "bufferline.groups")
-    if not groups_ok then
-      return
-    end
-    local root, method = project.get_project_root()
-    if root then
-      local name = root:sub(#root:match(".*[/\\]") + 1)
-      local names = bufferline_groups.names()
-      for _, group_name in ipairs(names) do
-        if group_name == name then
-          return
-        end
-      end
-      local function format_name(name) return name:gsub("[^%w]+", "_") end
-      bufferline_groups.setup({
-        options = {
-          groups = {
-            items = {
-              {
-                name = name,
-                auto_close = true,
-                priority = #names + 2,
-                matcher = function(buf) return require'user.bufferline'.buffer_match_path(buf, root, format_name(name)) end
-              }
-            }
-          }
-        }
-      })
-    end
+    local root, _ = project.find_pattern_root()
+    require'user.bufferline'.buffer_setup_group(root)
   end,
 })
 

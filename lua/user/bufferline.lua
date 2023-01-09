@@ -3,50 +3,112 @@ if not status_ok then
   return
 end
 
-local match_path = function(buf, path, group)
+local g_priority = 3
+
+local function format_name(n) return n:gsub("[^%w]+", "_") end
+
+local match_path = function(buf_path, proj_path)
   local path_ok, plenary_path = pcall(require, "plenary.path")
   if not path_ok then
     return
   end
-  local bpath = plenary_path.new(buf.path):absolute()
-  local ppath = plenary_path.new(vim.fn.resolve(vim.fn.expand(path))):absolute()
-  if bpath:sub(0, #ppath) == ppath then
+  local bpath = plenary_path.new(buf_path):absolute()
+  local ppath = plenary_path.new(vim.fn.resolve(vim.fn.expand(proj_path))):absolute()
+  return bpath:sub(0, #ppath) == ppath
+end
+
+local buffer_matcher = function(buf, path, group)
+  local r = match_path(buf.path, path)
+  if r then
     if buf.id == vim.fn.bufnr() then
-      vim.b.bufferline_group = group
+      vim.b.bufferline_group = format_name(group)
     end
-    return true
   end
-  return false
+  return r
+end
+
+-- local buffer_go = function(direction)
+--   local groups = require("bufferline.groups")
+--   local state = require("bufferline.state")
+--   local commands = require("bufferline.commands")
+--   local index = commands.get_current_element_index(state)
+--   local length = #state.components
+--   if index ~= nil and index + direction <= length and index + direction >= 1 then
+--     commands.cycle(direction)
+--     return
+--   end
+--   for _, group in pairs(groups.get_all()) do
+--     if group.hidden == true then
+--       vim.cmd("BufferLineGroupToggle " .. group.name)
+--     end
+--   end
+--   commands.cycle(direction)
+--   for _, group in pairs(groups.get_all()) do
+--     if group.hidden == false and group.name ~= vim.b.bufferline_group then
+--       vim.cmd("BufferLineGroupToggle " .. group.name)
+--     end
+--   end
+-- end
+
+local buffer_get_current_group = function()
+  local groups = require("bufferline.groups")
+  for _, group in pairs(groups.get_all()) do
+    if group.name == vim.b.bufferline_group then
+      return group
+    end
+  end
+end
+
+local buffer_go = function(direction)
+  local state = require("bufferline.state")
+  local index = nil
+  for i, comp in ipairs(state.__components) do
+    if comp.id == vim.fn.bufnr() then index = i break end
+  end
+  if index == nil then return end
+  local function cycle(i, step, len)
+    i = i + step
+    if i > len then
+      i = i - len
+    elseif i <= 0 then
+      i = i + len
+    end
+    return i
+  end
+  index = cycle(index, direction, #state.__components)
+  local cnt = #state.__components
+  local current_group = buffer_get_current_group()
+  while cnt > 0 do
+    if current_group.hidden then
+      -- till next group
+      if state.__components[index].id ~= nil then
+        if not match_path(state.__components[index].path, current_group.path) then
+          break
+        end
+      end
+    else
+      if state.__components[index].id ~= nil then
+        break
+      end
+    end
+    cnt = cnt - 1
+    index = cycle(index, direction, #state.__components)
+  end
+  if state.__components[index].id ~= nil then
+    vim.cmd("buf " .. tostring(state.__components[index].id))
+  end
 end
 
 local buffer_next = function()
-  local bufferline_groups = require("bufferline.groups")
-  for _, group in pairs(bufferline_groups.get_all()) do
-    if group.hidden == true then
-      vim.cmd("BufferLineGroupToggle " .. group.name)
-    end
-  end
-  vim.cmd("BufferLineCycleNext")
-  for _, group in pairs(bufferline_groups.get_all()) do
-    if group.hidden == false and group.name ~= vim.b.bufferline_group then
-      vim.cmd("BufferLineGroupToggle " .. group.name)
-    end
-  end
+  buffer_go(1)
 end
 
 local buffer_prev = function()
-  local bufferline_groups = require("bufferline.groups")
-  for _, group in pairs(bufferline_groups.get_all()) do
-    if group.hidden == true then
-      vim.cmd("BufferLineGroupToggle " .. group.name)
-    end
-  end
-  vim.cmd("BufferLineCyclePrev")
-  for _, group in pairs(bufferline_groups.get_all()) do
-    if group.hidden == false and group.name ~= vim.b.bufferline_group then
-      vim.cmd("BufferLineGroupToggle " .. group.name)
-    end
-  end
+  buffer_go(-1)
+end
+
+local buffer_group_toggle = function()
+  vim.cmd("BufferLineGroupToggle " .. vim.b.bufferline_group)
 end
 
 bufferline.setup {
@@ -61,109 +123,45 @@ bufferline.setup {
       options = {
         toggle_hidden_on_enter = true -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
       },
-      items = {
-        -- { name = "dot.nvim", auto_close = true, matcher = function(buf) return match_path(buf, '~/git/dot.nvim/', "dot_nvim") end, },
-        -- { name = "zettelkasten", auto_close = true, matcher = function(buf) return match_path(buf, '~/zettelkasten/', "zettelkasten") end, },
-        -- { name = "dragon.git", auto_close = true, matcher = function(buf) return match_path(buf, '~/work/dragon.git', "dragon_git") end, },
-        -- { name = "xnet", auto_close = true, matcher = function(buf) return match_path(buf, '~/work/xcodebase/xnet', "xnet") end, },
-      },
     },
   },
-
-  -- highlights = {
-  --   fill = {
-  --     fg = { attribute = "fg", highlight = "#ff0000" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   background = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   buffer_visible = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   close_button = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --   close_button_visible = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   tab_selected = {
-  --     fg = { attribute = "fg", highlight = "Normal" },
-  --     bg = { attribute = "bg", highlight = "Normal" },
-  --   },
-  --
-  --   tab = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   tab_close = {
-  --     -- fg = {attribute='fg',highlight='LspDiagnosticsDefaultError'},
-  --     fg = { attribute = "fg", highlight = "TabLineSel" },
-  --     bg = { attribute = "bg", highlight = "Normal" },
-  --   },
-  --
-  --   duplicate_selected = {
-  --     fg = { attribute = "fg", highlight = "TabLineSel" },
-  --     bg = { attribute = "bg", highlight = "TabLineSel" },
-  --     italic = true,
-  --   },
-  --
-  --   duplicate_visible = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --     italic = true,
-  --   },
-  --
-  --   duplicate = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --     italic = true,
-  --   },
-  --
-  --   modified = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   modified_selected = {
-  --     fg = { attribute = "fg", highlight = "Normal" },
-  --     bg = { attribute = "bg", highlight = "Normal" },
-  --   },
-  --
-  --   modified_visible = {
-  --     fg = { attribute = "fg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   separator = {
-  --     fg = { attribute = "bg", highlight = "TabLine" },
-  --     bg = { attribute = "bg", highlight = "TabLine" },
-  --   },
-  --
-  --   separator_selected = {
-  --     fg = { attribute = "bg", highlight = "Normal" },
-  --     bg = { attribute = "bg", highlight = "Normal" },
-  --   },
-  --
-  --   indicator_selected = {
-  --     fg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
-  --     bg = { attribute = "bg", highlight = "Normal" },
-  --   },
-  -- },
 }
+
+local buffer_setup_group = function(root)
+  if not root then return end
+  if root:sub(#root):match("[/\\]") then root = root:sub(0, #root-1) end
+  local groups = require("bufferline.groups")
+  local name = root:sub(#root:match(".*[/\\]") + 1)
+  for _, group in pairs(groups.get_all()) do
+    if group.name == format_name(name) then
+      return
+    end
+  end
+  groups.setup({
+    options = {
+      groups = {
+        items = {
+          {
+            name = name,
+            path = root,
+            auto_close = true,
+            priority = g_priority,
+            matcher = function(buf) return buffer_matcher(buf, root, name) end
+          }
+        }
+      }
+    }
+  })
+  print("bufferline setup group", name, g_priority)
+  g_priority = g_priority + 1
+end
 
 M = {
   buffer_next = buffer_next,
   buffer_prev = buffer_prev,
-  buffer_match_path = match_path,
+  buffer_matcher = buffer_matcher,
+  buffer_group_toggle = buffer_group_toggle,
+  buffer_get_current_group = buffer_get_current_group,
+  buffer_setup_group = buffer_setup_group,
 }
 return M
