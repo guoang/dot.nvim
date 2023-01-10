@@ -37,6 +37,10 @@ local function save_vim_enter_dir()
   local cwd = vim.fn.getcwd()
   if cwd == vim_enter_dir then return end
   pcall(vim.fn.chdir, vim_enter_dir)
+  -- clear altfile
+  vim.cmd("edit __nvim_tmp_stub_file__")
+  vim.cmd("bwipeout")
+  -- do save
   vim.cmd("SaveSession")
   vim.fn.chdir(cwd)
 end
