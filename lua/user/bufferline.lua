@@ -79,7 +79,7 @@ local buffer_go = function(direction)
   local cnt = #state.__components
   local current_group = buffer_get_current_group()
   while cnt > 0 do
-    if current_group.hidden then
+    if current_group and current_group.hidden then
       -- till next group
       if state.__components[index].id ~= nil then
         if not match_path(state.__components[index].path, current_group.path) then
@@ -152,7 +152,6 @@ local buffer_setup_group = function(root)
       }
     }
   })
-  print("bufferline setup group", name, g_priority)
   g_priority = g_priority + 1
 end
 
