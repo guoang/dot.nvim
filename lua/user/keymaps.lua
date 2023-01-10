@@ -49,7 +49,6 @@ keymap("v", "p", '"_dP', { silent = true, desc = "better paste" })
 -- Esc
 keymap('i', '<F1>', "<Esc>",        { silent = true, noremap = true })
 keymap('t', '<F1>', [[<C-\><C-n>]], { silent = true, noremap = true })
-keymap("i", "jk",   "<ESC>",        { silent = true, desc = "<ESC>" })
 
 -- Stay in indent mode
 keymap("v", "<", "<gv", { silent = true, desc = "indent -" })
