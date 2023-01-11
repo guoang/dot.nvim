@@ -27,7 +27,26 @@ local mappings = {
   g = { name = "Git" },
   l = { name = "Lsp" },
   d = { name = "Dap/Diagnostic" },
-  t = { name = "Terminal/Trouble" },
+  t = {
+    name = "Terminal/Trouble",
+    m = { "table-Mode toggle" },
+    ["?"] = { "table-mode echo cell" },
+    d = {
+      name = "table-mode Delete",
+      d = { "row" },
+      c = { "column" },
+    },
+    f = {
+      name = "table-mode Formula",
+      a = { "add formula" },
+      e = { "eval formula" },
+    },
+    i = {
+      name = "table-mode Insert",
+      C = { "insert column before" },
+      c = { "insert column after" },
+    },
+  },
   s = { name = "Switch" },
   r = { name = "RunIt" },
   R = { name = "Replace" },

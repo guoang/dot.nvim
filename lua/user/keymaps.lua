@@ -91,7 +91,6 @@ keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { 
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
 
 -- Terminal
-keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",              { silent = true, desc = "terminal toggle Float"      })
 keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal size=10'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
 keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical size=70'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
 keymap("n", "<leader>ts", "<cmd>exe v:count1 . 'ToggleTermSendVisualSelection<cr>",   { silent = true, desc = "terminal Send visual selection" })
@@ -99,7 +98,6 @@ keymap("n", "<leader>ts", "<cmd>exe v:count1 . 'ToggleTermSendVisualSelection<cr
 -- Trouble
 keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>",                       { silent = true, desc = "trouble toggle"                       })
 keymap("n", "<leader>tw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, desc = "trouble toggle workspace_diagnostics" })
-keymap("n", "<leader>td", "<cmd>TroubleToggle document_diagnostics<cr>",  { silent = true, desc = "trouble toggle document_diagnostics"  })
 keymap("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>",              { silent = true, desc = "trouble toggle quickfix"              })
 keymap("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>",               { silent = true, desc = "trouble toggle loclist"               })
 
@@ -166,10 +164,9 @@ keymap("n", "<leader>dw", "<cmd>Telescope diagnostics<cr>",           { silent =
 keymap("n", "<leader>ss", "<cmd>Switch<cr>",                                          { silent = true, desc = "switch by Switch" })
 keymap("n", "<leader>si", "<Plug>ImSelect_toggle_auto_insert",                        { silent = true, desc = "switch Im-select auto insert" })
 keymap("n", "<leader>sd", "<cmd>lua require('user.switch').switch_diagnostic()<cr>",  { silent = true, desc = "switch Diagnostic visible" })
-keymap("n", "<leader>sq", "",                                                         { silent = true, desc = "switch Quickfix list" })
-keymap("n", "<leader>sl", "",                                                         { silent = true, desc = "switch Location list" })
 keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",      { silent = true, desc = "switch colorColumn" })
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
+keymap("n", "<leader>st", "<cmd>call tablemode#Toggle()<cr>",                         { silent = true, desc = "switch Table mode" })
 
 -- RunIt
 keymap("n", "<leader>rb", "<cmd>lua require('buildit').buildit_build_auto()<cr>", { silent = true, desc = "buildit run Build" })

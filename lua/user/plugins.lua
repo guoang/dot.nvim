@@ -79,6 +79,7 @@ return packer.startup(function(use)
   use { "AndrewRadev/switch.vim" }
   -- use { "edluffy/hologram.nvim", config = function() require'hologram'.setup{ auto_display = true } end }
   use { "renerocksai/calendar-vim" }
+  use { "dhruvasagar/vim-table-mode" }
 
   -- My local plugins
   use { "~/git/im-select.nvim" }
