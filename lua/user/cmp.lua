@@ -119,6 +119,10 @@ cmp.setup({
 				buffer = "[Buffer]",
 				path = "[Path]",
 				emoji = "[Emoji]",
+        copilot = "[Copilot]",
+        browser = "[Browser]",
+        look = "[Look]",
+        ["vim-dadbod-completion"] = "[Dadbod]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -129,6 +133,10 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+    { name = "copilot" },
+    { name = "browser" },
+    -- { name = "look", keyword_length = 2, option = { convert_case = true, loud = true, }},
+    { name = "vim-dadbod-completion" }
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
