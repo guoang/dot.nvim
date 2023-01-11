@@ -168,6 +168,12 @@ keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
 keymap("n", "<leader>st", "<cmd>call tablemode#Toggle()<cr>",                         { silent = true, desc = "switch Table mode" })
 
+-- Cmp
+keymap("n", "<leader>cc", "<cmd>lua require('user.cmp').cmp_toggle_source('copilot')<cr>", { silent = true, desc = "Cmp toggle source copilot" })
+keymap("n", "<leader>cs", "<cmd>lua require('user.cmp').cmp_toggle_source('luasnip')<cr>", { silent = true, desc = "Cmp toggle source snip" })
+keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('browser')<cr>", { silent = true, desc = "Cmp toggle source browser" })
+keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
+
 -- RunIt
 keymap("n", "<leader>rb", "<cmd>lua require('buildit').buildit_build_auto()<cr>", { silent = true, desc = "buildit run Build" })
 
