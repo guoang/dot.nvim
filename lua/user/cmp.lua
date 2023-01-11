@@ -77,10 +77,10 @@ local cmp_sources = {
   { name = "luasnip" },
   { name = "buffer" },
   { name = "path" },
+  { name = "vim-dadbod-completion" },
   { name = "copilot" },
   { name = "browser" },
-  { name = "look", keyword_length = 2, option = { convert_case = true, loud = true, }},
-  { name = "vim-dadbod-completion" }
+  { name = "look", keyword_length = 4, max_item_count = 10, priority = -100, option = { convert_case = true, loud = true, }},
 }
 
 local function cmp_toggle_source(src)
@@ -94,9 +94,14 @@ local function cmp_toggle_source(src)
       return
     end
   end
-  table.insert(sources, {name = src})
-  cmp.setup.buffer({ sources = sources })
-  vim.cmd("CmpStatus")
+  for _, s in ipairs(cmp_sources) do
+    if s.name == src then
+      table.insert(sources, s)
+      cmp.setup.buffer({ sources = sources })
+      vim.cmd("CmpStatus")
+      return
+    end
+  end
 end
 
 -- }}}
@@ -162,7 +167,17 @@ cmp.setup({
       return vim_item
     end,
   },
-  sources = cmp_sources,
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+    { name = "vim-dadbod-completion" },
+    { name = "copilot" },
+    -- { name = "browser" },
+    -- { name = "look", keyword_length = 2, option = { convert_case = true, loud = true, }},
+  },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
