@@ -174,6 +174,9 @@ keymap("n", "<leader>cs", "<cmd>lua require('user.cmp').cmp_toggle_source('luasn
 keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('browser')<cr>", { silent = true, desc = "Cmp toggle source browser" })
 keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
 
+-- Copilot
+keymap("i", "<C-;>", 'copilot#Accept(function("copilot#Suggest"))', {silent = true, script = true, expr = true, desc = "copilot accept suggestion"})
+
 -- RunIt
 keymap("n", "<leader>rb", "<cmd>lua require('buildit').buildit_build_auto()<cr>", { silent = true, desc = "buildit run Build" })
 

@@ -48,13 +48,13 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  callback = function()
-    if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
-      vim.cmd("quit")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   callback = function()
+--     if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
+--       vim.cmd("quit")
+--     end
+--   end,
+-- })
 
 -- auto create bufferline group
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
