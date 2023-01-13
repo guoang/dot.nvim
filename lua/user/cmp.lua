@@ -156,21 +156,36 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "c" }),
-		["<C-e>"] = cmp.mapping(function(fallback)
-			local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
-			if cmp.visible() then
-				cmp.mapping.close()
-			elseif co_s.text ~= "" then
-				local co_keys = vim.fn["copilot#Accept"]()
-				if co_keys ~= "" then
-					vim.api.nvim_feedkeys(co_keys, "i", true)
-				else
-					fallback()
-				end
-      else
-				cmp.mapping.abort()
-			end
-    end, { "i", "c" }),
+    ["<C-e>"] = cmp.mapping({
+      i = function(fallback)
+        local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
+        cmp.mapping.abort()
+        if co_s.text ~= "" then
+          local co_keys = vim.fn["copilot#Accept"]()
+          if co_keys ~= "" then
+            vim.api.nvim_feedkeys(co_keys, "i", true)
+          else
+            fallback()
+          end
+        else
+          fallback()
+        end
+      end,
+      c = function(fallback)
+        local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
+        cmp.mapping.close()
+        if co_s.text ~= "" then
+          local co_keys = vim.fn["copilot#Accept"]()
+          if co_keys ~= "" then
+            vim.api.nvim_feedkeys(co_keys, "i", true)
+          else
+            fallback()
+          end
+        else
+          fallback()
+        end
+      end
+    }),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({
@@ -220,7 +235,7 @@ cmp.setup({
 	formatting = {
 		fields = { "abbr", "kind", "menu" },
 		format = lspkind.cmp_format({
-			mode = "symbol_text", -- show only symbol annotations
+			mode = "symbol_text",
 			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 
@@ -253,7 +268,7 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 	},
 })
 

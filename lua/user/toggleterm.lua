@@ -18,6 +18,15 @@ toggleterm.setup({
 	float_opts = {
 		border = "curved",
 	},
+  on_open = function(t, job, data, name)
+    local cmd = "set winhl="
+    cmd = cmd .. "EndOfBuffer:NvimTreeEndOfBuffer,Normal:NvimTreeNormal,"
+    cmd = cmd .. "CursorLine:NvimTreeCursorLine,CursorLineNr:NvimTreeCursorLineNr,"
+    cmd = cmd .. "WinSeparator:NvimTreeWinSeparator,StatusLine:NvimTreeStatusLine,"
+    cmd = cmd .. "StatusLineNC:NvimTreeStatuslineNC,SignColumn:NvimTreeSignColumn,"
+    cmd = cmd .. "NormalNC:NvimTreeNormalNC"
+    vim.cmd(cmd)
+  end,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal

@@ -92,7 +92,9 @@ keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { 
 
 -- Terminal
 keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal size=10'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
-keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical size=70'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
+keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical size=80'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
+keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal size=10'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal size=10'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
+keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical size=80'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical size=80'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
 keymap("n", "<leader>ts", "<cmd>exe v:count1 . 'ToggleTermSendVisualSelection<cr>",   { silent = true, desc = "terminal Send visual selection" })
 
 -- Trouble
