@@ -91,11 +91,10 @@ keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { 
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
 
 -- Terminal
-keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal size=10'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
-keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical size=80'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
-keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal size=10'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal size=10'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
-keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical size=80'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical size=80'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
-keymap("n", "<leader>ts", "<cmd>exe v:count1 . 'ToggleTermSendVisualSelection<cr>",   { silent = true, desc = "terminal Send visual selection" })
+keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
+keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
+keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
+keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
 
 -- Trouble
 keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>",                       { silent = true, desc = "trouble toggle"                       })
