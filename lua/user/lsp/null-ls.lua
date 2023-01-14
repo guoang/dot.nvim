@@ -17,14 +17,10 @@ null_ls.setup {
       extra_filetypes = { "toml" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     },
-    formatting.markdownlint.with {
-      extra_args = { "--disable=MD004" },
-    },
+    formatting.markdownlint,
     formatting.reorder_python_imports,
     formatting.cmake_format,
-    diagnostics.markdownlint.with {
-      extra_args = { "--disable=MD004" },
-    },
+    diagnostics.markdownlint,
     diagnostics.cmake_lint,
   },
 }
