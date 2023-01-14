@@ -7,6 +7,7 @@ local servers = {
 	"yamlls",
   "clangd",
   "cmake",
+  "pylsp",
 }
 
 local settings = {

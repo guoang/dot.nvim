@@ -20,13 +20,8 @@ null_ls.setup {
     formatting.markdownlint.with {
       extra_args = { "--disable=MD004" },
     },
-    formatting.autopep8.with {
-      extra_args = { "-a", "-a" },
-    },
     formatting.reorder_python_imports,
     formatting.cmake_format,
-    -- diagnostics.pylint,  -- too many errors
-    diagnostics.flake8,
     diagnostics.markdownlint.with {
       extra_args = { "--disable=MD004" },
     },
