@@ -117,7 +117,7 @@ bufferline.setup {
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     offsets = { { filetype = "NvimTree", text = "NvimTree" } },
     separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
-    always_show_bufferline = true,
+    always_show_bufferline = false,
     sort_by = 'directory',
     groups = {
       options = {

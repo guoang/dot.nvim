@@ -167,7 +167,7 @@ keymap("n", "<leader>si", "<Plug>ImSelect_toggle_auto_insert",                  
 keymap("n", "<leader>sd", "<cmd>lua require('user.switch').switch_diagnostic()<cr>",  { silent = true, desc = "switch Diagnostic visible" })
 keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",      { silent = true, desc = "switch colorColumn" })
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
-keymap("n", "<leader>st", "<cmd>call tablemode#Toggle()<cr>",                         { silent = true, desc = "switch Table mode" })
+keymap("n", "<leader>st", "<cmd>TableModeToggle<cr>",                                 { silent = true, desc = "switch Table mode" })
 
 -- Cmp
 keymap("n", "<leader>cc", "<cmd>lua require('user.cmp').cmp_toggle_source('copilot')<cr>", { silent = true, desc = "Cmp toggle source copilot" })
