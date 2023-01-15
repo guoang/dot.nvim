@@ -100,13 +100,13 @@ return packer.startup(function(use)
 		config = function()
 			vim.g.copilot_no_tab_map = true
 		end,
-		event = "InsertEnter",
+		-- event = "InsertEnter",  -- this will cause a weird error of telescope
 	})
   use {'kevinhwang91/nvim-bqf', ft = 'qf'}
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
-  use({ "~/git/nvim/buildit.nvim" })
+  use({ "~/git/nvim/runit.nvim" })
   use({ "~/git/nvim/session-lens" })
   use({ "~/git/nvim/project.nvim" })
 

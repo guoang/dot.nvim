@@ -47,6 +47,7 @@ keymap("t", "<C-Right>", [[<Cmd>:vertical resize +2<CR>]], { silent = true, nore
 keymap("v", "p", '"_dP', { silent = true, desc = "better paste" })
 
 -- Esc
+keymap('n', '<F1>', "<Esc>",        { silent = true, noremap = true })
 keymap('i', '<F1>', "<Esc>",        { silent = true, noremap = true })
 keymap('t', '<F1>', [[<C-\><C-n>]], { silent = true, noremap = true })
 
@@ -179,7 +180,11 @@ keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look'
 keymap("i", "<C-;>", 'copilot#Accept(function("copilot#Suggest"))', {silent = true, script = true, expr = true, desc = "copilot accept suggestion"})
 
 -- RunIt
-keymap("n", "<leader>rb", "<cmd>lua require('buildit').buildit_build_auto()<cr>", { silent = true, desc = "buildit run Build" })
+keymap("n", "<leader>rr", "<cmd>lua require('runit').run_file()<cr>",             { silent = true, desc = "runit current file" })
+keymap("n", "<leader>rc", "<cmd>lua require('runit').run_project('config')<cr>",  { silent = true, desc = "runit Config" })
+keymap("n", "<leader>rb", "<cmd>lua require('runit').run_project('build')<cr>",   { silent = true, desc = "runit Build" })
+keymap("n", "<leader>rt", "<cmd>lua require('runit').run_project('test')<cr>",    { silent = true, desc = "runit Test" })
+keymap("n", "<leader>ri", "<cmd>lua require('runit').run_project('install')<cr>", { silent = true, desc = "runit Install" })
 
 -- Telekasten
 keymap("n", "<leader>zz", "<cmd>lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })
