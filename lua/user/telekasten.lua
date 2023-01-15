@@ -40,7 +40,7 @@ telekasten.setup({
 	-- "uuid" - Use uuid
 	-- "uuid-title" - Prefix title by uuid
 	-- "title-uuid" - Suffix title with uuid
-	new_note_filename = "uuid-title",
+	new_note_filename = "title",
 
 	--[[ file UUID type
         - "rand"
