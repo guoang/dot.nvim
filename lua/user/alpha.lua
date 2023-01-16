@@ -20,19 +20,19 @@ end
 -- header & footer
 -- {{{
 
-local header_color = "markdownH" ..math.random(1, 6)
+local header_color = "markdownH" .. math.random(1, 6)
 local header_val = require("user.alpha_headers").random()
 local times = 10
 while (#header_val > 10 or #header_val < 5) and times > 0 do
-  header_val = require("user.alpha_headers").random()
-  times = times - 1
+	header_val = require("user.alpha_headers").random()
+	times = times - 1
 end
 
 if #header_val < 8 then
-  for i = 1, (8 - #header_val) / 2 do
-    table.insert(header_val, 1, "")
-    table.insert(header_val, "")
-  end
+	for i = 1, (8 - #header_val) / 2 do
+		table.insert(header_val, 1, "")
+		table.insert(header_val, "")
+	end
 end
 
 local header = {
@@ -46,11 +46,11 @@ local header = {
 	-- 	"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
 	-- },
 
-  val = header_val,
+	val = header_val,
 	opts = {
 		position = "center",
 		-- hl = "Type",
-    hl = header_color,
+		hl = header_color,
 	},
 }
 
@@ -358,7 +358,6 @@ local git = {
 }
 
 local terminal = {
-	{ "", "" },
 	{ "title", "      Terminal", { "SpecialComment", 0, 18 } },
 	{ "keymap", "<C-\\> toggle terminal", { "DevIconLeex", 0, 5 } },
 	{ "keymap", "<Spc>tv   Vertical window", { "DevIconLeex", 0, 7 } },
@@ -386,9 +385,11 @@ local lsp = {
 	{ "keymap", "<Spc>la  code Action", { "DevIconLeex", 0, 6 }, { "Comment", 7, 25 } },
 	{ "keymap", "<Spc>ll  CodeLens Action", { "DevIconLeex", 0, 6 }, { "Comment", 7, 25 } },
 	{ "keymap", "<Spc>lr  Rename", { "DevIconLeex", 0, 6 }, { "Comment", 7, 25 } },
-	{ "keymap", "<Spc>ls  Signature", { "DevIconLeex", 0, 6 }, { "Comment", 7, 25 } },
-	{ "keymap", "" },
-	{ "keymap", "  K  hover", { "DevIconLeex", 0, 3 } },
+	-- { "keymap", "<Spc>ls  Signature", { "DevIconLeex", 0, 6 }, { "Comment", 7, 25 } },
+	{ "", "" },
+	{ "keymap", " KD  hover Doc", { "DevIconLeex", 0, 3 } },
+	{ "keymap", " KC  hover Class", { "DevIconLeex", 0, 3 } },
+	{ "keymap", " KF  hover Function", { "DevIconLeex", 0, 3 } },
 	{ "keymap", " gd  go Definition", { "DevIconLeex", 0, 3 } },
 	{ "keymap", " gr  go References", { "DevIconLeex", 0, 3 } },
 	{ "keymap", " gD  go Declaration", { "DevIconLeex", 0, 3 }, { "Comment", 4, 30 } },
@@ -413,7 +414,6 @@ local dap = {
 }
 
 local switches = {
-	{ "", "" },
 	{ "", "" },
 	{ "title", "     Switches", { "SpecialComment", 0, 18 } },
 	{ "keymap", "<Spc>ss  cursor word", { "DevIconLeex", 0, 7 } },
@@ -442,45 +442,41 @@ local runit = {
 }
 
 local navigation = {
-	{ "title", "          Navigation", { "SpecialComment", 0, 20 } },
-	{ "keymap", "     s/S  2-char motion", { "DevIconLeex", 0, 9 }, { "Grey", 6, 7 } },
+	{ "title", "         Navigation", { "SpecialComment", 0, 20 } },
+	{ "keymap", "    s/S  2-char motion", { "DevIconLeex", 0, 8 }, { "Grey", 5, 6 } },
 	{
 		"keymap",
-		"     x/X  2-char motion (o)",
-		{ "DevIconLeex", 0, 9 },
-		{ "Grey", 6, 7 },
-		{ "Comment", 10, 30 },
+		"    x/X  2-char motion (o)",
+		{ "DevIconLeex", 0, 8 },
+		{ "Grey", 5, 6 },
+		{ "Comment", 9, 30 },
 	},
-	{ "keymap", "     H/L  left/right buffer", { "DevIconLeex", 0, 9 }, { "Grey", 6, 7 } },
+	{ "keymap", "    H/L  left/right buffer", { "DevIconLeex", 0, 8 }, { "Grey", 5, 6 } },
 	{
 		"keymap",
-		" f/F/t/T  1-char motion",
-		{ "DevIconLeex", 0, 9 },
-		{ "Grey", 2, 3 },
-		{ "Grey", 4, 5 },
-		{ "Grey", 6, 7 },
+		"f/F/t/T  1-char motion",
+		{ "DevIconLeex", 0, 8 },
+		{ "Grey", 1, 2 },
+		{ "Grey", 3, 4 },
+		{ "Grey", 5, 6 },
 	},
-	{ "keymap", " <C-h/l>  left/right window", { "DevIconLeex", 0, 9 }, { "Grey", 5, 6 } },
-	{ "keymap", " <C-j/k>  above/below window", { "DevIconLeex", 0, 9 }, { "Grey", 5, 6 } },
-	{ "keymap", " <C-b/f>  left/right (i)", { "DevIconLeex", 0, 9 }, { "Grey", 5, 6 } },
-	{ "keymap", " <C-a/e>  home/end (i)", { "DevIconLeex", 0, 9 }, { "Grey", 5, 6 } },
+	{ "keymap", "<C-h/l>  left/right window", { "DevIconLeex", 0, 8 }, { "Grey", 4, 5 } },
+	{ "keymap", "<C-j/k>  above/below window", { "DevIconLeex", 0, 8 }, { "Grey", 4, 5 } },
+	{ "keymap", "<C-b/f>  left/right (i)", { "DevIconLeex", 0, 8 }, { "Grey", 4, 5 } },
+	{ "keymap", "<C-a/e>  home/end (i)", { "DevIconLeex", 0, 8 }, { "Grey", 4, 5 } },
 	{
 		"keymap",
-		"]>/)/}/m  next >,),},method",
-		{ "DevIconLeex", 0, 9 },
-		{ "Grey", 2, 3 },
-		{ "Grey", 4, 5 },
-		{ "Grey", 6, 7 },
-		{ "Comment", 10, 35 },
+		"   ]]/c  next method/class",
+		{ "DevIconLeex", 0, 8 },
+		{ "Grey", 5, 6 },
+		{ "Comment", 9, 35 },
 	},
 	{
 		"keymap",
-		"[</(/{/m  prev <,(,{,method",
-		{ "DevIconLeex", 0, 9 },
-		{ "Grey", 2, 3 },
-		{ "Grey", 4, 5 },
-		{ "Grey", 6, 7 },
-		{ "Comment", 10, 35 },
+		"   [[/c  prev method/class",
+		{ "DevIconLeex", 0, 8 },
+		{ "Grey", 5, 6 },
+		{ "Comment", 9, 35 },
 	},
 }
 
@@ -505,21 +501,21 @@ local editing = {
 }
 
 local zettelkasten1 = {
-	{ "title",  "     Zettelkasten",         { "SpecialComment", 0, 20 } },
-	{ "keymap", "<Spc>zz  panel",            { "DevIconLeex",    0, 7 } },
-	{ "keymap", "<Spc>zf  Find notes",       { "DevIconLeex",    0, 7 } },
-	{ "keymap", "<Spc>zi  paste Img & link", { "DevIconLeex",    0, 7 } },
-	{ "keymap", "<Spc>zI  insert Img link",  { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zn  new Note",         { "DevIconLeex",    0, 7 } },
-	{ "keymap", "<Spc>zN  new tmpl Note",    { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zg  Grep notes",       { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zl  follow Link",      { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zL  insert Link",      { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zd  find Daily",       { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zD  go toDay",         { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zw  find Weekly",      { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zW  go Weekly",        { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
-	{ "keymap", "<Spc>zr  Rename note",      { "DevIconLeex",    0, 7 },    { "Comment", 7, 30 } },
+	{ "title", "     Zettelkasten", { "SpecialComment", 0, 20 } },
+	{ "keymap", "<Spc>zz  panel", { "DevIconLeex", 0, 7 } },
+	{ "keymap", "<Spc>zf  Find notes", { "DevIconLeex", 0, 7 } },
+	{ "keymap", "<Spc>zi  paste Img & link", { "DevIconLeex", 0, 7 } },
+	{ "keymap", "<Spc>zI  insert Img link", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zn  new Note", { "DevIconLeex", 0, 7 } },
+	{ "keymap", "<Spc>zN  new tmpl Note", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zg  Grep notes", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zl  follow Link", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zL  insert Link", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zd  find Daily", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zD  go toDay", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zw  find Weekly", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zW  go Weekly", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
+	{ "keymap", "<Spc>zr  Rename note", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
 }
 
 local zettelkasten2 = {
@@ -612,9 +608,9 @@ end
 
 local opts = {
 	layout = {
-		{ type = "padding", val = 3 },
+		{ type = "padding", val = 2 },
 		header,
-		{ type = "padding", val = 3 },
+		{ type = "padding", val = 2 },
 		-- section_mru,
 		-- { type = "padding", val = 2 },
 		section_keymaps_1,

@@ -22,5 +22,6 @@ null_ls.setup {
     formatting.cmake_format,
     diagnostics.markdownlint,
     diagnostics.cmake_lint,
+    diagnostics.jsonlint,
   },
 }
