@@ -109,6 +109,7 @@ return packer.startup(function(use)
 		-- event = "InsertEnter",  -- this will cause a weird error of telescope
 	})
 	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+  use({ "rhysd/devdocs.vim" })
 
 	-- local plugins
 	use({ "~/git/nvim/im-select.nvim" })
