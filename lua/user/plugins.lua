@@ -16,12 +16,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
-]]
+]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -59,7 +59,7 @@ return packer.startup(function(use)
 	use({ "numToStr/Comment.nvim" })
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 	use({ "kyazdani42/nvim-web-devicons" })
-	use({ "kyazdani42/nvim-tree.lua"})
+	use({ "kyazdani42/nvim-tree.lua" })
 	use({ "akinsho/bufferline.nvim" })
 	use({ "moll/vim-bbye" })
 	use({ "nvim-lualine/lualine.nvim" })
@@ -68,7 +68,13 @@ return packer.startup(function(use)
 	use({ "lukas-reineke/indent-blankline.nvim" })
 	use({ "goolord/alpha-nvim" })
 	use({ "junegunn/vim-easy-align" })
-	use({ "wellle/targets.vim" })
+	use({
+		"wellle/targets.vim",
+		config = function()
+      -- Seek: Only consider targets around cursor
+			vim.g.targets_seekRanges = "cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB"
+		end,
+	})
 	use({ "folke/which-key.nvim" })
 	use({ "folke/trouble.nvim" })
 	use({ "ggandor/lightspeed.nvim" })
@@ -80,7 +86,7 @@ return packer.startup(function(use)
 			vim.fn["mkdp#util#install"]()
 		end,
 	})
-	use { "dstein64/vim-startuptime" }
+	use({ "dstein64/vim-startuptime" })
 	-- use({ "tweekmonster/startuptime.vim" })
 	use({ "RRethy/vim-illuminate" })
 	use({ "dkarter/bullets.vim", ft = { "markdown" } })
@@ -102,13 +108,13 @@ return packer.startup(function(use)
 		end,
 		-- event = "InsertEnter",  -- this will cause a weird error of telescope
 	})
-  use {'kevinhwang91/nvim-bqf', ft = 'qf'}
+	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
-  -- local plugins
-  use({ "~/git/nvim/im-select.nvim" })
-  use({ "~/git/nvim/runit.nvim" })
-  use({ "~/git/nvim/session-lens" })
-  use({ "~/git/nvim/project.nvim" })
+	-- local plugins
+	use({ "~/git/nvim/im-select.nvim" })
+	use({ "~/git/nvim/runit.nvim" })
+	use({ "~/git/nvim/session-lens" })
+	use({ "~/git/nvim/project.nvim" })
 
 	-- Colorschemes
 	use({ "sainnhe/sonokai" })
@@ -155,10 +161,8 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-symbols.nvim" })
 
 	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		commit = "8e763332b7bf7b3a426fd8707b7f5aa85823a5ac",
-	})
+	use({ "nvim-treesitter/nvim-treesitter" })
+	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })

@@ -135,11 +135,12 @@ keymap("n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>",              { 
 keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                { silent = true, desc = "lsp Rename"            })
 keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>",        { silent = true, desc = "lsp Signature"         })
 
-keymap("n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>",          { silent = true, noremap = true, desc = "hover"                })
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>",     { silent = true, noremap = true, desc = "go Definition"        })
-keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",    { silent = true, noremap = true, desc = "go Declaration"       })
-keymap("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { silent = true, noremap = true, desc = "go Implementation"    })
-keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",     { silent = true, noremap = true, desc = "go References"        })
+keymap("n", "KK", "<cmd>lua vim.lsp.buf.hover()<CR>",          { silent = true, noremap = true, desc = "hover doc"         })
+keymap("n", "KD", "<cmd>lua vim.lsp.buf.hover()<CR>",          { silent = true, noremap = true, desc = "hover Doc"         })
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>",     { silent = true, noremap = true, desc = "go Definition"     })
+keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",    { silent = true, noremap = true, desc = "go Declaration"    })
+keymap("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { silent = true, noremap = true, desc = "go Implementation" })
+keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>",     { silent = true, noremap = true, desc = "go References"     })
 
 -- DAP
 keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>",          { silent = true, desc = "dap Continue"          })

@@ -20,10 +20,10 @@ end
 -- header & footer
 -- {{{
 
-local header_color = "RainbowLevel" ..math.random(0, 8)
+local header_color = "markdownH" ..math.random(1, 6)
 local header_val = require("user.alpha_headers").random()
 local times = 10
-while (#header_val > 15 or #header_val < 5) and times > 0 do
+while (#header_val > 10 or #header_val < 5) and times > 0 do
   header_val = require("user.alpha_headers").random()
   times = times - 1
 end
@@ -612,7 +612,7 @@ end
 
 local opts = {
 	layout = {
-		{ type = "padding", val = 2 },
+		{ type = "padding", val = 3 },
 		header,
 		{ type = "padding", val = 3 },
 		-- section_mru,
