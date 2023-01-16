@@ -7,21 +7,28 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/code_actions
+local code_actions = null_ls.builtins.code_actions
 
 -- https://github.com/prettier-solidity/prettier-plugin-solidity
-null_ls.setup {
+null_ls.setup({
   debug = false,
   sources = {
-    formatting.stylua,
-    formatting.prettier.with {
+    formatting.stylua.with({
+      extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+    }),
+    formatting.prettier.with({
       extra_filetypes = { "toml" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-    },
+    }),
     formatting.markdownlint,
     formatting.reorder_python_imports,
     formatting.cmake_format,
     diagnostics.markdownlint,
     diagnostics.cmake_lint,
     diagnostics.jsonlint,
+
+    code_actions.gitsigns,
+    code_actions.proselint,
   },
-}
+})
