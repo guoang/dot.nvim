@@ -193,7 +193,7 @@ cmp.setup({
 			select = false,
 		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
+			-- local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
 			if cmp.visible() then
 				if cmp.get_active_entry() ~= nil then
 					cmp.confirm()
@@ -201,13 +201,14 @@ cmp.setup({
 					cmp.select_next_item()
 					cmp.confirm()
 				end
-			elseif co_s.text ~= "" then
-				local co_keys = vim.fn["copilot#Accept"]()
-				if co_keys ~= "" then
-					vim.api.nvim_feedkeys(co_keys, "i", true)
-				else
-					fallback()
-				end
+      -- don't do this, or can't input <tab> when copilot is suggesting
+			-- elseif co_s.text ~= "" then
+			-- 	local co_keys = vim.fn["copilot#Accept"]()
+			-- 	if co_keys ~= "" then
+			-- 		vim.api.nvim_feedkeys(co_keys, "i", true)
+			-- 	else
+			-- 		fallback()
+			-- 	end
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			elseif check_backspace() then

@@ -66,7 +66,6 @@ return packer.startup(function(use)
 	use({ "akinsho/toggleterm.nvim" })
 	use({ "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
-	use({ "goolord/alpha-nvim" })
 	use({ "junegunn/vim-easy-align" })
 	use({
 		"wellle/targets.vim",
@@ -116,6 +115,7 @@ return packer.startup(function(use)
 	use({ "~/git/nvim/runit.nvim" })
 	use({ "~/git/nvim/session-lens" })
 	use({ "~/git/nvim/project.nvim" })
+	use({ "~/git/nvim/alpha-nvim" })
 
 	-- Colorschemes
 	use({ "sainnhe/sonokai" })

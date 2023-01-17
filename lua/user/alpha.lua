@@ -10,7 +10,11 @@ end
 local replace_space = true
 
 local line_offset = function()
-  local w = vim.fn.winwidth(1)
+  local window = 1
+  if alpha.state then
+    window = alpha.state.window
+  end
+  local w = vim.fn.winwidth(window)
   if w > 160 then
     return (w - 160) / 2
   end
@@ -611,18 +615,16 @@ local opts = {
     { type = "padding", val = 2 },
     header,
     { type = "padding", val = 2 },
-    -- section_mru,
-    -- { type = "padding", val = 2 },
     section_keymaps_1,
     { type = "padding", val = 2 },
     section_keymaps_2,
     section_keymaps_3,
+    -- section_test,
     { type = "padding", val = line_before_footer },
     footer,
   },
   opts = {
     noautocmd = true,
-    margin = 5,
   },
 }
 
