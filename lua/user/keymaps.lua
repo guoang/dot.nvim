@@ -121,9 +121,9 @@ keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>",                   {
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    { silent = true, desc = "git Commits"         })
 
 -- Spectre
-keymap("n", "<leader>RR", "viw:lua require('spectre').open()<cr>",                           { silent = true, desc = "spectre Replace" })
-keymap("n", "<leader>Rw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", { silent = true, desc = "spectre replace Word under cursor" })
-keymap("v", "<leader>Rw", "<esc>:lua require('spectre').open_visual()<cr>",                  { silent = true, desc = "spectre replace Word selected"     })
+keymap("n", "<leader>SS", "viw:lua require('spectre').open()<cr>",                           { silent = true, desc = "spectre Substitute" })
+keymap("n", "<leader>Sw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", { silent = true, desc = "spectre substitute Word under cursor" })
+keymap("v", "<leader>Sw", "<esc>:lua require('spectre').open_visual()<cr>",                  { silent = true, desc = "spectre substitute Word selected"     })
 
 -- LSP
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>",                                 { silent = true, desc = "lsp Info"              })
@@ -179,14 +179,29 @@ keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('brows
 keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
 
 -- Copilot
-keymap("i", "<C-;>", 'copilot#Accept(function("copilot#Suggest"))', {silent = true, script = true, expr = true, desc = "copilot accept suggestion"})
+keymap("i", "<C-;>", 'copilot#Accept(function("copilot#Suggest"))', { silent = true, script = true, expr = true, desc = "copilot accept suggestion" })
+keymap("i", "<C-'>", 'copilot#Dismiss()',                           { silent = true, expr = true,   desc = "copilot dismiss suggestion"             })
 
 -- RunIt
-keymap("n", "<leader>rr", "<cmd>lua require('runit').run_file()<cr>",             { silent = true, desc = "runit current file" })
-keymap("n", "<leader>rc", "<cmd>lua require('runit').run_project('config')<cr>",  { silent = true, desc = "runit Config" })
-keymap("n", "<leader>rb", "<cmd>lua require('runit').run_project('build')<cr>",   { silent = true, desc = "runit Build" })
-keymap("n", "<leader>rt", "<cmd>lua require('runit').run_project('test')<cr>",    { silent = true, desc = "runit Test" })
-keymap("n", "<leader>ri", "<cmd>lua require('runit').run_project('install')<cr>", { silent = true, desc = "runit Install" })
+keymap("n", "<leader>rc", "<cmd>lua require('runit').run('#config')<cr>",    { silent = true, desc = "run Config" })
+keymap("n", "<leader>rC", "<cmd>lua require('runit').run('#clean')<cr>",     { silent = true, desc = "run Clean" })
+keymap("n", "<leader>rb", "<cmd>lua require('runit').run('#build')<cr>",     { silent = true, desc = "run Build" })
+keymap("n", "<leader>rt", "<cmd>lua require('runit').run('#test')<cr>",      { silent = true, desc = "run Test" })
+keymap("n", "<leader>ri", "<cmd>lua require('runit').run('#install')<cr>",   { silent = true, desc = "run Install" })
+keymap("n", "<leader>ra", "<cmd>lua require('runit').run('#all')<cr>",       { silent = true, desc = "run All" })
+keymap("n", "<leader>rl", "<cmd>lua require('runit').run('#__last__')<cr>",  { silent = true, desc = "run Last" })
+keymap("n", "<leader>rr", "<cmd>lua require('runit').run('#__focus__')<cr>", { silent = true, desc = "run focus" })
+keymap("n", "<leader>rf", ":lua require('runit').focus({})",                 { desc = "set Focus" })
+
+keymap("n", "<leader>Rc", "<cmd>lua require('runit').run_file('#config')<cr>",    { silent = true, desc = "run file Config" })
+keymap("n", "<leader>RC", "<cmd>lua require('runit').run_file('#clean')<cr>",     { silent = true, desc = "run file Clean" })
+keymap("n", "<leader>Rb", "<cmd>lua require('runit').run_file('#build')<cr>",     { silent = true, desc = "run file Build" })
+keymap("n", "<leader>Rt", "<cmd>lua require('runit').run_file('#test')<cr>",      { silent = true, desc = "run file Test" })
+keymap("n", "<leader>Ri", "<cmd>lua require('runit').run_file('#install')<cr>",   { silent = true, desc = "run file Install" })
+keymap("n", "<leader>Ra", "<cmd>lua require('runit').run_file('#all')<cr>",       { silent = true, desc = "run file All" })
+keymap("n", "<leader>Rr", "<cmd>lua require('runit').run_file('#__last__')<cr>",  { silent = true, desc = "run file focus" })
+keymap("n", "<leader>Rr", "<cmd>lua require('runit').run_file('#__focus__')<cr>", { silent = true, desc = "run file focus" })
+keymap("n", "<leader>Rf", ":lua require('runit').focus_file({})",                 { desc = "set file Focus" })
 
 -- Telekasten
 keymap("n", "<leader>zz", "<cmd>lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })

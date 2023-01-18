@@ -48,14 +48,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end
 })
 
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   callback = function()
---     if vim.fn.winnr('$') == 1 and vim.fn.bufname() == 'NvimTree_' .. vim.fn.tabpagenr() then
---       vim.cmd("quit")
---     end
---   end,
--- })
-
 -- auto create bufferline group
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   callback = function()
@@ -65,6 +57,24 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end
     local root, _ = project.find_pattern_root()
     require'user.bufferline'.buffer_setup_group(root)
+  end,
+})
+
+-- need bufdelete.nvim, neo-tree & alpha-dashboard
+local alpha_on_empty = vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BDeletePost*",
+  group = alpha_on_empty,
+  callback = function(event)
+    local fallback_name = vim.api.nvim_buf_get_name(event.buf)
+    local fallback_ft = vim.api.nvim_buf_get_option(event.buf, "filetype")
+    local fallback_on_empty = fallback_name == "" and fallback_ft == ""
+
+    if fallback_on_empty then
+      -- require("neo-tree").close_all()
+      vim.cmd("Alpha")
+      vim.cmd(event.buf .. "bwipeout")
+    end
   end,
 })
 

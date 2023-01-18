@@ -9,14 +9,17 @@ end
 
 local replace_space = true
 
+vim.cmd("hi! link AlphaSubTitle SpecialComment")
+
 local line_offset = function()
-  local window = 1
-  if alpha.state then
-    window = alpha.state.window
+  local window = "%"
+  if alpha.get_state() then
+    window = alpha.get_state().window
   end
   local w = vim.fn.winwidth(window)
-  if w > 160 then
-    return (w - 160) / 2
+  local content_width = 134
+  if w > content_width then
+    return math.floor((w - content_width) / 2)
   end
   return 0
 end
@@ -27,13 +30,13 @@ end
 local header_color = "markdownH" .. math.random(1, 6)
 local header_val = require("user.alpha_headers").random()
 local times = 10
-while (#header_val > 10 or #header_val < 5) and times > 0 do
+while (#header_val >= 9 or #header_val < 5) and times > 0 do
   header_val = require("user.alpha_headers").random()
   times = times - 1
 end
 
 if #header_val < 8 then
-  for i = 1, (8 - #header_val) / 2 do
+  for _ = 1, (8 - #header_val) / 2 do
     table.insert(header_val, 1, "")
     table.insert(header_val, "")
   end
@@ -317,10 +320,10 @@ end
 -- {{{
 
 local finding1 = {
-  { "title", "     File Explorer", { "SpecialComment", 0, 30 } },
+  { "title", "     File Explorer", { "AlphaSubTitle", 0, 30 } },
   { "keymap", " <Spc>e  Explore Files", { "DevIconLeex", 0, 5 } },
   { "keymap", "" },
-  { "title", "     Finding", { "SpecialComment", 0, 18 } },
+  { "title", "     Finding", { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<Spc>ff  Files", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>fp  Projects", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>fr  Recent files", { "DevIconLeex", 0, 7 } },
@@ -345,7 +348,7 @@ local finding2 = {
 }
 
 local git = {
-  { "title", "     Git", { "SpecialComment", 0, 13 } },
+  { "title", "     Git", { "AlphaSubTitle", 0, 13 } },
   { "keymap", "<Spc>gl  Lazygit", { "DevIconLeex", 0, 6 } },
   { "keymap", "<Spc>gd  Diff", { "DevIconLeex", 0, 6 } },
   { "keymap", "<Spc>gs  Status", { "DevIconLeex", 0, 6 } },
@@ -362,7 +365,7 @@ local git = {
 }
 
 local terminal = {
-  { "title", "      Terminal", { "SpecialComment", 0, 18 } },
+  { "title", "      Terminal", { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<C-\\> toggle terminal", { "DevIconLeex", 0, 5 } },
   { "keymap", "<Spc>tv   Vertical window", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>tV   Vertical 2 windows", { "DevIconLeex", 0, 7 } },
@@ -373,7 +376,7 @@ local terminal = {
 
 local trouble = {
   { "", "" },
-  { "title", "     Trouble", { "SpecialComment", 0, 18 } },
+  { "title", "     Trouble", { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<Spc>tt  Toggle trouble window", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>tw  workspace_diagnostics", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>td  document_diagnostics", { "DevIconLeex", 0, 7 }, { "Comment", 7, 30 } },
@@ -382,7 +385,7 @@ local trouble = {
 }
 
 local lsp = {
-  { "title", "     LSP", { "SpecialComment", 0, 13 } },
+  { "title", "     LSP", { "AlphaSubTitle", 0, 13 } },
   { "keymap", "<Spc>li  Info", { "DevIconLeex", 0, 6 } },
   { "keymap", "<Spc>lf  Format", { "DevIconLeex", 0, 6 } },
   { "keymap", "<Spc>lI  Install", { "DevIconLeex", 0, 6 } },
@@ -401,7 +404,7 @@ local lsp = {
 }
 
 local dap = {
-  { "title", "     DAP", { "SpecialComment", 0, 13 } },
+  { "title", "     DAP", { "AlphaSubTitle", 0, 13 } },
   { "keymap", "<Spc>dc  Run/Continue", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>db  toggle Bp", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>dB  clear Bp", { "DevIconLeex", 0, 7 } },
@@ -412,14 +415,14 @@ local dap = {
   { "keymap", "<Spc>du  toggle Ui", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>dR  Run last", { "DevIconLeex", 0, 7 }, { "Comment", 7, 20 } },
   { "title", "" },
-  { "title", "     Replace", { "SpecialComment", 0, 17 } },
+  { "title", "     Replace", { "AlphaSubTitle", 0, 17 } },
   { "keymap", "<Spc>RR  do Replace", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>Rw  cursor Word", { "DevIconLeex", 0, 7 } },
 }
 
 local switches = {
   { "", "" },
-  { "title", "     Switches", { "SpecialComment", 0, 18 } },
+  { "title", "     Switches", { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<Spc>ss  cursor word", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>sd  Diagnostic", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>si  Im-select auto", { "DevIconLeex", 0, 7 } },
@@ -428,14 +431,14 @@ local switches = {
 }
 
 local runit = {
-  { "title", "     Run it", { "SpecialComment", 0, 16 } },
+  { "title", "     Run it", { "AlphaSubTitle", 0, 16 } },
   { "keymap", "<Spc>rr  Run it", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>rc  Config", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>rb  Build", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>rb  Test", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>ri  Install", { "DevIconLeex", 0, 7 } },
   { "", "" },
-  { "title", "     Naming", { "SpecialComment", 0, 20 } },
+  { "title", "     Naming", { "AlphaSubTitle", 0, 20 } },
   { "keymap", "crs  snake_case", { "DevIconLeex", 0, 3 } },
   { "keymap", "crm  MixedCase", { "DevIconLeex", 0, 3 } },
   { "keymap", "crc  camelCase", { "DevIconLeex", 0, 3 }, { "Comment", 5, 20 } },
@@ -446,7 +449,7 @@ local runit = {
 }
 
 local navigation = {
-  { "title", "         Navigation", { "SpecialComment", 0, 20 } },
+  { "title", "         Navigation", { "AlphaSubTitle", 0, 20 } },
   { "keymap", "    s/S  2-char motion", { "DevIconLeex", 0, 8 }, { "Grey", 5, 6 } },
   {
     "keymap",
@@ -485,7 +488,7 @@ local navigation = {
 }
 
 local editing = {
-  { "title", "           Editing", { "SpecialComment", 0, 20 } },
+  { "title", "           Editing", { "AlphaSubTitle", 0, 20 } },
   { "keymap", "       ga  Alignment", { "DevIconLeex", 0, 10 } },
   { "keymap", "       gi  Insert at last pos", { "DevIconLeex", 0, 10 } },
   { "keymap", "      gcc  toggle Comment line", { "DevIconLeex", 0, 10 } },
@@ -505,7 +508,7 @@ local editing = {
 }
 
 local zettelkasten1 = {
-  { "title", "     Zettelkasten", { "SpecialComment", 0, 20 } },
+  { "title", "     Zettelkasten", { "AlphaSubTitle", 0, 20 } },
   { "keymap", "<Spc>zz  panel", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>zf  Find notes", { "DevIconLeex", 0, 7 } },
   { "keymap", "<Spc>zi  paste Img & link", { "DevIconLeex", 0, 7 } },
@@ -542,7 +545,7 @@ local zettelkasten2 = {
 
 local shortcut = function()
   local content = {
-    { "title", "    Recent files & Shortcuts", { "SpecialComment", 0, 30 } },
+    { "title", "    Recent files & Shortcuts", { "AlphaSubTitle", 0, 30 } },
   }
   for _, v in pairs(mru(vim.fn.getcwd(), 5)) do
     table.insert(content, v)
@@ -600,27 +603,30 @@ local section_keymaps_3 = {
   opts = { spacing = 0 },
 }
 
-local line_before_footer = function()
-  local height = vim.fn.winheight("%")
-  local content_height = 45 + #header_val
-  if height - content_height > 2 then
-    return height - content_height
-  else
-    return 2
+local function calc_padding()
+  local window = "%"
+  if alpha.get_state() then
+    window = alpha.get_state().window
   end
+  local win_height = vim.fn.winheight(window)
+  local header_height = #header_val
+  local footer_height = 2
+  local content_height = 36
+  local p = win_height - header_height - footer_height - content_height
+  return math.max(math.floor(p / 3), 1)
 end
 
 local opts = {
   layout = {
-    { type = "padding", val = 2 },
+    { type = "padding", val = calc_padding },
     header,
-    { type = "padding", val = 2 },
+    { type = "padding", val = calc_padding },
     section_keymaps_1,
     { type = "padding", val = 2 },
     section_keymaps_2,
     section_keymaps_3,
     -- section_test,
-    { type = "padding", val = line_before_footer },
+    { type = "padding", val = calc_padding },
     footer,
   },
   opts = {
