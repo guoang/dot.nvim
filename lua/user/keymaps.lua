@@ -104,7 +104,7 @@ keymap("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>",              { sile
 keymap("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>",               { silent = true, desc = "trouble toggle loclist"               })
 
 -- Git
-keymap("n", "<leader>gl", "<cmd>lua tterm_lazygit()<cr>",                    { silent = true, desc = "git Lazygit"         })
+keymap("n", "<leader>gl", "<cmd>lua TTERM_LAZYGIT()<cr>",                    { silent = true, desc = "git Lazygit"         })
 keymap("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
 keymap("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       { silent = true, desc = "git Prev Hunk"       })
 keymap("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
