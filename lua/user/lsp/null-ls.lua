@@ -14,19 +14,28 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
   debug = false,
   sources = {
+    -- lua
     formatting.stylua.with({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
+    -- json/html/...
     formatting.prettier.with({
       extra_filetypes = { "toml" },
       extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
     }),
-    formatting.markdownlint,
-    formatting.reorder_python_imports,
-    formatting.cmake_format,
-    diagnostics.markdownlint,
-    diagnostics.cmake_lint,
     diagnostics.jsonlint,
+    -- markdown
+    formatting.markdownlint,
+    diagnostics.markdownlint,
+    -- python
+    formatting.reorder_python_imports,
+    -- cmake
+    formatting.cmake_format.with({
+      extra_args = { "--max-subgroups-hwrap", "6" },
+    }),
+    diagnostics.cmake_lint.with({
+      extra_args = { "--internal-var-pattern", "[A-Z][0-9A-Z_]+" },
+    }),
 
     code_actions.gitsigns,
     code_actions.proselint,

@@ -6,7 +6,7 @@ local servers = {
   "jsonls",
   "yamlls",
   "clangd",
-  "cmake",
+  "neocmake",
   "pylsp",
 }
 
@@ -49,5 +49,7 @@ for _, server in pairs(servers) do
     opts = vim.tbl_deep_extend("force", conf_opts, opts)
   end
 
+  -- print all contents of opts
+  -- print(server, vim.inspect(opts))
   lspconfig[server].setup(opts)
 end

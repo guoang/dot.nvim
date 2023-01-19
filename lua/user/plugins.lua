@@ -164,6 +164,7 @@ return packer.startup(function(use)
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter" })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+  use({ "nvim-treesitter/playground" })
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })

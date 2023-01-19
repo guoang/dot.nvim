@@ -59,6 +59,10 @@ M.on_attach = function(client, _)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
+	if client.name == "neocmake" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
+
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
 		return
