@@ -18,24 +18,27 @@ null_ls.setup({
     formatting.stylua.with({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
-    -- json/html/...
+    -- json/html/markdown/...
     formatting.prettier.with({
       extra_filetypes = { "toml" },
-      extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+      extra_args = {
+        "--no-semi",
+        "--single-quote",
+        "--jsx-single-quote",
+        "--prose-wrap=always",
+      },
     }),
     diagnostics.jsonlint,
-    -- markdown
-    formatting.markdownlint,
+    -- markdown, config file located in ~/.markdownlintrc
+    -- formatting.markdownlint, --use prettier instead
     diagnostics.markdownlint,
     -- python
     formatting.reorder_python_imports,
     -- cmake
-    formatting.cmake_format.with({
-      extra_args = { "--max-subgroups-hwrap", "6" },
-    }),
-    diagnostics.cmake_lint.with({
-      extra_args = { "--internal-var-pattern", "[A-Z][0-9A-Z_]+" },
-    }),
+    -- formatting.cmake_format,
+    -- diagnostics.cmake_lint.with({
+    --   extra_args = { "--internal-var-pattern", "[A-Z][0-9A-Z_]+" },
+    -- }),
 
     code_actions.gitsigns,
     code_actions.proselint,

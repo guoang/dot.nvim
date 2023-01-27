@@ -26,6 +26,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "qf" },
+	callback = function()
+    vim.keymap.set("n", "<C-f>", "<cmd>lua require('user.nvim-bqf').scroll(1)<CR>", { noremap = true, silent = true, buffer = true })
+    vim.keymap.set("n", "<C-b>", "<cmd>lua require('user.nvim-bqf').scroll(-1)<CR>", { noremap = true, silent = true, buffer = true })
+    vim.keymap.set("n", "<C-c>", "<cmd>AbortDispatch<CR>", { noremap = true, silent = true, buffer = true })
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     local path_ok, plenary_path = pcall(require, "plenary.path")

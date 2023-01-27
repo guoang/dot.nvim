@@ -24,13 +24,5 @@ local function scroll(direction)
   end
 end
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf" },
-	callback = function()
-    vim.keymap.set("n", "<C-f>", "<cmd>lua require('user.nvim-bqf').scroll(1)<CR>", { noremap = true, silent = true, buffer = true })
-    vim.keymap.set("n", "<C-b>", "<cmd>lua require('user.nvim-bqf').scroll(-1)<CR>", { noremap = true, silent = true, buffer = true })
-  end,
-})
-
 M = {scroll = scroll}
 return M

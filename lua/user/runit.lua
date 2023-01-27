@@ -14,10 +14,10 @@ for _, module in ipairs(xsolution_cpp_modules) do
           .. "cmake -DXSOLUTION_WITH_ALL=1 -DXSOLUTION_LOCAL_ALL=1 "
           .. "-DCMAKE_BUILD_TYPE=RelWithDebInfo "
           .. "-DCMAKE_INSTALL_PREFIX=./install ../xcodebase/xsolution",
-        build = [[ cd ~/work/xbuild && make -j8 ]],
-        test = [[ cd ~/work/xbuild && make -j8 test ]],
-        install = [[ cd ~/work/xbuild && make -j8 install ]],
-        all = { "#config", "#build", "#install" },
+        build = [[ cd ~/work/xbuild/_deps/${__proj_name__}-build && make -j8 ]],
+        test = [[ cd ~/work/xbuild/_deps/${__proj_name__}-build && make -j8 test ]],
+        install = [[ cd ~/work/xbuild/_deps/${__proj_name__}-build && make -j8 install ]],
+        all = { "#build", "#install" },
       },
     },
   })
@@ -33,3 +33,12 @@ for _, module in ipairs(xsolution_py_modules) do
     },
   })
 end
+
+runit.setup({
+  ft = {
+    python = {
+      test = "~/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/unpacked/bin/python ${__file_path__}",
+      all = { "#test" },
+    },
+  },
+})
