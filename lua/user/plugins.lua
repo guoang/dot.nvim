@@ -115,6 +115,21 @@ return packer.startup(function(use)
       require("neoclip").setup()
     end,
   })
+  use({
+    "anuvyklack/pretty-fold.nvim",
+    config = function()
+      require("pretty-fold").setup()
+    end,
+  })
+  use({
+    "anuvyklack/fold-preview.nvim",
+    requires = "anuvyklack/keymap-amend.nvim",
+    config = function()
+      require("fold-preview").setup({
+        -- Your configuration goes here.
+      })
+    end,
+  })
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
