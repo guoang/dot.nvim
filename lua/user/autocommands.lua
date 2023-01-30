@@ -1,36 +1,46 @@
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
-	callback = function()
-		vim.cmd([[
+  pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
+  callback = function()
+    vim.cmd([[
       nnoremap <silent> <buffer> q :close<CR> 
       set nobuflisted 
     ]])
-	end,
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "gitcommit", "markdown" },
-	callback = function()
-		-- vim.opt_local.wrap = true
-		-- vim.opt_local.spell = true
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    -- vim.opt_local.wrap = true
+    -- vim.opt_local.spell = true
     vim.opt_local.colorcolumn = "80"
-	end,
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "markdown" },
-	callback = function()
+  pattern = { "markdown" },
+  callback = function()
     vim.b.switch_custom_definitions = {
-      { "- [ ]", "- [X]"},
+      { "- [ ]", "- [X]" },
     }
   end,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf" },
-	callback = function()
-    vim.keymap.set("n", "<C-f>", "<cmd>lua require('user.nvim-bqf').scroll(1)<CR>", { noremap = true, silent = true, buffer = true })
-    vim.keymap.set("n", "<C-b>", "<cmd>lua require('user.nvim-bqf').scroll(-1)<CR>", { noremap = true, silent = true, buffer = true })
+  pattern = { "qf" },
+  callback = function()
+    vim.keymap.set(
+      "n",
+      "<C-f>",
+      "<cmd>lua require('user.nvim-bqf').scroll(1)<CR>",
+      { noremap = true, silent = true, buffer = true }
+    )
+    vim.keymap.set(
+      "n",
+      "<C-b>",
+      "<cmd>lua require('user.nvim-bqf').scroll(-1)<CR>",
+      { noremap = true, silent = true, buffer = true }
+    )
     vim.keymap.set("n", "<C-c>", "<cmd>AbortDispatch<CR>", { noremap = true, silent = true, buffer = true })
   end,
 })
@@ -42,7 +52,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
       return
     end
     local bufnr = vim.fn.bufnr()
-    local bufnr_last = vim.fn.bufnr('$')
+    local bufnr_last = vim.fn.bufnr("$")
     local bufname = vim.fn.bufname()
     if #bufname > 0 then
       local path = plenary_path.new(bufname)
@@ -54,7 +64,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
         end
       end
     end
-  end
+  end,
 })
 
 -- auto create bufferline group
@@ -65,7 +75,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
       return
     end
     local root, _ = project.find_pattern_root()
-    require'user.bufferline'.buffer_setup_group(root)
+    require("user.bufferline").buffer_setup_group(root)
   end,
 })
 
@@ -88,41 +98,41 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
-	callback = function()
-		vim.cmd("quit")
-	end,
+  callback = function()
+    vim.cmd("quit")
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-	callback = function()
-		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
-	end,
+  callback = function()
+    vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = { "*.java" },
-	callback = function()
-		vim.lsp.codelens.refresh()
-	end,
+  pattern = { "*.java" },
+  callback = function()
+    vim.lsp.codelens.refresh()
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
-	callback = function()
-		vim.cmd("hi link illuminatedWord LspReferenceText")
-	end,
+  callback = function()
+    vim.cmd("hi link illuminatedWord LspReferenceText")
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-	callback = function()
-	local line_count = vim.api.nvim_buf_line_count(0)
-		if line_count >= 5000 then
-			vim.cmd("IlluminatePauseBuf")
-		end
-	end,
+  callback = function()
+    local line_count = vim.api.nvim_buf_line_count(0)
+    if line_count >= 5000 then
+      vim.cmd("IlluminatePauseBuf")
+    end
+  end,
 })

@@ -3,7 +3,16 @@ if not status_ok then
   return
 end
 
-local xsolution_cpp_modules = { "xnet", "xlog", "chrono", "xtimer", "cpython", "mimalloc", "xsolution" }
+local xsolution_cpp_modules = {
+  "xnet",
+  "xlog",
+  "chrono",
+  "xtimer",
+  "cpython",
+  "mimalloc",
+  "xsolution",
+  "msgpack_python",
+}
 local xsolution_py_modules = { "xhttp", "xserver", "pyrc", "sop" }
 
 for _, module in ipairs(xsolution_cpp_modules) do

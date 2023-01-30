@@ -140,75 +140,85 @@ cmp.setup({
   },
 
   mapping = cmp.mapping.preset.insert({
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-b>"] = cmp.mapping(function(fallback)
+    ["<C-k>"] = cmp.mapping(function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(-1)
       else
         fallback()
       end
     end, { "i", "c" }),
-    ["<C-f>"] = cmp.mapping(function(fallback)
+    ["<C-j>"] = cmp.mapping(function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(1)
       else
         fallback()
       end
     end, { "i", "c" }),
-    ["<C-e>"] = cmp.mapping({
-      -- accept current line
-      i = function(fallback)
-        local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
-        cmp.mapping.abort()
-        if co_s.text ~= "" and co_s.text ~= nil then
-          local co_line = co_s.text:match(".-\n")
-          if co_line == nil then
-            co_line = co_s.text
-          else
-            co_line = co_line:sub(1, -2)
-          end
-          if co_line ~= "" then
-            local pos = vim.api.nvim_win_get_cursor(0)[2]
-            local line = vim.api.nvim_get_current_line()
-            co_line = line:sub(0, pos) .. co_line
-            vim.api.nvim_set_current_line(co_line)
-            vim.cmd("normal ==")
-            line = vim.api.nvim_get_current_line()
-            vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line})
-          else
-            fallback()
-          end
+    ["<C-f>"] = cmp.mapping(function(fallback)
+      local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
+      if cmp.visible() and cmp.get_active_entry() ~= nil then
+        -- accept cmp suggestion, and move cursor forward
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }, function()
+          local pos = vim.api.nvim_win_get_cursor(0)
+          vim.api.nvim_win_set_cursor(0, { pos[1], pos[2] + 1 })
+        end)
+      elseif co_s.text ~= "" and co_s.text ~= nil then
+        -- accept copilot suggestion, just next char
+        local co_line = co_s.text:match(".-\n")
+        if co_line == nil then
+          co_line = co_s.text
+        else
+          co_line = co_line:sub(1, -2)
+        end
+        if co_line ~= "" then
+          local pos = vim.api.nvim_win_get_cursor(0)[2]
+          local line = vim.api.nvim_get_current_line()
+          co_line = line:sub(0, pos) .. co_line:sub(0, 1)
+          vim.api.nvim_set_current_line(co_line)
+          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], pos + 1 })
         else
           fallback()
         end
-      end,
-      c = function(fallback)
-        local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
-        cmp.mapping.close()
-        if co_s.text ~= "" and co_s.text ~= nil then
-          local co_line = co_s.text:match(".-\n")
-          if co_line == nil then
-            co_line = co_s.text
-          else
-            co_line = co_line:sub(1, -2)
-          end
-          if co_line ~= "" then
-            local pos = vim.api.nvim_win_get_cursor(0)[2]
-            local line = vim.api.nvim_get_current_line()
-            co_line = line:sub(0, pos) .. co_line .. line:sub(pos + 1)
-            vim.api.nvim_set_current_line(co_line)
-            vim.cmd("normal ==")
-            line = vim.api.nvim_get_current_line()
-            vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line})
-          else
-            fallback()
-          end
+      else
+        fallback()
+      end
+    end, { "i", "c" }),
+    ["<C-e>"] = cmp.mapping(function(fallback)
+      local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
+      if cmp.visible() and cmp.get_active_entry() ~= nil then
+        -- accept cmp suggestion, and move cursor to end of line
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }, function()
+          local line = vim.api.nvim_get_current_line()
+          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line })
+        end)
+      elseif co_s.text ~= "" and co_s.text ~= nil then
+        -- accept copilot suggestion, just current line
+        local co_line = co_s.text:match(".-\n")
+        if co_line == nil then
+          co_line = co_s.text
+        else
+          co_line = co_line:sub(1, -2)
+        end
+        if co_line ~= "" then
+          local pos = vim.api.nvim_win_get_cursor(0)[2]
+          local line = vim.api.nvim_get_current_line()
+          co_line = line:sub(0, pos) .. co_line
+          vim.api.nvim_set_current_line(co_line)
+          line = vim.api.nvim_get_current_line()
+          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line })
         else
           fallback()
         end
-      end,
-    }),
+      else
+        fallback()
+      end
+    end, { "i", "c" }),
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({
@@ -294,6 +304,28 @@ cmp.setup({
   experimental = {
     ghost_text = false,
   },
+})
+
+-- `/` cmdline setup.
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+-- `:` cmdline setup.
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    {
+      name = "cmdline",
+      option = {
+        ignore_cmds = { "Man", "!" },
+      },
+    },
+  }),
 })
 
 M = {
