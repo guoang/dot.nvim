@@ -229,3 +229,6 @@ keymap("n", "<leader>zt", "<cmd>lua require('telekasten').show_tags()<cr>",     
 keymap("n", "<leader>bq", "<cmd>Bwipeout<cr>", { silent = true, noremap = true, desc = "buffer Quit" })
 keymap("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { silent = true, noremap = true, desc = "buffer Pick" })
 keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_toggle()<cr>", { silent = true, noremap = true, desc = "buffer toggle Folder" })
+
+-- Dispatch
+keymap("n", "<leader><cr>", "<cmd>w | Dispatch<cr>", { silent = true, noremap = true, desc = "dispatch" })
