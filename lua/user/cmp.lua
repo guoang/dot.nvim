@@ -146,14 +146,28 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
     ["<C-j>"] = cmp.mapping(function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(1)
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
+    ["<C-n>"] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        cmp.complete()
+      end
+    end),
+    ["<C-p>"] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        cmp.complete()
+      end
+    end),
     ["<C-f>"] = cmp.mapping(function(fallback)
       local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
       if cmp.visible() and cmp.get_active_entry() ~= nil then
@@ -185,7 +199,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
     ["<C-e>"] = cmp.mapping(function(fallback)
       local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
       if cmp.visible() and cmp.get_active_entry() ~= nil then
@@ -218,7 +232,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({
@@ -249,7 +263,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -258,7 +272,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "c" }),
+    end),
   }),
   formatting = {
     fields = { "abbr", "kind", "menu" },
@@ -310,16 +324,16 @@ cmp.setup.cmdline("/", {
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = "path" },
-  }, {
-    {
+  sources = cmp.config.sources(
+    { { name = "path" } },
+    { {
       name = "cmdline",
+      -- keyword_length = 2,
       option = {
         ignore_cmds = { "Man", "!" },
       },
-    },
-  }),
+    } }
+  ),
 })
 
 M = {
