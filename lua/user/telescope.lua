@@ -31,11 +31,11 @@ telescope.setup({
           local term = vim.api.nvim_open_term(bufnr, {})
           local function send_output(_, data, _)
             for _, d in ipairs(data) do
-              vim.api.nvim_chan_send(term, d)
+              vim.api.nvim_chan_send(term, d .. "\r\n")
             end
           end
           vim.fn.jobstart({
-            "viu",
+            "viu", "-b",
             filepath, -- Terminal image viewer command
           }, { on_stdout = send_output, stdout_buffered = true })
         else
