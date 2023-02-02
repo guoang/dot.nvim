@@ -262,10 +262,7 @@ cmp.setup({
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources(
-    { { name = "nvim_lsp_document_symbol" } },
-    { { name = "buffer" }, { name = "cmdline_history" } }
-  ),
+  sources = cmp.config.sources({ { name = "nvim_lsp_document_symbol" } }, { { name = "buffer" } }),
 })
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
@@ -278,9 +275,9 @@ cmp.setup.cmdline(":", {
         ignore_cmds = { "Man", "!" },
       },
     },
-    {
-      name = "cmdline_history",
-    },
+    -- {
+    --   name = "cmdline_history",
+    -- },
   }),
 })
 

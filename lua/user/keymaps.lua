@@ -231,4 +231,4 @@ keymap("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { silent = true, noremap = 
 keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_toggle()<cr>", { silent = true, noremap = true, desc = "buffer toggle Folder" })
 
 -- Dispatch
-keymap("n", "<leader><cr>", "<cmd>w | Dispatch<cr>", { silent = true, noremap = true, desc = "dispatch" })
+keymap("n", "<leader><cr>", "<cmd>w | Make %<cr>", { silent = true, noremap = true, desc = "dispatch" })

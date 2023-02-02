@@ -90,7 +90,14 @@ return packer.startup(function(use)
   -- use({ "tweekmonster/startuptime.vim" })
   use({ "RRethy/vim-illuminate" })
   use({ "tpope/vim-surround" })
-  use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
+  use({
+    "tpope/vim-dispatch",
+    opt = true,
+    cmd = { "Dispatch", "Make", "Focus", "Start" },
+    config = function()
+      vim.g.dispatch_no_maps = 1
+    end,
+  })
   use({ "tpope/vim-dadbod", opt = true, cmd = { "DB" } })
   use({ "tpope/vim-abolish" })
   use({ "tpope/vim-repeat" })
@@ -118,7 +125,7 @@ return packer.startup(function(use)
   use({
     "anuvyklack/pretty-fold.nvim",
     config = function()
-      require("pretty-fold").setup()
+      require("pretty-fold").setup({fill_char = ' '})
     end,
   })
   use({
@@ -154,7 +161,7 @@ return packer.startup(function(use)
   use({ "hrsh7th/cmp-nvim-lsp-document-symbol" })
   use({ "hrsh7th/cmp-nvim-lua" })
   use({ "hrsh7th/cmp-cmdline" })
-  use({ "dmitmel/cmp-cmdline-history" })
+  -- use({ "dmitmel/cmp-cmdline-history" })
   use({ "petertriho/cmp-git" })
   use({
     "~/git/nvim/cmp-browser-source",
