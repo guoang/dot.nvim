@@ -16,12 +16,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -90,14 +90,6 @@ return packer.startup(function(use)
   -- use({ "tweekmonster/startuptime.vim" })
   use({ "RRethy/vim-illuminate" })
   use({ "tpope/vim-surround" })
-  use({
-    "tpope/vim-dispatch",
-    opt = true,
-    cmd = { "Dispatch", "Make", "Focus", "Start" },
-    config = function()
-      vim.g.dispatch_no_maps = 1
-    end,
-  })
   use({ "tpope/vim-dadbod", opt = true, cmd = { "DB" } })
   use({ "tpope/vim-abolish" })
   use({ "tpope/vim-repeat" })
@@ -122,12 +114,7 @@ return packer.startup(function(use)
       require("neoclip").setup()
     end,
   })
-  use({
-    "anuvyklack/pretty-fold.nvim",
-    config = function()
-      require("pretty-fold").setup({fill_char = ' '})
-    end,
-  })
+  use({ "anuvyklack/pretty-fold.nvim" })
   use({
     "anuvyklack/fold-preview.nvim",
     requires = "anuvyklack/keymap-amend.nvim",
@@ -141,6 +128,14 @@ return packer.startup(function(use)
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
   use({ "~/git/nvim/alpha-nvim" })
+  use({
+    "~/git/nvim/vim-dispatch",
+    opt = true,
+    cmd = { "Dispatch", "Make", "Focus", "Start" },
+    config = function()
+      vim.g.dispatch_no_maps = 1
+    end,
+  })
 
   -- Colorschemes
   use({ "sainnhe/sonokai" })

@@ -154,7 +154,7 @@ telekasten.setup({
 	-- how to preview media files
 	-- "telescope-media-files" if you have telescope-media-files.nvim installed
 	-- "catimg-previewer" if you have catimg installed
-	media_previewer = "viu",
+	media_previewer = "viu-previewer",
 
 	-- A customizable fallback handler for urls.
 	follow_url_fallback = nil,
