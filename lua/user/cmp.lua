@@ -20,71 +20,16 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
--- {{{ icons
-
-local kind_icons = {
-  Text = "",
-  Method = "",
-  Function = "",
-  Constructor = "",
-  Field = "",
-  Variable = "",
-  Class = "ﴯ",
-  Interface = "",
-  Module = "",
-  Property = "ﰠ",
-  Unit = "",
-  Value = "",
-  Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = "",
-  Constant = "",
-  Struct = "",
-  Event = "",
-  Operator = "",
-  TypeParameter = "",
-  Copilot = "",
-
-  -- Text = "",
-  -- Method = "",
-  -- Function = "",
-  -- Constructor = "",
-  -- Field = "",
-  -- Variable = "",
-  -- Class = "",
-  -- Interface = "",
-  -- Module = "",
-  -- Property = "",
-  -- Unit = "",
-  -- Value = "",
-  -- Enum = "",
-  -- Keyword = "",
-  -- Color = "",
-  -- File = "",
-  -- Reference = "",
-  -- Folder = "",
-  -- EnumMember = "",
-  -- Constant = "",
-  -- Struct = "",
-  -- Event = "",
-  -- Operator = "",
-}
-
--- }}}
-
 -- sources {{{
 
 local cmp_sources = {
   { name = "nvim_lsp" },
+  { name = "nvim_lsp_signature_help" },
   { name = "nvim_lua" },
   { name = "luasnip" },
   { name = "buffer" },
   { name = "path" },
+  { name = "git" },
   { name = "vim-dadbod-completion" },
   -- { name = "copilot" },
   { name = "browser", keyword_length = 3, max_item_count = 10 },
@@ -317,23 +262,52 @@ cmp.setup({
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "buffer" },
-  },
+  sources = cmp.config.sources(
+    { { name = "nvim_lsp_document_symbol" } },
+    { { name = "buffer" }, { name = "cmdline_history" } }
+  ),
 })
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources(
-    { { name = "path" } },
-    { {
+  sources = cmp.config.sources({ { name = "path" } }, {
+    {
       name = "cmdline",
       -- keyword_length = 2,
       option = {
         ignore_cmds = { "Man", "!" },
       },
-    } }
-  ),
+    },
+    {
+      name = "cmdline_history",
+    },
+  }),
+})
+
+local format = require("cmp_git.format")
+local sort = require("cmp_git.sort")
+
+require("cmp_git").setup({
+  -- defaults
+  filetypes = { "gitcommit", "toggleterm", "octo" },
+  remotes = { "upstream", "origin" }, -- in order of most to least prioritized
+  enableRemoteUrlRewrites = false, -- enable git url rewrites, see https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf
+  git = {
+    commits = {
+      limit = 100,
+      sort_by = sort.git.commits,
+      format = format.git.commits,
+    },
+  },
+  trigger_actions = {
+    {
+      debug_name = "git_commits",
+      trigger_character = ":",
+      action = function(sources, trigger_char, callback, params, git_info)
+        return sources.git:get_commits(callback, params, trigger_char)
+      end,
+    },
+  },
 })
 
 M = {
