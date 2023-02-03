@@ -63,6 +63,7 @@ M.on_attach = function(client, _)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
+  -- print(glient.name, vim.inspect(client.server_capabilities))
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
 		return
