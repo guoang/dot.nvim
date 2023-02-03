@@ -137,6 +137,7 @@ for _, l in ipairs({ "lua" }) do
     "folds",
     [[
       (function_declaration (block) @fold)
+      (function_definition (block) @fold)
     ]]
   )
 end
