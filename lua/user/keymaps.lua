@@ -27,6 +27,10 @@ keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], { silent = true, noremap = true      
 keymap("n", "<S-l>", "<cmd>lua require'user.bufferline'.buffer_next()<cr>", { silent = true, desc = "buffer next" })
 keymap("n", "<S-h>", "<cmd>lua require'user.bufferline'.buffer_prev()<cr>", { silent = true, desc = "buffer prev" })
 
+-- Navigate tabs
+keymap("n", "<tab>", "<cmd>tabnext<cr>", { silent = true, desc = "tab next"})
+keymap("n", "<S-tab>", "<cmd>tabprevious<cr>", { silent = true, desc = "tab previous"})
+
 -- Navigate in Insert Mode
 keymap("i", "<C-b>", "<left>",  { silent = true, desc = "<left>"  })
 keymap("i", "<C-f>", "<right>", { silent = true, desc = "<right>" })

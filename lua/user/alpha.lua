@@ -552,7 +552,7 @@ local shortcut = function()
     "button",
     "[q]  Quit",
     "q",
-    ":qa<CR>",
+    ":q<CR>",
     { "Orange", 0, 3 },
     { "Grey", 4, 8 },
   })
