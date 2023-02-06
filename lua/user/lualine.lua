@@ -7,13 +7,17 @@ local hide_in_width = function()
   return vim.fn.winwidth(0) > 80
 end
 
-local diagnostics = {
-  "diagnostics",
-  sources = { "nvim_diagnostic" },
-  sections = { "error", "warn" },
-  symbols = { error = " ", warn = " " },
-  colored = true,
-  always_visible = false,
+-- https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/slanted-gaps.lua
+-- https://github.com/nvim-lualine/lualine.nvim/discussions/911
+--
+local colors = {
+  red = "#ca1243",
+  grey = "#a0a1a7",
+  black = "#383a42",
+  white = "#f3f3f3",
+  light_green = "#83a598",
+  orange = "#fe8019",
+  green = "#8ec07c",
 }
 
 local function diff_source()
@@ -33,6 +37,7 @@ local diff = {
   symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
   cond = hide_in_width,
   source = diff_source,
+  padding = { left = 0, right = 1 },
 }
 
 local filetype = {
@@ -40,6 +45,62 @@ local filetype = {
   icons_enabled = true,
   padding = { left = 1, right = 0 },
 }
+
+local fileformat = {
+  "fileformat",
+  icons_enabled = true,
+  symbols = {
+    unix = "LF",
+    dos = "CRLF",
+    mac = "CR",
+  },
+}
+
+local time = {
+  'os.date("%I:%M:%S", os.time())',
+}
+
+local spaces = function()
+  return "sw-" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+end
+
+local diagnostics_message = require("user.lualine-diagnostics-message")
+
+local diags_msg = {
+  diagnostics_message,
+  colors = {
+    error = "#BF616A",
+    warn = "#EBCB8B",
+    info = "#A3BE8C",
+    hint = "#88C0D0",
+  },
+  cond = diagnostics_message.has_diags_msg,
+}
+
+local diags_error = {
+  "diagnostics",
+  source = { "nvim" },
+  sections = { "error" },
+  diagnostics_color = { error = { bg = colors.red, fg = colors.white } },
+  separator = { right = "" },
+}
+
+local diags_warn = {
+  "diagnostics",
+  source = { "nvim" },
+  sections = { "warn" },
+  diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
+  separator = { right = "" },
+}
+--
+-- local diagnostics = {
+--   "diagnostics",
+--   sources = { "nvim_diagnostic" },
+--   sections = { "error", "warn" },
+--   symbols = { error = " ", warn = " " },
+--   colored = true,
+--   always_visible = false,
+-- }
 
 local filename = {
   "filename",
@@ -57,121 +118,42 @@ local filename = {
     unnamed = "", -- Text to show for unnamed buffers.
     newfile = "", -- Text to show for newly created file before first write
   },
-}
-
-local fileformat = {
-  "fileformat",
-  icons_enabled = true,
-  symbols = {
-    unix = "LF",
-    dos = "CRLF",
-    mac = "CR",
-  },
-}
-
-local spaces = function()
-  return "sw-" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
-
-local utils = require("lualine.utils.utils")
-local highlight = require("lualine.highlight")
-local diagnostics_message = require("lualine.component"):extend()
-
-diagnostics_message.default = {
-  colors = {
-    error = utils.extract_color_from_hllist(
-      { "fg", "sp" },
-      { "DiagnosticError", "LspDiagnosticsDefaultError", "DiffDelete" },
-      "#e32636"
-    ),
-    warning = utils.extract_color_from_hllist(
-      { "fg", "sp" },
-      { "DiagnosticWarn", "LspDiagnosticsDefaultWarning", "DiffText" },
-      "#ffa500"
-    ),
-    info = utils.extract_color_from_hllist(
-      { "fg", "sp" },
-      { "DiagnosticInfo", "LspDiagnosticsDefaultInformation", "DiffChange" },
-      "#ffffff"
-    ),
-    hint = utils.extract_color_from_hllist(
-      { "fg", "sp" },
-      { "DiagnosticHint", "LspDiagnosticsDefaultHint", "DiffAdd" },
-      "#273faf"
-    ),
-  },
-}
-
-function diagnostics_message:init(options)
-  diagnostics_message.super:init(options)
-  self.options.colors = vim.tbl_extend("force", diagnostics_message.default.colors, self.options.colors or {})
-  self.highlights = { error = "", warn = "", info = "", hint = "" }
-  self.highlights.error = highlight.create_component_highlight_group(
-    { fg = self.options.colors.error },
-    "diagnostics_message_error",
-    self.options
-  )
-  self.highlights.warn = highlight.create_component_highlight_group(
-    { fg = self.options.colors.warn },
-    "diagnostics_message_warn",
-    self.options
-  )
-  self.highlights.info = highlight.create_component_highlight_group(
-    { fg = self.options.colors.info },
-    "diagnostics_message_info",
-    self.options
-  )
-  self.highlights.hint = highlight.create_component_highlight_group(
-    { fg = self.options.colors.hint },
-    "diagnostics_message_hint",
-    self.options
-  )
-end
-
-function diagnostics_message:update_status(is_focused)
-  local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
-  local diagnostics = vim.diagnostic.get(0, { lnum = r - 1 })
-  if #diagnostics > 0 then
-    local top = diagnostics[1]
-    for _, d in ipairs(diagnostics) do
-      if d.severity < top.severity then
-        top = d
-      end
-    end
-    local icons = { " ", " ", " ", " " }
-    local hl = {
-      self.highlights.error,
-      self.highlights.warn,
-      self.highlights.info,
-      self.highlights.hint,
-    }
-    local length_max = 90
-    local message = top.message
-    if #message > length_max then
-      message = string.sub(top.message, 1, length_max) .. " [...]"
-    end
-    return highlight.component_format_highlight(hl[top.severity])
-      .. icons[top.severity]
-      .. " "
-      .. utils.stl_escape(message)
-  else
-    return ""
-  end
-end
-
-local diags = {
-  diagnostics_message,
-  colors = {
-    error = "#BF616A",
-    warn = "#EBCB8B",
-    info = "#A3BE8C",
-    hint = "#88C0D0",
-  },
+  cond = function()
+    return not diagnostics_message.has_diags_msg()
+  end,
 }
 
 local encoding = {
   "encoding",
   padding = 0,
+}
+
+local modified = {
+  function()
+    if vim.bo.modified then
+      return "+"
+    elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+      return "-"
+    end
+    return ""
+  end,
+  color = { bg = "red" },
+}
+
+local function search_result()
+  if vim.v.hlsearch == 0 then
+    return ""
+  end
+  local last_search = vim.fn.getreg("/")
+  if not last_search or last_search == "" then
+    return ""
+  end
+  local searchcount = vim.fn.searchcount({ maxcount = 9999 })
+  return last_search .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
+end
+
+local location = {
+  "%l:%c %p%%",
 }
 
 lualine.setup({
@@ -180,6 +162,7 @@ lualine.setup({
     icons_enabled = true,
     theme = "auto",
     component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     -- section_separators = { left = "", right = "" },
     -- component_separators = { left = '', right = '' }
     -- section_separators = { left = '', right = '' },
@@ -190,10 +173,10 @@ lualine.setup({
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", diff, diagnostics },
-    lualine_c = { diags },
-    lualine_x = { spaces, encoding, fileformat },
-    lualine_y = {  filetype, 'os.date("%I:%M:%S", os.time())' },
-    lualine_z = { "progress" },
+    lualine_b = { "branch", diff },
+    lualine_c = { diags_error, diags_warn, filename, diags_msg },
+    lualine_x = { search_result, spaces, encoding, fileformat },
+    lualine_y = { filetype, time },
+    lualine_z = { location },
   },
 })
