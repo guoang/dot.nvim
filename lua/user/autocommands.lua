@@ -67,12 +67,11 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
       return
     end
     local bufnr = vim.fn.bufnr()
-    local bufnr_last = vim.fn.bufnr("$")
     local bufname = vim.fn.bufname()
     if #bufname > 0 then
       local path = plenary_path.new(bufname)
       if #bufname and path:exists() and path:is_dir() then
-        if bufnr == 1 and bufnr_last <= 2 then
+        if bufnr == 1 then
           vim.fn.chdir(bufname)
           vim.cmd("Alpha")
           vim.api.nvim_buf_delete(bufnr, {})
@@ -94,7 +93,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
--- need bufdelete.nvim, neo-tree & alpha-dashboard
+-- open Alpha when no buffer
 local alpha_on_empty = vim.api.nvim_create_augroup("alpha_on_empty", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   pattern = "BDeletePost*",
@@ -103,9 +102,7 @@ vim.api.nvim_create_autocmd("User", {
     local fallback_name = vim.api.nvim_buf_get_name(event.buf)
     local fallback_ft = vim.api.nvim_buf_get_option(event.buf, "filetype")
     local fallback_on_empty = fallback_name == "" and fallback_ft == ""
-
     if fallback_on_empty then
-      -- require("neo-tree").close_all()
       vim.cmd("Alpha")
       vim.cmd(event.buf .. "bwipeout")
     end
@@ -127,13 +124,6 @@ vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.java" },
-  callback = function()
-    vim.lsp.codelens.refresh()
   end,
 })
 
