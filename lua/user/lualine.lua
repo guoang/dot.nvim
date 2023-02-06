@@ -160,7 +160,7 @@ local search_result = {
 }
 
 local location = {
-  "%l:%c %p%%",
+  "%l:%c %p%% %L",
 }
 
 lualine.setup({
