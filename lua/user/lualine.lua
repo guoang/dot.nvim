@@ -60,9 +60,12 @@ local time = {
   'os.date("%I:%M:%S", os.time())',
 }
 
-local spaces = function()
-  return "sw-" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
+local spaces = {
+  function()
+    return "sw-" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+  end,
+  separator = { left = "" },
+}
 
 local diagnostics_message = require("user.lualine-diagnostics-message")
 
@@ -140,17 +143,21 @@ local modified = {
   color = { bg = "red" },
 }
 
-local function search_result()
-  if vim.v.hlsearch == 0 then
-    return ""
-  end
-  local last_search = vim.fn.getreg("/")
-  if not last_search or last_search == "" then
-    return ""
-  end
-  local searchcount = vim.fn.searchcount({ maxcount = 9999 })
-  return last_search .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
-end
+local search_result = {
+  function()
+    if vim.v.hlsearch == 0 then
+      return ""
+    end
+    local last_search = vim.fn.getreg("/")
+    if not last_search or last_search == "" then
+      return ""
+    end
+    local searchcount = vim.fn.searchcount({ maxcount = 9999 })
+    return last_search .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
+  end,
+  color = { bg = "green" },
+  separator = { left = "" },
+}
 
 local location = {
   "%l:%c %p%%",

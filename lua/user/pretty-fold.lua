@@ -11,7 +11,8 @@ local function ellipsis(config)
   local content = vim.fn.getline(vim.v.foldstart)
   content = content:gsub("\t", string.rep(" ", vim.bo.tabstop))
   if config.keep_indentation then
-    content = content:match("^%s%s+") .. "..."
+    local indent = content:match("^%s%s+") or ""
+    content = indent .. "..."
   else
     content = "..."
   end

@@ -39,7 +39,6 @@ local function switch_spell_check()
   end
 end
 
-
 M.switch_column = switch_column
 M.switch_diagnostic = switch_diagnostic
 M.switch_spell_check = switch_spell_check

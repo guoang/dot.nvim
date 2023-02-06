@@ -173,6 +173,7 @@ keymap("n", "<leader>si", "<Plug>ImSelect_toggle_auto_insert",                  
 keymap("n", "<leader>sd", "<cmd>lua require('user.switch').switch_diagnostic()<cr>",  { silent = true, desc = "switch Diagnostic visible" })
 keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",      { silent = true, desc = "switch colorColumn" })
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
+keymap("n", "<leader>sh", "<cmd>nohlsearch<cr>",                                      { silent = true, desc = "switch search Highlight" })
 keymap("n", "<leader>st", "<cmd>TableModeToggle<cr>",                                 { silent = true, desc = "switch Table mode" })
 
 -- Cmp
