@@ -11,3 +11,4 @@ if colorscheme == "sonokai" then
 end
 
 vim.cmd("highlight Normal guibg=none ctermbg=none")
+vim.cmd("highlight EndOfBuffer guibg=none ctermbg=none")
