@@ -5,6 +5,7 @@ end
 
 pretty_fold.setup({
   fill_char = " ",
+  process_comment_signs = false,
 })
 
 local function ellipsis(config)
