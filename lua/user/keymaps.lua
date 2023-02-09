@@ -88,8 +88,8 @@ keymap("n", "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     { 
 keymap("n", "<leader>fB", "<cmd>Telescope buffers<cr>",                       { silent = true, desc = "find Buffers"                })
 keymap("n", "<leader>fM", "<cmd>Telescope man_pages<cr>",                     { silent = true, desc = "find Man pages"              })
 keymap("n", "<leader>fR", "<cmd>Telescope registers<cr>",                     { silent = true, desc = "find Registers"              })
-keymap("n", "<leader>fc", "<cmd>Telescope commands<cr>",                      { silent = true, desc = "find vim Commands"           })
-keymap("n", "<leader>fC", "<cmd>Telescope colorscheme<cr>",                   { silent = true, desc = "find vim Colorscheme"        })
+keymap("n", "<leader>fc", "<cmd>Telescope neoclip<cr>",                       { silent = true, desc = "find Clip"           })
+keymap("n", "<leader>fC", "<cmd>Telescope commands<cr>",                      { silent = true, desc = "find vim Commands"           })
 keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",                     { silent = true, desc = "find vim Help"               })
 keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { silent = true, desc = "find vim Keymaps"            })
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
@@ -183,8 +183,8 @@ keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('brows
 keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
 
 -- Copilot
-keymap("i", "<C-;>", 'copilot#Accept(function("copilot#Suggest"))', { silent = true, script = true, expr = true, desc = "copilot accept suggestion" })
-keymap("i", "<C-'>", 'copilot#Dismiss()',                           { silent = true, expr = true,   desc = "copilot dismiss suggestion"             })
+keymap("i", "<C-l>", 'copilot#Accept(function("copilot#Suggest"))', { silent = true, script = true, expr = true, desc = "copilot accept suggestion" })
+-- keymap("i", "<C-'>", 'copilot#Dismiss()',                           { silent = true, expr = true,   desc = "copilot dismiss suggestion"             })
 
 -- RunIt
 keymap("n", "<leader>rc", "<cmd>lua require('runit').run('#config')<cr>",          { silent = true, desc = "run Config" })

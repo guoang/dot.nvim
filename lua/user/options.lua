@@ -42,3 +42,4 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters
 vim.opt.list = true
 vim.opt.colorcolumn = "80"
 vim.opt.foldmethod = "marker"
+vim.opt.wrapscan = false                        -- don't wrap around when searching

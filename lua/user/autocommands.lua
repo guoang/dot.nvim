@@ -10,13 +10,27 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "cpp", "c", "python", "cmake", "lua" },
+  pattern = { "cpp", "c", "python", "lua" },
   callback = function()
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
     vim.opt_local.foldenable = true
     -- vim.opt_local.foldnestmax = 3
     -- vim.cmd("normal zx")
+  end,
+})
+
+-- dim inactive buffer
+vim.api.nvim_create_autocmd('BufLeave', {
+  callback = function()
+    vim.opt_local.cursorline = false
+  end,
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    if vim.bo.filetype ~= 'alpha' then
+      vim.opt_local.cursorline = true
+    end
   end,
 })
 

@@ -108,12 +108,7 @@ return packer.startup(function(use)
   })
   use({ "kevinhwang91/nvim-bqf", ft = "qf" })
   use({ "rhysd/devdocs.vim" })
-  use({
-    "AckslD/nvim-neoclip.lua",
-    config = function()
-      require("neoclip").setup()
-    end,
-  })
+  use({ "AckslD/nvim-neoclip.lua" })
   use({ "anuvyklack/pretty-fold.nvim" })
   use({
     "anuvyklack/fold-preview.nvim",
