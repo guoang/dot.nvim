@@ -45,7 +45,6 @@ vim.opt.wrapscan = false                        -- don't wrap around when search
 vim.opt.fillchars={                             -- https://neovim.io/doc/user/options.html#'fillchars'
   eob = " ",
   vert = " ",
-  horiz = " ",
   fold = " ",
   foldopen = "▾",
   foldclose = "▸",
