@@ -47,13 +47,14 @@ local comment_signs = {
 
 -- setup for fmd=marker
 function M.setup_for_marker()
-  local comment_sign = comment_signs[vim.bo.filetype]
+  local ft = vim.bo.filetype
+  local comment_sign = comment_signs[ft]
   if comment_sign == nil then
     comment_sign = ""
   else
     comment_sign = comment_sign .. " "
   end
-  pretty_fold.setup({
+  pretty_fold.ft_setup(ft, {
     fill_char = " ",
     sections = {
       left = { comment_sign, "{{{ ... ", "number_of_folded_lines", " ... }}}" },
