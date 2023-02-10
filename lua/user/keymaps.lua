@@ -84,12 +84,10 @@ keymap("n", "<leader>fw", "<cmd>Telescope grep_string<cr>",                   { 
 keymap("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>",          { silent = true, desc = "find lsp document Symbols"   })
 keymap("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { silent = true, desc = "find lsp workspace Symbols"  })
 keymap("n", "<leader>ft", "<cmd>Telescope treesitter<cr>",                    { silent = true, desc = "find symbols by Treesitter"  })
-keymap("n", "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     { silent = true, desc = "find text in current Buffer" })
-keymap("n", "<leader>fB", "<cmd>Telescope buffers<cr>",                       { silent = true, desc = "find Buffers"                })
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>",                       { silent = true, desc = "find Buffers"                })
 keymap("n", "<leader>fM", "<cmd>Telescope man_pages<cr>",                     { silent = true, desc = "find Man pages"              })
 keymap("n", "<leader>fR", "<cmd>Telescope registers<cr>",                     { silent = true, desc = "find Registers"              })
-keymap("n", "<leader>fc", "<cmd>Telescope neoclip<cr>",                       { silent = true, desc = "find Clip"           })
-keymap("n", "<leader>fC", "<cmd>Telescope commands<cr>",                      { silent = true, desc = "find vim Commands"           })
+keymap("n", "<leader>fc", "<cmd>Telescope commands<cr>",                      { silent = true, desc = "find vim Commands"           })
 keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",                     { silent = true, desc = "find vim Help"               })
 keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { silent = true, desc = "find vim Keymaps"            })
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
@@ -107,7 +105,7 @@ keymap("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>",              { sile
 keymap("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>",               { silent = true, desc = "trouble toggle loclist"               })
 
 -- Git
-keymap("n", "<leader>gl", "<cmd>lua TTERM_LAZYGIT()<cr>",                    { silent = true, desc = "git Lazygit"         })
+keymap("n", "<leader>gl", "<cmd>lua TTERM_LAZYGIT()<cr>",                      { silent = true, desc = "git Lazygit"         })
 keymap("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
 keymap("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       { silent = true, desc = "git Prev Hunk"       })
 keymap("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
@@ -124,9 +122,7 @@ keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>",                   {
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    { silent = true, desc = "git Commits"         })
 
 -- Spectre
-keymap("n", "<leader>SS", "viw:lua require('spectre').open()<cr>",                           { silent = true, desc = "spectre Substitute" })
-keymap("n", "<leader>Sw", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", { silent = true, desc = "spectre substitute Word under cursor" })
-keymap("v", "<leader>Sw", "<esc>:lua require('spectre').open_visual()<cr>",                  { silent = true, desc = "spectre substitute Word selected"     })
+keymap("n", "<leader>SS", "viw:lua require('spectre').open()<cr>",             { silent = true, desc = "spectre Substitute" })
 
 -- LSP
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>",                                 { silent = true, desc = "lsp Info"              })
@@ -186,27 +182,6 @@ keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look'
 keymap("i", "<C-l>", 'copilot#Accept(function("copilot#Suggest"))', { silent = true, script = true, expr = true, desc = "copilot accept suggestion" })
 -- keymap("i", "<C-'>", 'copilot#Dismiss()',                           { silent = true, expr = true,   desc = "copilot dismiss suggestion"             })
 
--- RunIt
-keymap("n", "<leader>rc", "<cmd>lua require('runit').run('#config')<cr>",          { silent = true, desc = "run Config" })
-keymap("n", "<leader>rC", "<cmd>lua require('runit').run('#clean')<cr>",           { silent = true, desc = "run Clean" })
-keymap("n", "<leader>rb", "<cmd>lua require('runit').run('#build')<cr>",           { silent = true, desc = "run Build" })
-keymap("n", "<leader>rt", "<cmd>lua require('runit').run('#test')<cr>",            { silent = true, desc = "run Test" })
-keymap("n", "<leader>ri", "<cmd>lua require('runit').run('#install')<cr>",         { silent = true, desc = "run Install" })
-keymap("n", "<leader>ra", "<cmd>lua require('runit').run('#all')<cr>",             { silent = true, desc = "run All" })
-keymap("n", "<leader>rl", "<cmd>lua require('runit').run('#__last__')<cr>",        { silent = true, desc = "run Last" })
-keymap("n", "<leader>rr", "<cmd>lua require('runit').run('#__focus__')<cr>",       { silent = true, desc = "run focus" })
-keymap("n", "<leader>rf", ":lua require('runit').focus({\"\"})<Left><Left><Left>", { desc = "set Focus" })
-
-keymap("n", "<leader>Rc", "<cmd>lua require('runit').run_file('#config')<cr>",     { silent = true, desc = "run file Config" })
-keymap("n", "<leader>RC", "<cmd>lua require('runit').run_file('#clean')<cr>",      { silent = true, desc = "run file Clean" })
-keymap("n", "<leader>Rb", "<cmd>lua require('runit').run_file('#build')<cr>",      { silent = true, desc = "run file Build" })
-keymap("n", "<leader>Rt", "<cmd>lua require('runit').run_file('#test')<cr>",       { silent = true, desc = "run file Test" })
-keymap("n", "<leader>Ri", "<cmd>lua require('runit').run_file('#install')<cr>",    { silent = true, desc = "run file Install" })
-keymap("n", "<leader>Ra", "<cmd>lua require('runit').run_file('#all')<cr>",        { silent = true, desc = "run file All" })
-keymap("n", "<leader>Rr", "<cmd>lua require('runit').run_file('#__last__')<cr>",   { silent = true, desc = "run file focus" })
-keymap("n", "<leader>Rr", "<cmd>lua require('runit').run_file('#__focus__')<cr>",  { silent = true, desc = "run file focus" })
-keymap("n", "<leader>Rf", ":lua require('runit').focus({\"\"})<Left><Left><Left>", { desc = "set file Focus" })
-
 -- Telekasten
 keymap("n", "<leader>zz", "<cmd>lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })
 keymap("n", "<leader>zf", "<cmd>lua require('telekasten').find_notes()<cr>",                { silent = true, noremap = true, desc = "zettelkasten Find notes" })
@@ -237,3 +212,7 @@ keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_togg
 
 -- Dispatch
 keymap("n", "<leader><cr>", "<cmd>w | Make %<cr>", { silent = true, noremap = true, desc = "dispatch" })
+
+-- neoclip
+keymap("n", "<C-p>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })
+keymap("i", "<C-r>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })

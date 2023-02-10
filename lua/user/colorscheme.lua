@@ -5,10 +5,10 @@ if not status_ok then
   return
 end
 
+vim.cmd("hi link illuminatedWord LspReferenceText")
+vim.cmd("hi! link Folded Comment")
+
 if colorscheme == "sonokai" then
   -- distinguish from illuminate highlight
-  pcall(vim.cmd, "highlight Visual cterm=bold gui=bold guibg=#3b4a5e")
+  vim.cmd("highlight Visual cterm=bold gui=bold guibg=#3b4a5e")
 end
-
-vim.cmd("highlight Normal guibg=none ctermbg=none")
-vim.cmd("highlight EndOfBuffer guibg=none ctermbg=none")

@@ -9,26 +9,30 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- setup folding
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "cpp", "c", "python", "lua" },
   callback = function()
-    vim.opt_local.foldmethod = "expr"
-    vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-    vim.opt_local.foldenable = true
-    -- vim.opt_local.foldnestmax = 3
-    -- vim.cmd("normal zx")
+    local ft = vim.bo.filetype
+    if vim.tbl_contains({ "cpp", "c", "python", "lua" }, ft) then
+      vim.opt_local.foldmethod = "expr"
+      vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt_local.foldenable = true
+      require("user.pretty-fold").setup_for_expr()
+    else
+      require("user.pretty-fold").setup_for_marker()
+    end
   end,
 })
 
 -- dim inactive buffer
-vim.api.nvim_create_autocmd('BufLeave', {
+vim.api.nvim_create_autocmd("BufLeave", {
   callback = function()
     vim.opt_local.cursorline = false
   end,
 })
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    if vim.bo.filetype ~= 'alpha' then
+    if vim.bo.filetype ~= "alpha" then
       vim.opt_local.cursorline = true
     end
   end,
@@ -37,13 +41,13 @@ vim.api.nvim_create_autocmd('BufEnter', {
 -- a file opened by telescope will not folding
 -- fix it with this autocmd
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-1074076011
-vim.api.nvim_create_autocmd('BufRead', {
-   callback = function()
-      vim.api.nvim_create_autocmd('BufWinEnter', {
-         once = true,
-         command = 'normal! zx'
-      })
-   end
+vim.api.nvim_create_autocmd("BufRead", {
+  callback = function()
+    vim.api.nvim_create_autocmd("BufWinEnter", {
+      once = true,
+      command = "normal! zx",
+    })
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -138,12 +142,6 @@ vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function()
-    vim.cmd("hi link illuminatedWord LspReferenceText")
   end,
 })
 
