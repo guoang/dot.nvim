@@ -179,8 +179,8 @@ keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('brows
 keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
 
 -- Copilot
-keymap("i", "<C-l>", 'copilot#Accept(function("copilot#Suggest"))', { silent = true, script = true, expr = true, desc = "copilot accept suggestion" })
--- keymap("i", "<C-'>", 'copilot#Dismiss()',                           { silent = true, expr = true,   desc = "copilot dismiss suggestion"             })
+keymap("i", "<C-l>",     "<cmd>lua require('user.copilot').accept_all()<cr>",      { silent = true, desc = "copilot accept suggestion" })
+keymap("i", "<C-Space>", "<cmd>lua require('user.copilot').toggle_suggest()<cr>", { silent = true, desc = "copilot toggle suggestion" })
 
 -- Telekasten
 keymap("n", "<leader>zz", "<cmd>lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })
@@ -215,4 +215,3 @@ keymap("n", "<leader><cr>", "<cmd>w | Make %<cr>", { silent = true, noremap = tr
 
 -- neoclip
 keymap("n", "<C-p>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })
-keymap("i", "<C-r>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })

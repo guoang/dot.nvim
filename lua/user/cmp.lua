@@ -13,11 +13,26 @@ if not lspkind_ok then
   return
 end
 
+local co_ok, copilot = pcall(require, "user.copilot")
+if not co_ok then
+  return
+end
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
+local goto_eol = function()
+  local line = vim.api.nvim_get_current_line()
+  vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line })
+end
+
+local move_forward = function()
+  local pos = vim.api.nvim_win_get_cursor(0)
+  vim.api.nvim_win_set_cursor(0, { pos[1], pos[2] + 1 })
 end
 
 -- sources {{{
@@ -121,66 +136,28 @@ cmp.setup({
       end
     end),
     ["<C-f>"] = cmp.mapping(function(fallback)
-      local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
-      if cmp.visible() and cmp.get_active_entry() ~= nil then
+      if copilot.has_suggestion() then
+        copilot.accept_char(fallback)
+      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
         -- accept cmp suggestion, and move cursor forward
         cmp.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = false,
-        }, function()
-          local pos = vim.api.nvim_win_get_cursor(0)
-          vim.api.nvim_win_set_cursor(0, { pos[1], pos[2] + 1 })
-        end)
-      elseif co_s.text ~= "" and co_s.text ~= nil then
-        -- accept copilot suggestion, just next char
-        local co_line = co_s.text:match(".-\n")
-        if co_line == nil then
-          co_line = co_s.text
-        else
-          co_line = co_line:sub(1, -2)
-        end
-        if co_line ~= "" then
-          local pos = vim.api.nvim_win_get_cursor(0)[2]
-          local line = vim.api.nvim_get_current_line()
-          co_line = line:sub(0, pos) .. co_line:sub(0, 1)
-          vim.api.nvim_set_current_line(co_line)
-          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], pos + 1 })
-        else
-          fallback()
-        end
+        }, move_forward)
       else
         fallback()
       end
     end),
     ["<C-e>"] = cmp.mapping(function(fallback)
-      local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
-      if cmp.visible() and cmp.get_active_entry() ~= nil then
+      if copilot.has_suggestion() then
+        -- accept copilot suggestion, just current line
+        copilot.accept_line(fallback)
+      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
         -- accept cmp suggestion, and move cursor to end of line
         cmp.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = false,
-        }, function()
-          local line = vim.api.nvim_get_current_line()
-          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line })
-        end)
-      elseif co_s.text ~= "" and co_s.text ~= nil then
-        -- accept copilot suggestion, just current line
-        local co_line = co_s.text:match(".-\n")
-        if co_line == nil then
-          co_line = co_s.text
-        else
-          co_line = co_line:sub(1, -2)
-        end
-        if co_line ~= "" then
-          local pos = vim.api.nvim_win_get_cursor(0)[2]
-          local line = vim.api.nvim_get_current_line()
-          co_line = line:sub(0, pos) .. co_line
-          vim.api.nvim_set_current_line(co_line)
-          line = vim.api.nvim_get_current_line()
-          vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #line })
-        else
-          fallback()
-        end
+        }, goto_eol)
       else
         fallback()
       end
@@ -192,7 +169,6 @@ cmp.setup({
       select = false,
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      -- local co_s = vim.fn["copilot#GetDisplayedSuggestion"]()
       if cmp.visible() then
         if cmp.get_active_entry() ~= nil then
           cmp.confirm()
@@ -200,14 +176,6 @@ cmp.setup({
           cmp.select_next_item()
           cmp.confirm()
         end
-      -- don't do this, or can't input <tab> when copilot is suggesting
-      -- elseif co_s.text ~= "" then
-      -- 	local co_keys = vim.fn["copilot#Accept"]()
-      -- 	if co_keys ~= "" then
-      -- 		vim.api.nvim_feedkeys(co_keys, "i", true)
-      -- 	else
-      -- 		fallback()
-      -- 	end
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif check_backspace() then

@@ -55,7 +55,7 @@ return packer.startup(function(use)
   -- My plugins here
   use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
   use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
-  use({ "windwp/nvim-autopairs", commit = "4fc96c8f3df89b6d23e5092d31c866c53a346347" }) -- Autopairs, integrates with both cmp and treesitter
+  use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
   use({ "numToStr/Comment.nvim" })
   use({ "JoosepAlviste/nvim-ts-context-commentstring" })
   use({ "kyazdani42/nvim-web-devicons" })
@@ -65,7 +65,7 @@ return packer.startup(function(use)
   use({ "famiu/bufdelete.nvim" })
   use({ "nvim-lualine/lualine.nvim" })
   use({ "akinsho/toggleterm.nvim" })
-  use({ "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" })
+  use({ "lewis6991/impatient.nvim" })
   use({ "lukas-reineke/indent-blankline.nvim" })
   use({ "junegunn/vim-easy-align" })
   use({
@@ -95,19 +95,11 @@ return packer.startup(function(use)
   use({ "tpope/vim-repeat" })
   use({ "rmagatti/auto-session" })
   use({ "AndrewRadev/switch.vim" })
-  -- use { "edluffy/hologram.nvim", config = function() require'hologram'.setup{ auto_display = true } end }
   use({ "renerocksai/calendar-vim" })
   use({ "renerocksai/telekasten.nvim" })
   use({ "dhruvasagar/vim-table-mode", opt = true, cmd = { "TableModeToggle" } })
-  use({
-    "github/copilot.vim",
-    config = function()
-      vim.g.copilot_no_tab_map = true
-    end,
-    -- event = "InsertEnter",  -- this will cause a weird error of telescope
-  })
+  use({ "github/copilot.vim" })
   use({ "kevinhwang91/nvim-bqf", ft = "qf" })
-  use({ "rhysd/devdocs.vim" })
   use({ "AckslD/nvim-neoclip.lua" })
   use({ "anuvyklack/pretty-fold.nvim" })
   use({
@@ -119,6 +111,7 @@ return packer.startup(function(use)
       })
     end,
   })
+  use({ "lukas-reineke/headlines.nvim" })
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
@@ -133,13 +126,15 @@ return packer.startup(function(use)
   })
 
   -- Colorschemes
+  use({ "xiyaowong/nvim-transparent" })
   use({ "sainnhe/sonokai" })
   use({ "folke/tokyonight.nvim" })
+  use({ "cocopon/iceberg.vim" })
+  use({ "shaunsingh/nord.nvim" })
   -- use({ "lunarvim/darkplus.nvim" })
   -- use({ "navarasu/onedark.nvim" })
   -- use({ "rafamadriz/neon" })
   -- use({ "glepnir/zephyr-nvim" })
-  -- use({ "shaunsingh/nord.nvim" })
 
   -- cmp plugins
   use({ "hrsh7th/nvim-cmp" }) -- The completion plugin

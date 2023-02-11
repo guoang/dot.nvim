@@ -3,8 +3,12 @@ if not status_ok then
   return
 end
 
-local hide_in_width = function()
+local hide_in_width_1 = function()
   return vim.fn.winwidth(0) > 80
+end
+
+local hide_in_width_2 = function()
+  return vim.fn.winwidth(0) > 120
 end
 
 -- https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/slanted-gaps.lua
@@ -35,7 +39,7 @@ local diff = {
   "diff",
   colored = true,
   symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = hide_in_width,
+  cond = hide_in_width_1,
   source = diff_source,
   padding = { left = 0, right = 1 },
 }
@@ -54,10 +58,11 @@ local fileformat = {
     dos = "CRLF",
     mac = "CR",
   },
+  cond = hide_in_width_2,
 }
 
 local time = {
-  'os.date("%I:%M:%S", os.time())',
+  'os.date("%H:%M:%S", os.time())',
 }
 
 local spaces = {
@@ -65,6 +70,7 @@ local spaces = {
     return "sw-" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
   end,
   separator = { left = "" },
+  cond = hide_in_width_2,
 }
 
 local diagnostics_message = require("user.lualine-diagnostics-message")
@@ -129,6 +135,7 @@ local filename = {
 local encoding = {
   "encoding",
   padding = 0,
+  cond = hide_in_width_2,
 }
 
 local modified = {
@@ -155,7 +162,7 @@ local search_result = {
     local searchcount = vim.fn.searchcount({ maxcount = 9999 })
     return last_search .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
   end,
-  color = { bg = "green" },
+  color = "Search",
   separator = { left = "" },
 }
 
