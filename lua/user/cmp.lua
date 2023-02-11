@@ -105,37 +105,36 @@ cmp.setup({
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-
   mapping = cmp.mapping.preset.insert({
-    ["<C-k>"] = cmp.mapping(function(fallback)
+    ["<C-k>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(-1)
       else
         fallback()
       end
-    end),
-    ["<C-j>"] = cmp.mapping(function(fallback)
+    end,
+    ["<C-j>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(1)
       else
         fallback()
       end
-    end),
-    ["<C-n>"] = cmp.mapping(function(_)
+    end,
+    ["<C-n>"] = function(_)
       if cmp.visible() then
         cmp.select_next_item()
       else
         cmp.complete()
       end
-    end),
-    ["<C-p>"] = cmp.mapping(function(_)
+    end,
+    ["<C-p>"] = function(_)
       if cmp.visible() then
         cmp.select_prev_item()
       else
         cmp.complete()
       end
-    end),
-    ["<C-f>"] = cmp.mapping(function(fallback)
+    end,
+    ["<C-f>"] = function(fallback)
       if copilot.has_suggestion() then
         copilot.accept_char(fallback)
       elseif cmp.visible() and cmp.get_active_entry() ~= nil then
@@ -147,8 +146,8 @@ cmp.setup({
       else
         fallback()
       end
-    end),
-    ["<C-e>"] = cmp.mapping(function(fallback)
+    end,
+    ["<C-e>"] = function(fallback)
       if copilot.has_suggestion() then
         -- accept copilot suggestion, just current line
         copilot.accept_line(fallback)
@@ -161,14 +160,14 @@ cmp.setup({
       else
         fallback()
       end
-    end),
+    end,
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<Tab>"] = function(fallback)
       if cmp.visible() then
         if cmp.get_active_entry() ~= nil then
           cmp.confirm()
@@ -183,8 +182,8 @@ cmp.setup({
       else
         fallback()
       end
-    end),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    end,
+    ["<S-Tab>"] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -192,7 +191,7 @@ cmp.setup({
       else
         fallback()
       end
-    end),
+    end,
   }),
   formatting = {
     fields = { "abbr", "kind", "menu" },
@@ -236,12 +235,54 @@ cmp.setup({
 
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ['<C-j>'] = {
+      c = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+    },
+    ['<C-k>'] = {
+      c = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end,
+    },
+    ["<C-n>"] = { c = function(fallback) fallback() end },
+    ["<C-p>"] = { c = function(fallback) fallback() end },
+  }),
   sources = cmp.config.sources({ { name = "nvim_lsp_document_symbol" } }, { { name = "buffer" } }),
 })
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ['<C-j>'] = {
+      c = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+    },
+    ['<C-k>'] = {
+      c = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end,
+    },
+    ["<C-n>"] = { c = function(fallback) fallback() end },
+    ["<C-p>"] = { c = function(fallback) fallback() end },
+  }),
   sources = cmp.config.sources({ { name = "path" } }, {
     {
       name = "cmdline",
