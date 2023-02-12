@@ -20,17 +20,21 @@ function M.get_bufnr(filter)
       end
     end
   end
-  -- return current bufnr
-  return vim.fn.bufnr()
 end
 
 function M.get_winnr(filter)
   local bufnr = M.get_bufnr(filter)
+  if bufnr == nil then
+    return -1
+  end
   return vim.fn.bufwinnr(bufnr)
 end
 
 function M.get_winid(filter)
   local bufnr = M.get_bufnr(filter)
+  if bufnr == nil then
+    return -1
+  end
   return vim.fn.bufwinid(bufnr)
 end
 
@@ -40,6 +44,19 @@ end
 
 function M.set_winhl_nvimtree(filter)
   M.set_winhl(filter, require("nvim-tree.view").View.winopts.winhl)
+end
+
+function M.is_qf_open()
+  return M.get_winnr({ filetype = "qf" }) ~= -1
+end
+
+-- switch spell checking
+function M.toggle_qf()
+  if not require('user.utils').is_qf_open() then
+    vim.cmd("copen")
+  else
+    vim.cmd("cclose")
+  end
 end
 
 return M

@@ -143,12 +143,10 @@ local function close_all_floating_wins()
   end
 end
 
-local function close_nvim_tree()
+local function close_windows()
   pcall(vim.cmd, "NvimTreeClose")
-end
-
-local function close_symbols_outline()
   pcall(vim.cmd, "SymbolsOutlineClose")
+  pcall(vim.cmd, "cclose")
 end
 
 local function save_vim_enter_dir()
@@ -174,5 +172,5 @@ auto_session.setup({
   auto_session_use_git_branch = false,
   post_restore_cmds = { restore_bufferline_groups },
   post_save_cmds = { save_vim_enter_dir },
-  pre_save_cmds = { close_all_floating_wins, close_nvim_tree, close_symbols_outline },
+  pre_save_cmds = { close_all_floating_wins, close_windows },
 })

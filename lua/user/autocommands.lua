@@ -24,9 +24,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- symbols-outline background color
+-- set background color for specific windows
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Outline" },
+  pattern = { "Outline", "qf", "Trouble" },
   callback = function()
     require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
   end,
@@ -36,15 +36,20 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()
     vim.opt_local.cursorline = false
-    require("user.utils").set_winhl(nil, "EndOfBuffer:NvimTreeEndOfBuffer,Normal:NvimTreeNormal")
+    vim.opt_local.colorcolumn = "0"
   end,
 })
 vim.api.nvim_create_autocmd("WinEnter", {
   callback = function()
-    if vim.bo.filetype ~= "alpha" then
-      vim.opt_local.cursorline = true
-      require("user.utils").set_winhl(nil, "EndOfBuffer:EndOfBuffer,Normal:Normal")
+    if vim.bo.filetype == "alpha" then
+      return
     end
+    if vim.bo.filetype == "qf" or vim.bo.filetype == "Trouble" then
+      vim.opt_local.cursorline = true
+      return
+    end
+    vim.opt_local.cursorline = true
+    vim.opt_local.colorcolumn = "80"
   end,
 })
 

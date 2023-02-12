@@ -69,6 +69,7 @@ keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",                             {
 -- Nvim-tree
 keymap("n", "<leader>ee", "<cmd>NvimTreeToggle<cr>", { silent = true, desc = "Explorer files" })
 keymap("n", "<leader>es", "<cmd>SymbolsOutline<cr>", { silent = true, desc = "explorer Symbols" })
+keymap("n", "<leader>eq", "<cmd>lua require('user.utils').toggle_qf()<cr>", { silent = true, desc = "explorer Quickfix" })
 
 -- Lightspeed
 -- use s/x/gs/f/t by default
@@ -94,10 +95,12 @@ keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { 
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
 
 -- Terminal
+keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",   { silent = true, desc = "terminal toggle Float" })
 keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
 keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
 keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
 keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
+keymap("n", "<leader>tp", "<cmd>lua require('user.toggleterm').python()<cr>",   { silent = true, desc = "terminal Python" })
 
 -- Trouble
 keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>",                       { silent = true, desc = "trouble toggle"                       })
@@ -106,7 +109,7 @@ keymap("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>",              { sile
 keymap("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>",               { silent = true, desc = "trouble toggle loclist"               })
 
 -- Git
-keymap("n", "<leader>gl", "<cmd>lua TTERM_LAZYGIT()<cr>",                      { silent = true, desc = "git Lazygit"         })
+keymap("n", "<leader>gl", "<cmd>lua require('user.toggleterm').lazygit()<cr>",  { silent = true, desc = "git Lazygit"         })
 keymap("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
 keymap("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       { silent = true, desc = "git Prev Hunk"       })
 keymap("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
