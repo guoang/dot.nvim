@@ -24,16 +24,26 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- dim inactive buffer
-vim.api.nvim_create_autocmd("BufLeave", {
+-- symbols-outline background color
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "Outline" },
   callback = function()
-    vim.opt_local.cursorline = false
+    require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
   end,
 })
-vim.api.nvim_create_autocmd("BufEnter", {
+
+-- dim inactive window
+vim.api.nvim_create_autocmd("WinLeave", {
+  callback = function()
+    vim.opt_local.cursorline = false
+    require("user.utils").set_winhl(nil, "EndOfBuffer:NvimTreeEndOfBuffer,Normal:NvimTreeNormal")
+  end,
+})
+vim.api.nvim_create_autocmd("WinEnter", {
   callback = function()
     if vim.bo.filetype ~= "alpha" then
       vim.opt_local.cursorline = true
+      require("user.utils").set_winhl(nil, "EndOfBuffer:EndOfBuffer,Normal:Normal")
     end
   end,
 })

@@ -5,19 +5,7 @@ end
 
 local vim_enter_dir = vim.fn.getcwd()
 
-local function restore_nvim_tree()
-  local bufs = vim.api.nvim_list_bufs()
-  for _, bufnr in ipairs(bufs) do
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-    if bufname ~= nil and bufname:match("NvimTree") then
-      vim.cmd("NvimTreeOpen")
-      break
-    end
-  end
-end
-
 -- find_pattern_root from project.nvim
--- {{{
 local function find_pattern_root(search_dir, patterns)
   if vim.fn.has("win32") > 0 then
     search_dir = search_dir:gsub("\\", "/")
@@ -131,8 +119,6 @@ local function find_pattern_root(search_dir, patterns)
   end
 end
 
--- }}}
-
 local function restore_bufferline_groups()
   local config = require("project_nvim.config")
   local bufs = vim.api.nvim_list_bufs()
@@ -157,6 +143,14 @@ local function close_all_floating_wins()
   end
 end
 
+local function close_nvim_tree()
+  pcall(vim.cmd, "NvimTreeClose")
+end
+
+local function close_symbols_outline()
+  pcall(vim.cmd, "SymbolsOutlineClose")
+end
+
 local function save_vim_enter_dir()
   local cwd = vim.fn.getcwd()
   if cwd == vim_enter_dir then return end
@@ -178,7 +172,7 @@ auto_session.setup({
   auto_restore_enabled = false,
   auto_session_suppress_dirs = { "~/Downloads", "/" },
   auto_session_use_git_branch = false,
-  post_restore_cmds = { restore_bufferline_groups, restore_nvim_tree },
+  post_restore_cmds = { restore_bufferline_groups },
   post_save_cmds = { save_vim_enter_dir },
-  pre_save_cmds = { close_all_floating_wins },
+  pre_save_cmds = { close_all_floating_wins, close_nvim_tree, close_symbols_outline },
 })

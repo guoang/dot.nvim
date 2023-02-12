@@ -106,12 +106,10 @@ return packer.startup(function(use)
     "anuvyklack/fold-preview.nvim",
     requires = "anuvyklack/keymap-amend.nvim",
     config = function()
-      require("fold-preview").setup({
-        -- Your configuration goes here.
-      })
+      require("fold-preview").setup({})
     end,
   })
-  use({ "lukas-reineke/headlines.nvim" })
+  use({ "simrat39/symbols-outline.nvim" })
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })

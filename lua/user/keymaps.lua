@@ -60,14 +60,15 @@ keymap("v", "<", "<gv", { silent = true, desc = "indent -" })
 keymap("v", ">", ">gv", { silent = true, desc = "indent +" })
 
 -- Packer
-keymap("n", "<leader>Pc", "<cmd>PackerCompile<cr>", { silent = true, desc = "packer Compile" })
-keymap("n", "<leader>Pi", "<cmd>PackerInstall<cr>", { silent = true, desc = "packer Install" })
-keymap("n", "<leader>Ps", "<cmd>PackerSync<cr>",    { silent = true, desc = "packer Sync"    })
-keymap("n", "<leader>PS", "<cmd>PackerStatus<cr>",  { silent = true, desc = "packer Status"  })
-keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",  { silent = true, desc = "packer Update"  })
+keymap("n", "<leader>Pc", "<cmd>PackerCompile<cr>",                            { silent = true, desc = "packer Compile" })
+keymap("n", "<leader>Pi", "<cmd>PackerInstall<cr>",                            { silent = true, desc = "packer Install" })
+keymap("n", "<leader>Ps", "<cmd>source lua/user/plugins.lua | PackerSync<cr>", { silent = true, desc = "packer Sync"    })
+keymap("n", "<leader>PS", "<cmd>PackerStatus<cr>",                             { silent = true, desc = "packer Status"  })
+keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",                             { silent = true, desc = "packer Update"  })
 
 -- Nvim-tree
-keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { silent = true, desc = "Explorer" })
+keymap("n", "<leader>ee", "<cmd>NvimTreeToggle<cr>", { silent = true, desc = "Explorer files" })
+keymap("n", "<leader>es", "<cmd>SymbolsOutline<cr>", { silent = true, desc = "explorer Symbols" })
 
 -- Lightspeed
 -- use s/x/gs/f/t by default
@@ -125,14 +126,14 @@ keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    {
 keymap("n", "<leader>SS", "viw:lua require('spectre').open()<cr>",             { silent = true, desc = "spectre Substitute" })
 
 -- LSP
-keymap("n", "<leader>li", "<cmd>LspInfo<cr>",                                 { silent = true, desc = "lsp Info"              })
-keymap("n", "<leader>lI", "<cmd>Mason<cr>",                                   { silent = true, desc = "lsp Install"           })
-keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",           { silent = true, desc = "lsp code Action"       })
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<cr>",      { silent = true, desc = "lsp Format"            })
-keymap('v', '<Leader>lf', "<cmd>lua vim.lsp.buf.format()<cr>",                  { silent = true, desc = "lsp Format selected text" })
-keymap("n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>",              { silent = true, desc = "lsp CodeLens Action"   })
-keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                { silent = true, desc = "lsp Rename"            })
-keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>",        { silent = true, desc = "lsp Signature"         })
+keymap("n", "<leader>li", "<cmd>LspInfo<cr>",                            { silent = true, desc = "lsp Info"              })
+keymap("n", "<leader>lI", "<cmd>Mason<cr>",                              { silent = true, desc = "lsp Install"           })
+keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",      { silent = true, desc = "lsp code Action"       })
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<cr>", { silent = true, desc = "lsp Format"            })
+keymap('v', '<Leader>lf', "<cmd>lua vim.lsp.buf.format()<cr>",           { silent = true, desc = "lsp Format selected text" })
+keymap("n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>",         { silent = true, desc = "lsp CodeLens Action"   })
+keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",           { silent = true, desc = "lsp Rename"            })
+keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>",   { silent = true, desc = "lsp Signature"         })
 
 keymap("n", "KK", "<cmd>lua vim.lsp.buf.hover()<CR>",          { silent = true, noremap = true, desc = "hover doc"         })
 keymap("n", "KD", "<cmd>DevDocsUnderCursor<CR>",               { silent = true, noremap = true, desc = "open devDocs"      })

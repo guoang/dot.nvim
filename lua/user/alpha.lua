@@ -320,7 +320,7 @@ end
 -- {{{
 
 local finding1 = {
-  { "title",  "    FileExplorer",     { "AlphaSubTitle", 0, 30 } },
+  { "title",  "    FileExplorer",      { "AlphaSubTitle", 0, 30 } },
   { "keymap", " <Spc>e Explore Files", { "DevIconLeex",   0, 6 } },
   { "keymap", "" },
   { "title",  "    Finding",           { "AlphaSubTitle", 0, 18 } },
@@ -329,21 +329,19 @@ local finding1 = {
   { "keymap", "<Spc>fr Recent files",  { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>fg live Grep",     { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>fw cursor Word ",  { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>fb text in Buf",   { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>fs buf Symbols",   { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>fS all Symbols",   { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
-  { "keymap", "<Spc>fB open Buffers",  { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
+  { "keymap", "<Spc>fb buffers",       { "DevIconLeex",   0, 6 } },
+  { "keymap", "<Spc>fs lsp Symbols D", { "DevIconLeex",   0, 6 } },
+  { "keymap", "<Spc>fS lsp Symbols W", { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
+  { "keymap", "<Spc>ft TS symbols",    { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
   { "keymap", "<Spc>fR Registers",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
+  { "keymap", "<Spc>fM Man pages",    { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
 }
 
 local finding2 = {
-  { "keymap", "<Spc>fM Man pages",    { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
-  { "keymap", "<Spc>fh vim Help",     { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
+  { "keymap", "<Spc>fh vim Help",     { "DevIconLeex", 0, 6 }, },
   { "keymap", "<Spc>fk vim Keymaps",  { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
   { "keymap", "<Spc>fc vim Commands", { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
-  { "keymap", "<Spc>fC vim Colo",     { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
   { "keymap", "<Spc>fa vim Autocmd",  { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
-  { "keymap", "<Spc>ft TS symbols",   { "DevIconLeex", 0, 6 }, { "Comment", 6, 20 } },
 }
 
 local git = {
@@ -354,12 +352,12 @@ local git = {
   { "keymap", "<Spc>gc Commits",      { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>gb Branches",     { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>gB Blame",        { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>gr Reset Hunk",   { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
+  { "keymap", "<Spc>gr Reset Hunk",   { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>gR Reset Buffer", { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
-  { "keymap", "<Spc>gn Next Hunk",    { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
-  { "keymap", "<Spc>gp Prev Hunk",    { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
-  { "keymap", "<Spc>gS Stage Hunk",   { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
-  { "keymap", "<Spc>gU Unstage Hunk", { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
+  { "keymap", "<Spc>gn Next Hunk",    { "DevIconLeex",   0, 6 } },
+  { "keymap", "<Spc>gp Prev Hunk",    { "DevIconLeex",   0, 6 } },
+  { "keymap", "<Spc>gS Stage Hunk",   { "DevIconLeex",   0, 6 } },
+  { "keymap", "<Spc>gU Unstage Hunk", { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>gP Preview Hunk", { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
 }
 
@@ -370,7 +368,6 @@ local terminal = {
   { "keymap", "  <Spc>tV Vertical 2 windows",   { "DevIconLeex",   0, 7 } },
   { "keymap", "  <Spc>th Horizontal window",    { "DevIconLeex",   0, 7 },    { "Comment", 7, 30 } },
   { "keymap", "  <Spc>tH Horizontal 2 windows", { "DevIconLeex",   0, 7 },    { "Comment", 7, 30 } },
-  { "keymap", "  <Spc>tf Floating window",      { "DevIconLeex",   0, 7 },    { "Comment", 7, 30 } },
 }
 
 local trouble = {
@@ -378,7 +375,6 @@ local trouble = {
   { "title",  "    Trouble",             { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<Spc>tt Toggle window",   { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>tw workspace diags", { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>td document diags",  { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
   { "keymap", "<Spc>tq quickfix",        { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
   { "keymap", "<Spc>tl loclist",         { "DevIconLeex",   0, 6 },    { "Comment", 6, 20 } },
 }
@@ -386,14 +382,14 @@ local trouble = {
 local lsp = {
   { "title",     "    LSP",                 { "AlphaSubTitle", 0, 13 } },
   { "keymap",    "<Spc>li Info",            { "DevIconLeex",   0, 6 } },
-  { "keymap",    "<Spc>lf Format",          { "DevIconLeex",   0, 6 } },
   { "keymap",    "<Spc>lI Install",         { "DevIconLeex",   0, 6 } },
+  { "keymap",    "<Spc>lf Format",          { "DevIconLeex",   0, 6 } },
   { "keymap",    "<Spc>la code Action",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 25 } },
   { "keymap",    "<Spc>ll CodeLens Action", { "DevIconLeex",   0, 6 },    { "Comment", 6, 25 } },
   { "keymap",    "<Spc>lr Rename",          { "DevIconLeex",   0, 6 },    { "Comment", 6, 25 } },
   -- { "keymap", "<Spc>ls  Signature",      { "DevIconLeex",   0, 6 },    { "Comment", 6, 25 } },
   { "keymap",    " KK hover Signature",     { "DevIconLeex",   0, 3 } },
-  { "keymap",    " KD show DevDocs",        { "DevIconLeex",   0, 3 } },
+  { "keymap",    " KD search Doc",          { "DevIconLeex",   0, 3 } },
   { "keymap",    " KC hover Class",         { "DevIconLeex",   0, 3 } },
   { "keymap",    " KF hover Function",      { "DevIconLeex",   0, 3 } },
   { "keymap",    " gd go Definition",       { "DevIconLeex",   0, 3 } },
@@ -416,17 +412,16 @@ local dap = {
   { "title",  "" },
   { "title",  "    Substitute",        { "AlphaSubTitle", 0, 17 } },
   { "keymap", "<Spc>SS do Substitute", { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>Sw cursor Word",   { "DevIconLeex",   0, 6 } },
 }
 
 local switches = {
-  { "",       "" },
   { "title",  "    Switches",           { "AlphaSubTitle", 0, 18 } },
   { "keymap", "<Spc>ss cursor word",    { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>sd Diagnostic",     { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>si Im-select auto", { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>sc color Column",   { "DevIconLeex",   0, 6 },    { "Comment", 6, 30 } },
   { "keymap", "<Spc>sS Spell checking", { "DevIconLeex",   0, 6 },    { "Comment", 6, 30 } },
+  { "keymap", "<Spc>sh search HL",      { "DevIconLeex",   0, 6 },    { "Comment", 6, 30 } },
 }
 
 local naming = {
@@ -440,22 +435,11 @@ local naming = {
   { "keymap", "    cr<Spc> space case", { "DevIconLeex",   0, 9 },    { "Comment", 9, 20 } },
 }
 
-local runit = {
-  { "title",  "    Run it",           { "AlphaSubTitle", 0, 16 } },
-  { "keymap", "<Spc>ra All",          { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rc Config",       { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rC Clean",        { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rb Build",        { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rb Test",         { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>ri Install",      { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rl Last",         { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rf set Focus",    { "DevIconLeex",   0, 6 } },
-  { "keymap", "<Spc>rr run Focus",    { "DevIconLeex",   0, 6 } },
-  { "",       "" },
-  { "title",  "      Copilot",        { "AlphaSubTitle", 0, 16 } },
-  { "keymap", "<C-;> trigger/accept", { "DevIconLeex",   0, 5 } },
-  { "keymap", "<C-e> accept line",    { "DevIconLeex",   0, 5 } },
-  { "keymap", "<C-'> dismiss",        { "DevIconLeex",   0, 5 } },
+local copilot = {
+  { "title",  "      Copilot",              { "AlphaSubTitle", 0, 16 } },
+  { "keymap", "<C-<Spc>> trigger/dissmiss", { "DevIconLeex",   0, 5 } },
+  { "keymap", "<C-e> accept line",          { "DevIconLeex",   0, 5 } },
+  { "keymap", "<C-l> accept all",           { "DevIconLeex",   0, 5 } },
 }
 
 local navigation = {
@@ -482,7 +466,7 @@ local editing = {
   { "keymap", "       ds delete surround mark", { "DevIconLeex", 0, 10 } },
   { "keymap", "       ys add surround mark", { "DevIconLeex", 0, 10 } },
   { "keymap", "    <C-w> delete prev word (i)", { "DevIconLeex", 0, 10 } },
-  { "keymap", "    <C-l> fast wrap pairs(i)", { "DevIconLeex", 0, 10 } },
+  { "keymap", "    <C-]> fast wrap pairs(i)", { "DevIconLeex", 0, 10 } },
   {
     "keymap",
     '  <C-r>/" paste (i)/(nv)',
@@ -501,23 +485,23 @@ local zettelkasten1 = {
   { "keymap", "<Spc>zn new Note",        { "DevIconLeex",   0, 6 } },
   { "keymap", "<Spc>zN new tmpl Note",   { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
   { "keymap", "<Spc>zg Grep notes",      { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
-  { "keymap", "<Spc>zl follow Link",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
+  { "keymap", "<Spc>zl follow Link",     { "DevIconLeex",   0, 6 }, },
   { "keymap", "<Spc>zL insert Link",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
   { "keymap", "<Spc>zd find Daily",      { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
   { "keymap", "<Spc>zD go toDay",        { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
   { "keymap", "<Spc>zw find Weekly",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
   { "keymap", "<Spc>zW go Weekly",       { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
-  { "keymap", "<Spc>zr Rename note",     { "DevIconLeex",   0, 6 },    { "Comment", 6, 21 } },
+  { "keymap", "<Spc>zr Rename note",     { "DevIconLeex",   0, 6 }, },
 }
 
 local zettelkasten2 = {
   { "keymap", " <Spc>zy Yank notelink", { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
-  { "keymap", " <Spc>zc show calendar",  { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
+  { "keymap", " <Spc>zc show calendar", { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
   { "keymap", " <Spc>zb show Backlink", { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
-  { "keymap", " <Spc>zF find Friends",   { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
-  { "keymap", " <Spc>zp Preview img",    { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
-  { "keymap", " <Spc>zm browse Media",   { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
-  { "keymap", " <Spc>zt show Tags",      { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
+  { "keymap", " <Spc>zF find Friends",  { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
+  { "keymap", " <Spc>zp Preview img",   { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
+  { "keymap", " <Spc>zm browse Media",  { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
+  { "keymap", " <Spc>zt show Tags",     { "DevIconLeex", 0, 7 }, { "Comment", 7, 21 } },
 }
 
 --}}}
@@ -575,7 +559,7 @@ local section_keymaps_1 = {
 local section_keymaps_2 = {
   type = "group",
   val = function()
-    return col({ finding1, zettelkasten1, git, lsp, dap, runit })
+    return col({ finding1, zettelkasten1, git, lsp, dap })
   end,
   opts = { spacing = 0 },
 }
