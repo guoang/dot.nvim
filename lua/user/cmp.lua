@@ -54,11 +54,11 @@ local cmp_sources = {
   { name = "git" },
   { name = "vim-dadbod-completion" },
   -- { name = "copilot" },
-  { name = "browser", keyword_length = 3, max_item_count = 10 },
+  { name = "browser", keyword_length = 2, max_item_count = 20 },
   {
     name = "look",
-    keyword_length = 3,
-    max_item_count = 10,
+    keyword_length = 2,
+    max_item_count = 20,
     priority = -100,
     option = {
       convert_case = true,
@@ -67,6 +67,39 @@ local cmp_sources = {
     },
   },
 }
+
+local function cmp_get_source_after(name)
+  local r = {}
+  local switch = false
+  for _, s in ipairs(cmp_sources) do
+    if switch then
+      table.insert(r, { name = s.name })
+    end
+    if s.name == name then
+      switch = true
+    end
+  end
+  return r
+end
+
+local function cmp_get_source_before(name)
+  local r = {}
+  local switch = false
+  local last = nil
+  for _, s in ipairs(cmp_sources) do
+    if s.name == name then
+      switch = true
+      if last ~= nil then
+        table.insert(r, { name = last })
+      end
+    end
+    if switch then
+      table.insert(r, { name = s.name })
+    end
+    last = s.name
+  end
+  return r
+end
 
 local function cmp_toggle_source(src)
   local sources = cmp.get_config().sources
@@ -106,18 +139,32 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-k>"] = function(fallback)
+    ["<C-<Up>>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(-1)
       else
         fallback()
       end
     end,
-    ["<C-j>"] = function(fallback)
+    ["<C-<Down>>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(1)
       else
         fallback()
+      end
+    end,
+    ["<C-j>"] = function(_)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        cmp.complete()
+      end
+    end,
+    ["<C-k>"] = function(_)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        cmp.complete()
       end
     end,
     ["<C-n>"] = function(_)
@@ -169,14 +216,14 @@ cmp.setup({
     }),
     ["<Tab>"] = function(fallback)
       if cmp.visible() then
-        if cmp.get_active_entry() ~= nil then
-          cmp.confirm()
-        else
-          cmp.select_next_item()
-          cmp.confirm()
+        local entry = cmp.get_active_entry()
+        if entry == nil then
+          local entries = cmp.get_entries()
+          entry = entries[1]
         end
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+        local src = cmp_get_source_after(entry.source.name)
+        cmp.abort()
+        cmp.complete({ config = { sources = src } })
       elseif check_backspace() then
         fallback()
       else
@@ -185,9 +232,16 @@ cmp.setup({
     end,
     ["<S-Tab>"] = function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+        local entry = cmp.get_active_entry()
+        if entry == nil then
+          local entries = cmp.get_entries()
+          entry = entries[1]
+        end
+        local src = cmp_get_source_before(entry.source.name)
+        cmp.abort()
+        cmp.complete({ config = { sources = src } })
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end
@@ -236,7 +290,7 @@ cmp.setup({
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline({
-    ['<C-j>'] = {
+    ["<C-j>"] = {
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -245,7 +299,7 @@ cmp.setup.cmdline("/", {
         end
       end,
     },
-    ['<C-k>'] = {
+    ["<C-k>"] = {
       c = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
@@ -254,15 +308,23 @@ cmp.setup.cmdline("/", {
         end
       end,
     },
-    ["<C-n>"] = { c = function(fallback) fallback() end },
-    ["<C-p>"] = { c = function(fallback) fallback() end },
+    ["<C-n>"] = {
+      c = function(fallback)
+        fallback()
+      end,
+    },
+    ["<C-p>"] = {
+      c = function(fallback)
+        fallback()
+      end,
+    },
   }),
   sources = cmp.config.sources({ { name = "nvim_lsp_document_symbol" } }, { { name = "buffer" } }),
 })
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline({
-    ['<C-j>'] = {
+    ["<C-j>"] = {
       c = function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -271,7 +333,7 @@ cmp.setup.cmdline(":", {
         end
       end,
     },
-    ['<C-k>'] = {
+    ["<C-k>"] = {
       c = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
@@ -280,8 +342,16 @@ cmp.setup.cmdline(":", {
         end
       end,
     },
-    ["<C-n>"] = { c = function(fallback) fallback() end },
-    ["<C-p>"] = { c = function(fallback) fallback() end },
+    ["<C-n>"] = {
+      c = function(fallback)
+        fallback()
+      end,
+    },
+    ["<C-p>"] = {
+      c = function(fallback)
+        fallback()
+      end,
+    },
   }),
   sources = cmp.config.sources({ { name = "path" } }, {
     {

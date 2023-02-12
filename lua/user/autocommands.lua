@@ -31,6 +31,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
   end,
 })
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "help" },
+  callback = function()
+    require("user.utils").set_winhl(
+      { filetype = vim.bo.filetype },
+      "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
+    )
+  end,
+})
 
 -- dim inactive window
 vim.api.nvim_create_autocmd("WinLeave", {

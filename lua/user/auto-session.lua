@@ -147,6 +147,7 @@ local function close_windows()
   pcall(vim.cmd, "NvimTreeClose")
   pcall(vim.cmd, "SymbolsOutlineClose")
   pcall(vim.cmd, "cclose")
+  pcall(vim.cmd, "helpclose")
 end
 
 local function save_vim_enter_dir()

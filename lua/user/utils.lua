@@ -39,7 +39,12 @@ function M.get_winid(filter)
 end
 
 function M.set_winhl(filter, winhl)
-  vim.wo[M.get_winid(filter)].winhl = winhl
+  local winid = M.get_winid(filter)
+  if winid == -1 then
+    print("invalid window id: " .. tostring(winid))
+    return
+  end
+  vim.wo[winid].winhl = winhl
 end
 
 function M.set_winhl_nvimtree(filter)
