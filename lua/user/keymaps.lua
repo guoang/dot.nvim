@@ -32,10 +32,12 @@ keymap("n", "<tab>", "<cmd>tabnext<cr>", { silent = true, desc = "tab next"})
 keymap("n", "<S-tab>", "<cmd>tabprevious<cr>", { silent = true, desc = "tab previous"})
 
 -- Navigate in Insert Mode
-keymap("i", "<C-b>", "<left>",  { silent = true, desc = "<left>"  })
-keymap("i", "<C-f>", "<right>", { silent = true, desc = "<right>" })
-keymap("i", "<C-e>", "<end>",   { silent = true, desc = "<end>"   })
-keymap("i", "<C-a>", "<home>",  { silent = true, desc = "<home>"  })
+keymap({"i", "c"}, "<C-b>", "<left>",  { silent = true, desc = "<left>"  })
+keymap({"i", "c"}, "<C-f>", "<right>", { silent = true, desc = "<right>" })
+keymap({"i", "c"}, "<C-e>", "<end>",   { silent = true, desc = "<end>"   })
+keymap({"i", "c"}, "<C-a>", "<home>",  { silent = true, desc = "<home>"  })
+keymap({"c"}, "<C-p>", "<up>",    { silent = true, desc = "prev cmd"  })
+keymap({"c"}, "<C-n>", "<down>",  { silent = true, desc = "next cmd"  })
 
 -- Resize with arrows
 keymap("n", "<C-Up>",    ":resize -2<cr>",                 { silent = true, desc = "resize- horizontal" })
