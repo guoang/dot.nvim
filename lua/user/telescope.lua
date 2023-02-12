@@ -35,13 +35,45 @@ telescope.setup({
             end
           end
           vim.fn.jobstart({
-            "viu", "-b",
+            "viu",
+            "-b",
             filepath, -- Terminal image viewer command
           }, { on_stdout = send_output, stdout_buffered = true })
         else
           require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
         end
       end,
+    },
+    -- https://github.com/NvChad/NvChad/blob/main/lua/plugins/configs/telescope.lua
+    vimgrep_arguments = {
+      "rg",
+      "-L",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+    },
+    prompt_prefix = "   ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
     },
   },
   extensions = {

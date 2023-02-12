@@ -52,6 +52,12 @@ vim.api.nvim_create_autocmd("WinEnter", {
     vim.opt_local.colorcolumn = "80"
   end,
 })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "TelescopePrompt" },
+  callback = function()
+    vim.opt_local.cursorline = false
+  end,
+})
 
 -- a file opened by telescope will not folding
 -- fix it with this autocmd

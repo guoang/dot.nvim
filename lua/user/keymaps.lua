@@ -62,8 +62,8 @@ keymap("v", ">", ">gv", { silent = true, desc = "indent +" })
 -- Packer
 keymap("n", "<leader>Pc", "<cmd>PackerCompile<cr>",                            { silent = true, desc = "packer Compile" })
 keymap("n", "<leader>Pi", "<cmd>PackerInstall<cr>",                            { silent = true, desc = "packer Install" })
-keymap("n", "<leader>Ps", "<cmd>source lua/user/plugins.lua | PackerSync<cr>", { silent = true, desc = "packer Sync"    })
-keymap("n", "<leader>PS", "<cmd>PackerStatus<cr>",                             { silent = true, desc = "packer Status"  })
+keymap("n", "<leader>PS", "<cmd>source lua/user/plugins.lua | PackerSync<cr>", { silent = true, desc = "packer Sync"    })
+keymap("n", "<leader>Ps", "<cmd>PackerStatus<cr>",                             { silent = true, desc = "packer Status"  })
 keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",                             { silent = true, desc = "packer Update"  })
 
 -- Nvim-tree
