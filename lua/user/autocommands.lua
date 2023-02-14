@@ -183,3 +183,21 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     end
   end,
 })
+
+-- fix cursor shape for alacritty
+-- Because neovim requests a cursor shape change and doesn't reset it when leaving neovim.
+-- https://github.com/alacritty/alacritty/issues/5450
+vim.api.nvim_create_autocmd({ "ExitPre" }, {
+  callback = function()
+    vim.cmd("set guicursor=a:ver90")
+  end,
+})
+-- fix cursor shape for terminal mode
+-- not working
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = "toggleterm",
+--   callback = function()
+--     vim.cmd("au InsertEnter <buffer> setlocal guicursor=a:ver90")
+--     vim.cmd("au InsertLeave <buffer> setlocal guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+--   end,
+-- })
