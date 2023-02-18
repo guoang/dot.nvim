@@ -77,6 +77,12 @@ return packer.startup(function(use)
   })
   use({ "folke/which-key.nvim" })
   use({ "folke/trouble.nvim" })
+  use({
+    "folke/todo-comments.nvim",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  })
   use({ "ggandor/lightspeed.nvim" })
   use({ "andymass/vim-matchup", event = "VimEnter" })
   use({ "nvim-pack/nvim-spectre" })
@@ -126,6 +132,7 @@ return packer.startup(function(use)
   use({ "xiyaowong/nvim-transparent" })
   use({ "sainnhe/sonokai" })
   use({ "folke/tokyonight.nvim" })
+
   use({ "cocopon/iceberg.vim" })
   use({ "shaunsingh/nord.nvim" })
   use({ "catppuccin/nvim" })
