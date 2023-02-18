@@ -9,11 +9,6 @@ end
 
 local replace_space = true
 
-vim.cmd("hi! link AlphaSubTitle SpecialComment")
-vim.cmd("hi! link AlphaKeymapShortcut Number")
-vim.cmd("hi! link AlphaMru Error")
-vim.cmd("hi! link AlphaDashboard Function")
-
 local function get_winid()
   return require("user.utils").get_winid({ filetype = "alpha" })
 end

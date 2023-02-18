@@ -1,4 +1,4 @@
-local colorscheme = "sonokai"
+local colorscheme = "tokyonight"
 
 -- setup for nord
 vim.g.nord_contrast = true
@@ -19,6 +19,15 @@ local function post_process()
     vim.cmd("hi NormalNC guibg=#292b2f")
     vim.cmd("hi EndOfBuffer guibg=#292b2f")
   end
+
+  -- for alpha
+  vim.cmd("hi! link AlphaSubTitle SpecialComment")
+  vim.cmd("hi! link AlphaKeymapShortcut Label")
+  vim.cmd("hi! link AlphaMru Constant")
+  vim.cmd("hi! link AlphaDashboard Function")
+
+  -- for telescope
+  require("user.telescope_color").set_telescope_color()
 end
 
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
