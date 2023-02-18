@@ -97,7 +97,6 @@ return packer.startup(function(use)
   use({ "AndrewRadev/switch.vim" })
   use({ "renerocksai/calendar-vim" })
   use({ "renerocksai/telekasten.nvim" })
-  use({ "dhruvasagar/vim-table-mode", opt = true, cmd = { "TableModeToggle" } })
   use({ "github/copilot.vim" })
   use({ "kevinhwang91/nvim-bqf", ft = "qf" })
   use({ "AckslD/nvim-neoclip.lua" })
@@ -110,10 +109,10 @@ return packer.startup(function(use)
     end,
   })
   use({ "simrat39/symbols-outline.nvim" })
+  use({ "goolord/alpha-nvim" })
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
-  use({ "~/git/nvim/alpha-nvim" })
   use({
     "~/git/nvim/vim-dispatch",
     opt = true,

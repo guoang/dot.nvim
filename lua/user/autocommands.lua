@@ -86,6 +86,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.b.switch_custom_definitions = {
       { "- [ ]", "- [X]" },
     }
+    vim.opt_local.switchwidth = 3
   end,
 })
 

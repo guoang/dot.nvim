@@ -27,29 +27,6 @@ local buffer_matcher = function(buf, path, group)
   return r
 end
 
--- local buffer_go = function(direction)
---   local groups = require("bufferline.groups")
---   local state = require("bufferline.state")
---   local commands = require("bufferline.commands")
---   local index = commands.get_current_element_index(state)
---   local length = #state.components
---   if index ~= nil and index + direction <= length and index + direction >= 1 then
---     commands.cycle(direction)
---     return
---   end
---   for _, group in pairs(groups.get_all()) do
---     if group.hidden == true then
---       vim.cmd("BufferLineGroupToggle " .. group.name)
---     end
---   end
---   commands.cycle(direction)
---   for _, group in pairs(groups.get_all()) do
---     if group.hidden == false and group.name ~= vim.b.bufferline_group then
---       vim.cmd("BufferLineGroupToggle " .. group.name)
---     end
---   end
--- end
-
 local buffer_get_current_group = function()
   local groups = require("bufferline.groups")
   for _, group in pairs(groups.get_all()) do

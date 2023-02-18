@@ -3,6 +3,7 @@ if not status_ok then
   return
 end
 
+vim.g.indent_blankline_indent_level = 4
 indent_blankline.setup {
   char = "▏",
   show_trailing_blankline_indent = false,

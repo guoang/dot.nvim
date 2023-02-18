@@ -13,7 +13,11 @@ local function post_process()
   vim.cmd("hi! link Folded Comment")
   if vim.g.colors_name == "sonokai" then
     -- distinguish from illuminate highlight
-    vim.cmd("highlight Visual cterm=bold gui=bold guibg=#3b4a5e")
+    vim.cmd("hi Visual cterm=bold gui=bold guibg=#3b4a5e")
+    -- make a darker bg
+    vim.cmd("hi Normal guibg=#292b2f")
+    vim.cmd("hi NormalNC guibg=#292b2f")
+    vim.cmd("hi EndOfBuffer guibg=#292b2f")
   end
 end
 
