@@ -25,7 +25,7 @@ end
 -- header & footer
 -- {{{
 
-local header_color = "markdownH" .. math.random(1, 6)
+local header_color = "rainbowcol" .. math.random(1, 6)
 local header_val = require("user.alpha_headers").random()
 local times = 10
 while (#header_val >= 9 or #header_val < 5) and times > 0 do
