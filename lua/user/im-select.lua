@@ -1,4 +1,4 @@
-local status_ok, im_select = pcall(require, "im_select")
+local status_ok, im_select = pcall(require, "im-select")
 if not status_ok then
   return
 end

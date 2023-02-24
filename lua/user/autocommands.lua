@@ -86,7 +86,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.b.switch_custom_definitions = {
       { "- [ ]", "- [X]" },
     }
-    vim.opt_local.switchwidth = 3
+    vim.opt_local.shiftwidth = 3
+    vim.opt_local.tabstop = 3
   end,
 })
 
@@ -161,12 +162,6 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
     vim.cmd("tabdo wincmd =")
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
-  callback = function()
-    vim.cmd("quit")
   end,
 })
 

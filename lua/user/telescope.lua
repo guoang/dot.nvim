@@ -86,8 +86,16 @@ telescope.setup({
   },
   pickers = {
     find_files = {
-      find_command = { "rg", "--ignore", "-L", "--files" },
-      -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+      find_command = {
+        "rg",
+        "--no-ignore",
+        "-L",
+        "--files",
+        "--hidden",
+        "--iglob", "!.git",
+        "--iglob", "!.svn",
+        "--iglob", "!.cache",
+      },
     },
   },
 })

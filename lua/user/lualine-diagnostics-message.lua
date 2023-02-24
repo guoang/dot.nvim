@@ -79,7 +79,7 @@ function diagnostics_message:update_status(is_focused)
       self.highlights.info,
       self.highlights.hint,
     }
-    local length_max = 90
+    local length_max = 70
     local message = top.message
     if #message > length_max then
       message = string.sub(top.message, 1, length_max) .. " [...]"

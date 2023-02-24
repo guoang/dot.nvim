@@ -8,6 +8,7 @@ local servers = {
   "clangd",
   "neocmake",
   "pylsp",
+  "pyright",
 }
 
 local settings = {
@@ -51,8 +52,5 @@ for _, server in pairs(servers) do
 
   -- print all contents of opts
   -- print(server, vim.inspect(opts))
-  if server == "sumneko_lua" then
-    server = "lua_ls"
-  end
   lspconfig[server].setup(opts)
 end
