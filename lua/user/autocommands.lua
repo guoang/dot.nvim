@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
       return
     end
     vim.opt_local.cursorline = true
-    vim.opt_local.colorcolumn = "80"
+    vim.opt_local.colorcolumn = require("user.options").colorcolumn_by_ft(vim.bo.filetype)
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {

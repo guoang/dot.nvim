@@ -5,6 +5,7 @@ local opts = {
   cmd = {
     "clangd",
     "--header-insertion-decorators=false",
+    "--header-insertion=never",
   },
 }
 

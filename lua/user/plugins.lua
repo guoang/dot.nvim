@@ -99,6 +99,14 @@ return packer.startup(function(use)
   use({ "tpope/vim-dadbod", opt = true, cmd = { "DB" } })
   use({ "tpope/vim-abolish" })
   use({ "tpope/vim-repeat" })
+  use({
+    "tpope/vim-dispatch",
+    opt = true,
+    cmd = { "Dispatch", "Make", "Focus", "Start" },
+    config = function()
+      vim.g.dispatch_no_maps = 1
+    end,
+  })
   use({ "rmagatti/auto-session" })
   use({ "AndrewRadev/switch.vim" })
   use({ "renerocksai/calendar-vim" })
@@ -119,14 +127,6 @@ return packer.startup(function(use)
 
   -- local plugins
   use({ "~/git/nvim/im-select.nvim" })
-  use({
-    "~/git/nvim/vim-dispatch",
-    opt = true,
-    cmd = { "Dispatch", "Make", "Focus", "Start" },
-    config = function()
-      vim.g.dispatch_no_maps = 1
-    end,
-  })
 
   -- Colorschemes
   use({ "xiyaowong/nvim-transparent" })
@@ -154,7 +154,7 @@ return packer.startup(function(use)
   -- use({ "dmitmel/cmp-cmdline-history" })
   use({ "petertriho/cmp-git" })
   use({
-    "~/git/nvim/cmp-browser-source",
+    "wxxxcxx/cmp-browser-source",
     config = function()
       require("cmp-browser-source").start_server()
     end,

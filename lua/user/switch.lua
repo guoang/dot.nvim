@@ -9,7 +9,7 @@ M = {}
 -- switch colorcolumn
 local function switch_column()
   if vim.api.nvim_get_option_value("colorcolumn", { scope = "local" }) ~= "80" then
-    vim.opt_local.colorcolumn = "80"
+    vim.opt_local.colorcolumn = require("user.options").colorcolumn_by_ft(vim.bo.filetype)
   else
     vim.opt_local.colorcolumn = ""
   end

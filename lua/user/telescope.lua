@@ -89,13 +89,16 @@ telescope.setup({
       find_command = {
         "rg",
         "--no-ignore",
-        "-L",
+        -- "-L",  -- follow symbolic link
         "--files",
         "--hidden",
         "--iglob", "!.git",
         "--iglob", "!.svn",
         "--iglob", "!.cache",
       },
+    },
+    grep_string = {
+      word_match = '-w',
     },
   },
 })

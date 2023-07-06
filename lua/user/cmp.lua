@@ -139,16 +139,50 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-<Up>>"] = function(fallback)
+    ["<C-Up>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(-1)
       else
         fallback()
       end
     end,
-    ["<C-<Down>>"] = function(fallback)
+    ["<C-Down>"] = function(fallback)
       if cmp.visible() and cmp.get_active_entry() ~= nil then
         cmp.mapping.scroll_docs(1)
+      else
+        fallback()
+      end
+    end,
+    ["<C-Right>"] = function(fallback)
+      -- next cmp source
+      if cmp.visible() then
+        local entry = cmp.get_active_entry()
+        if entry == nil then
+          local entries = cmp.get_entries()
+          entry = entries[1]
+        end
+        local src = cmp_get_source_after(entry.source.name)
+        cmp.abort()
+        cmp.complete({ config = { sources = src } })
+      elseif check_backspace() then
+        fallback()
+      else
+        fallback()
+      end
+    end,
+    ["<C-Left>"] = function(fallback)
+      -- prev cmp source
+      if cmp.visible() then
+        local entry = cmp.get_active_entry()
+        if entry == nil then
+          local entries = cmp.get_entries()
+          entry = entries[1]
+        end
+        local src = cmp_get_source_before(entry.source.name)
+        cmp.abort()
+        cmp.complete({ config = { sources = src } })
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end
@@ -214,38 +248,22 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     }),
-    ["<Tab>"] = function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        local entry = cmp.get_active_entry()
-        if entry == nil then
-          local entries = cmp.get_entries()
-          entry = entries[1]
-        end
-        local src = cmp_get_source_after(entry.source.name)
-        cmp.abort()
-        cmp.complete({ config = { sources = src } })
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        })
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif check_backspace() then
         fallback()
       else
         fallback()
       end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        local entry = cmp.get_active_entry()
-        if entry == nil then
-          local entries = cmp.get_entries()
-          entry = entries[1]
-        end
-        local src = cmp_get_source_before(entry.source.name)
-        cmp.abort()
-        cmp.complete({ config = { sources = src } })
-      elseif check_backspace() then
-        fallback()
-      else
-        fallback()
-      end
-    end,
+    end),
   }),
   formatting = {
     fields = { "abbr", "kind", "menu" },

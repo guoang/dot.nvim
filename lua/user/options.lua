@@ -36,7 +36,6 @@ vim.opt.sidescrolloff = 8                       -- minimal number of screen colu
 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
 vim.opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.whichwrap:append("<,>,[,],h,l")         -- keys allowed to move to the previous/next line when the beginning/end of line is reached
-vim.opt.iskeyword:append("-")                   -- treats words with `-` as single words
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.list = true
 vim.opt.colorcolumn = "80"
@@ -60,3 +59,16 @@ vim.opt.fillchars={                             -- https://neovim.io/doc/user/op
 }
 vim.opt.foldcolumn = "1"
 vim.opt.path = vim.opt.path + ",**"             -- tell vim to find file recursive in current dir. see :help path
+
+local function colorcolumn_by_ft(ft)
+  -- if vim.tbl_contains({ "python" }, ft) then
+  --   return "120"
+  -- else
+  --   return "80"
+  -- end
+  return "80"
+end
+
+local M = {}
+M.colorcolumn_by_ft = colorcolumn_by_ft
+return M
