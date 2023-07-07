@@ -125,7 +125,7 @@ configs.setup({
 })
 
 for _, l in ipairs({ "python" }) do
-  vim.treesitter.set_query(
+  vim.treesitter.query.set(
     l,
     "folds",
     [[
@@ -135,7 +135,7 @@ for _, l in ipairs({ "python" }) do
 end
 
 for _, l in ipairs({ "lua" }) do
-  vim.treesitter.set_query(
+  vim.treesitter.query.set(
     l,
     "folds",
     [[
@@ -146,7 +146,7 @@ for _, l in ipairs({ "lua" }) do
 end
 
 for _, l in ipairs({ "cpp", "c" }) do
-  vim.treesitter.set_query(
+  vim.treesitter.query.set(
     l,
     "folds",
     [[
@@ -156,7 +156,7 @@ for _, l in ipairs({ "cpp", "c" }) do
 end
 
 for _, l in ipairs({ "cmake" }) do
-  vim.treesitter.set_query(
+  vim.treesitter.query.set(
     l,
     "folds",
     [[

@@ -101,6 +101,7 @@ bufferline.setup {
         toggle_hidden_on_enter = true -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
       },
     },
+    buffer_close_icon = "",
   },
 }
 
