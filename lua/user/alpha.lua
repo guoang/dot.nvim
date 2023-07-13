@@ -89,7 +89,7 @@ local footer = {
 local button = function(sc, txt, keybind)
   local opts = {
     position = "left",
-    cursor = 1,
+    cursor = line_offset() + 1,
     hl = {},
   }
   if keybind then
