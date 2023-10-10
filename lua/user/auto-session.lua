@@ -158,7 +158,7 @@ local function save_vim_enter_dir()
   vim.cmd("edit __nvim_tmp_stub_file__")
   vim.cmd("bwipeout")
   -- do save
-  vim.cmd("SaveSession")
+  vim.cmd("SessionSave")
   vim.fn.chdir(cwd)
 end
 

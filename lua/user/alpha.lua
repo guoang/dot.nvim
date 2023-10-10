@@ -521,7 +521,7 @@ local dashboard = function()
   )
   table.insert(
     content,
-    { "button", "[s]  open last Session", "s", "<cmd>RestoreSession<CR>", { "AlphaDashboard", 0, 3 }, { "Blue", 4, 8 } }
+    { "button", "[s]  open last Session", "s", "<cmd>SessionRestore<CR>", { "AlphaDashboard", 0, 3 }, { "Blue", 4, 8 } }
   )
   table.insert(
     content,
