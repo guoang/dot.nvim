@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     if vim.tbl_contains({ "cpp", "c", "python", "lua" }, ft) then
       vim.opt_local.foldmethod = "expr"
       vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt_local.foldenable = true
+      vim.opt_local.foldenable = false
       require("user.pretty-fold").setup_for_expr()
     else
       require("user.pretty-fold").setup_for_marker()

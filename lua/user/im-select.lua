@@ -3,6 +3,9 @@ if not status_ok then
   return
 end
 
+sougou = "com.sogou.inputmethod.sogou.pinyin"
+weixin = "com.tencent.inputmethod.wetype.pinyin"
+
 im_select.setup({
   -- IM will be used in `normal` mode
   -- For Windows/WSL, default: "1033", aka: English US Keyboard
@@ -17,8 +20,8 @@ im_select.setup({
   im_insert_ft = {
     TelescopePrompt = "com.apple.keylayout.ABC",
     -- markdown = "com.apple.inputmethod.SCIM.Shuangpin",
-    markdown = "com.sogou.inputmethod.sogou.pinyin",
-    html = "com.sogou.inputmethod.sogou.pinyin",
+    markdown = sougou,
+    html = sougou,
   },
   -- Create auto command to select `im_normal` when `InsertLeave`
   auto_select_normal = true,
