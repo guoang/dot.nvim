@@ -72,7 +72,7 @@ function diagnostics_message:update_status(is_focused)
         top = d
       end
     end
-    local icons = { " ", " ", " ", " " }
+    local icons = { " ", " ", " ", "󰌵 " }
     local hl = {
       self.highlights.error,
       self.highlights.warn,
