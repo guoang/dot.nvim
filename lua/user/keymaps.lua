@@ -83,7 +83,7 @@ keymap("n", "<leader>eq", "<cmd>lua require('user.utils').toggle_qf()<cr>", { si
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>",                    { silent = true, desc = "find Files"                  })
 keymap("n", "<leader>fp", "<cmd>Telescope projects<cr>",                      { silent = true, desc = "find Projects"               })
 keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>",                      { silent = true, desc = "find Recent files"           })
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>",                     { silent = true, desc = "find by live Grep"           })
+keymap("n", "<leader>fl", "<cmd>Telescope live_grep<cr>",                     { silent = true, desc = "find by Live grep"           })
 keymap("n", "<leader>fw", "<cmd>Telescope grep_string<cr>",                   { silent = true, desc = "find Word under the cursor"  })
 keymap("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>",          { silent = true, desc = "find lsp document Symbols"   })
 keymap("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { silent = true, desc = "find lsp workspace Symbols"  })

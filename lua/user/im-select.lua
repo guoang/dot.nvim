@@ -22,6 +22,7 @@ im_select.setup({
     -- markdown = "com.apple.inputmethod.SCIM.Shuangpin",
     markdown = sougou,
     html = sougou,
+    rst = sougou,
   },
   -- Create auto command to select `im_normal` when `InsertLeave`
   auto_select_normal = true,
