@@ -1,8 +1,8 @@
 -- plugin Switch
 vim.g.switch_mapping = ""
-vim.g.switch_custom_definitions = {
-  vim.fn["switch#NormalizedCaseWords"]({ 'foo', 'bar', 'baz' }),
-}
+-- vim.g.switch_custom_definitions = {
+--   vim.fn["switch#NormalizedCaseWords"]({ 'foo', 'bar', 'baz' }),
+-- }
 
 M = {}
 
