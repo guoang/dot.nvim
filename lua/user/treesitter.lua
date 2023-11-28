@@ -8,6 +8,9 @@ if not status_ok then
   return
 end
 
+vim.g.skip_ts_context_commentstring_module = true
+require('ts_context_commentstring').setup()
+
 configs.setup({
   ensure_installed = {
     "lua",
@@ -39,11 +42,6 @@ configs.setup({
     enable = true,
   },
   indent = { enable = true, disable = { "python", "css" } },
-
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
 
   playground = {
     enable = true,

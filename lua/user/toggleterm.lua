@@ -12,17 +12,29 @@ toggleterm.setup({
     end
   end,
   highlights = {
+    Normal = {
+      link = "NvimTreeNormal",
+    },
     NormalFloat = {
       link = "NvimTreeNormal",
     },
   },
-  direction = "float",
+  direction = "horizontal",
   open_mapping = [[<c-\>]],
   float_opts = {
     border = "none",
   },
-  on_open = function(_, _, _, _)
+  on_open = function(_)
     vim.cmd("set nocursorline")
+    vim.cmd("set guicursor=a:ver90")
+  end,
+  on_close = function(_)
+    vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+    vim.notify("on close")
+  end,
+  on_exit = function(_, _, _, _)
+    vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+    vim.notify("on open")
   end,
 })
 
