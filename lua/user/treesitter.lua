@@ -21,7 +21,6 @@ configs.setup({
     "c",
     "cpp",
     "typescript",
-    "help",
     "vim",
     "json",
     "cmake",
