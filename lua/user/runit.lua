@@ -46,7 +46,7 @@ end
 runit.setup({
   ft = {
     python = {
-      test = "~/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/unpacked/bin/python ${__file_path__}",
+      test = "~/work/xbuild/install/RelWithDebInfo/Darwin-arm64/unpacked/bin/python ${__file_path__}",
       all = { "#test" },
     },
   },

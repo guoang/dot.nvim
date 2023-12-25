@@ -46,7 +46,7 @@ function M.lazygit()
 end
 
 function M.python()
-  Terminal:new({ cmd = "~/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/bin/python3", hidden = true, direction = "float" }):toggle()
+  Terminal:new({ cmd = "~/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/bin/python3", hidden = true, direction = "float" }):toggle()
 end
 
 return M

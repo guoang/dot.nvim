@@ -5,13 +5,13 @@ return {
     python = {
       analysis = {
         extraPaths = {
-          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/lib",
-          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/python",
-          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/lib/python",
-          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/lib/python3.11",
-          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/lib/python3.11/site-packages",
+          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib",
+          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/python",
+          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python",
+          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python3.11",
+          "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python3.11/site-packages",
         },
-        stubPath = "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-x86_64/xsolution/api/pystub",
+        stubPath = "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/api/pystub",
       },
     },
   },
