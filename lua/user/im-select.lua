@@ -5,24 +5,26 @@ end
 
 sougou = "com.sogou.inputmethod.sogou.pinyin"
 weixin = "com.tencent.inputmethod.wetype.pinyin"
+apple_en = "com.apple.keylayout.ABC"
+apple_cn = "com.apple.inputmethod.SCIM.Shuangpin"
 
 im_select.setup({
   -- IM will be used in `normal` mode
   -- For Windows/WSL, default: "1033", aka: English US Keyboard
   -- For macOS, default: "com.apple.keylayout.ABC", aka: US
   -- You can use `im-select` in cli to get the IM name of you preferred
-  im_normal = "com.apple.keylayout.ABC",
+  im_normal = apple_en,
   im_normal_ft = {
-    TelescopePrompt = "com.apple.keylayout.ABC",
+    TelescopePrompt = apple_en,
   },
   -- IM will be used in `insert` mode
-  im_insert = "com.apple.keylayout.ABC",
+  im_insert = apple_en,
   im_insert_ft = {
-    TelescopePrompt = "com.apple.keylayout.ABC",
+    TelescopePrompt = apple_en,
     -- markdown = "com.apple.inputmethod.SCIM.Shuangpin",
-    markdown = sougou,
-    html = sougou,
-    rst = sougou,
+    markdown = apple_cn,
+    html = apple_cn,
+    rst = apple_cn,
   },
   -- Create auto command to select `im_normal` when `InsertLeave`
   auto_select_normal = true,
