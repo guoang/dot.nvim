@@ -24,17 +24,19 @@ toggleterm.setup({
   float_opts = {
     border = "none",
   },
+  on_create = function(_)
+    vim.cmd("set nocursorline")
+    vim.cmd("set guicursor=a:ver90")
+  end,
   on_open = function(_)
     vim.cmd("set nocursorline")
     vim.cmd("set guicursor=a:ver90")
   end,
   on_close = function(_)
     vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
-    vim.notify("on close")
   end,
   on_exit = function(_, _, _, _)
     vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
-    vim.notify("on open")
   end,
 })
 
@@ -46,7 +48,7 @@ function M.lazygit()
 end
 
 function M.python()
-  Terminal:new({ cmd = "~/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/bin/python3", hidden = true, direction = "float" }):toggle()
+  Terminal:new({ cmd = "~/work/block/trunk/server/bin/python3", hidden = true, direction = "float" }):toggle()
 end
 
 return M

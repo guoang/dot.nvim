@@ -70,8 +70,9 @@ keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",                             {
 
 -- Nvim-tree
 keymap("n", "<leader>ee", "<cmd>NvimTreeToggle<cr>", { silent = true, desc = "Explorer files" })
-keymap("n", "<leader>es", "<cmd>SymbolsOutline<cr>", { silent = true, desc = "explorer Symbols" })
-keymap("n", "<leader>eq", "<cmd>lua require('user.utils').toggle_qf()<cr>", { silent = true, desc = "explorer Quickfix" })
+keymap("n", "<leader>es", "<cmd>SymbolsOutline<cr>", { silent = true, desc = "Explorer Symbols" })
+keymap("n", "<leader>eb", "<cmd>BlameToggle<cr>", { silent = true, desc = "Explorer Blame" })
+keymap("n", "<leader>eq", "<cmd>lua require('user.utils').toggle_qf()<cr>", { silent = true, desc = "Explorer Quickfix" })
 
 -- Lightspeed
 -- use s/x/gs/f/t by default
@@ -214,6 +215,7 @@ keymap("n", "<leader>zt", "<cmd>lua require('telekasten').show_tags()<cr>",     
 -- Buffer
 keymap("n", "<leader>bq", "<cmd>Bwipeout<cr>", { silent = true, noremap = true, desc = "buffer Quit" })
 keymap("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { silent = true, noremap = true, desc = "buffer Pick" })
+keymap("n", "<leader>bc", "<cmd>BufferLineCloseOthers<cr>", { silent = true, noremap = true, desc = "buffer Clear" })
 keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_toggle()<cr>", { silent = true, noremap = true, desc = "buffer toggle Folder" })
 
 -- Dispatch

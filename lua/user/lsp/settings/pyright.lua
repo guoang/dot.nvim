@@ -10,15 +10,14 @@ return {
           -- "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python",
           -- "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python3.11",
           -- "/Users/lalo/work/xbuild/install/RelWithDebInfo/Darwin-arm64/xsolution/lib/python3.11/site-packages",
-          "/Users/lalo/work/block/ds2/trunk/game",
-          "/Users/lalo/work/block/ds2/trunk/game/common",
-          "/Users/lalo/work/block/ds2/trunk/game/common/xcodebase",
-          "/Users/lalo/work/block/ds2/trunk/game/client",
-          "/Users/lalo/work/block/ds2/trunk/game/server",
+          "/Users/lalo/work/block/trunk/game",
+          "/Users/lalo/work/block/trunk/xpylibs",
         },
-        stubPath = "/Users/lalo/work/block/ds2/trunk/game/stub",
+        stubPath = "/Users/lalo/work/block/trunk/game/stub",
         diagnosticSeverityOverrides = {
-          reportMissingModuleSource = "none"
+          reportMissingModuleSource = "none", -- 忽略 C Module 找不到源码的 warning
+          reportUnusedExpression = "none",
+          reportGeneralTypeIssues = "none",   -- 关闭类型检查
         }
       },
     },

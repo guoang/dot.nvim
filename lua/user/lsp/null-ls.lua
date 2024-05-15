@@ -33,7 +33,9 @@ null_ls.setup({
     -- formatting.markdownlint, --use prettier instead
     diagnostics.markdownlint,
     -- python
-    formatting.reorder_python_imports,
+    -- formatting.reorder_python_imports,
+    -- formatting.autopep8,
+    formatting.yapf,
     -- cmake
     -- formatting.cmake_format,
     -- diagnostics.cmake_lint.with({

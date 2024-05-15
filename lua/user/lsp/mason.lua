@@ -9,6 +9,7 @@ local servers = {
   "neocmake",
   "pylsp",
   "pyright",
+  "yamlls",
 }
 
 local settings = {
