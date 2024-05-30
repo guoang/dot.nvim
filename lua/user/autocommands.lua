@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.cmd([[
       nnoremap <silent> <buffer> q :close<CR> 
-      set nobuflisted 
+      set nobuflisted
     ]])
   end,
 })
@@ -20,11 +20,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     if vim.tbl_contains({ "cpp", "c", "python", "lua" }, ft) then
       vim.opt_local.foldmethod = "expr"
       vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt_local.foldenable = false
       pretty_fold.setup_for_expr()
     else
       pretty_fold.setup_for_marker()
     end
+    vim.opt_local.foldenable = false
+    -- vim.api.nvim_exec([[
+    --   autocmd BufReadPost,FileReadPost * normal! zM
+    -- ]], false)
   end,
 })
 
@@ -75,14 +78,14 @@ vim.api.nvim_create_autocmd("FileType", {
 -- a file opened by telescope will not folding
 -- fix it with this autocmd
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559#issuecomment-1074076011
-vim.api.nvim_create_autocmd("BufRead", {
-  callback = function()
-    vim.api.nvim_create_autocmd("BufWinEnter", {
-      once = true,
-      command = "normal! zx",
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufRead", {
+--   callback = function()
+--     vim.api.nvim_create_autocmd("BufWinEnter", {
+--       once = true,
+--       command = "normal! zx",
+--     })
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "markdown" },

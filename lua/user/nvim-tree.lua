@@ -133,10 +133,16 @@ nvim_tree.setup {
   },
   view = {
     width = 30,
+    -- preserve_window_proportions = true,
     side = "left",
   },
   hijack_directories = {
     auto_open = false,
   },
   on_attach = on_attach,
+  actions = {
+    open_file = {
+      resize_window = false,
+    },
+  },
 }
