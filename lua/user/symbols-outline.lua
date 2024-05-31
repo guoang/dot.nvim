@@ -9,7 +9,7 @@ so.setup({
   auto_preview = false,
   position = "right",
   relative_width = false,
-  width = 70,
+  width = 50,
   auto_close = false,
   show_numbers = false,
   show_relative_numbers = false,
@@ -34,7 +34,7 @@ so.setup({
     fold_reset = "zx",
   },
   lsp_blacklist = {},
-  symbol_blacklist = {},
+  symbol_blacklist = {"Variable", "Field", "Property"},
   symbols = {
     File = { icon = "", hl = "@text.uri" },
     Module = { icon = "", hl = "@namespace" },

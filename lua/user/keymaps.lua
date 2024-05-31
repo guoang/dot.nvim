@@ -70,7 +70,7 @@ keymap("n", "<leader>Pu", "<cmd>PackerUpdate<cr>",                             {
 
 -- Nvim-tree
 keymap("n", "<leader>ee", "<cmd>NvimTreeToggle<cr>", { silent = true, desc = "Explorer files" })
-keymap("n", "<leader>es", "<cmd>SymbolsOutline<cr>", { silent = true, desc = "Explorer Symbols" })
+keymap("n", "<leader>es", "<cmd>AerialToggle<cr>", { silent = true, desc = "Explorer Symbols" })
 keymap("n", "<leader>eb", "<cmd>BlameToggle<cr>", { silent = true, desc = "Explorer Blame" })
 keymap("n", "<leader>eq", "<cmd>lua require('user.utils').toggle_qf()<cr>", { silent = true, desc = "Explorer Quickfix" })
 

@@ -122,7 +122,7 @@ return packer.startup(function(use)
       require("fold-preview").setup({})
     end,
   })
-  use({ "simrat39/symbols-outline.nvim" })
+  use({ "stevearc/aerial.nvim" })
   use({ "goolord/alpha-nvim" })
 
   use({ "guoang/im-select.nvim" })
