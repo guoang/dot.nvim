@@ -20,6 +20,22 @@ local function post_process()
     vim.cmd("hi EndOfBuffer guibg=#292b2f")
   end
 
+  if vim.g.colors_name == "tokyonight" then
+    local c = require("tokyonight.colors")
+    c.default.fg = "#aab1d3"
+    vim.cmd("hi NvimTreeNormal guifg=#aab1d3")
+    vim.cmd("hi @variable guifg=#aab1d3")
+    vim.cmd("hi @variable.member guifg=#aab1d3")
+    vim.cmd("hi link NVimTreeExecFile TSRainbowGreen")
+    vim.cmd("hi NVimTreeSymlink guifg=#90cdfa")
+    vim.cmd("hi NVimTreeSymlinkFolderName guifg=#90cdfa")
+    vim.cmd("hi NVimTreeSymlinkFolderIcon guifg=#90cdfa")
+    -- vim.cmd("hi Type guifg=#29a4bd")  -- same as builtin
+    vim.cmd("hi DiagnosticUnnecessary guifg=#565f89")
+    vim.cmd("hi String guifg=#8ebe6a")
+    vim.cmd("hi IblScope guifg=#b69bf1")
+  end
+
   -- for alpha
   vim.cmd("hi! link AlphaSubTitle SpecialComment")
   vim.cmd("hi! link AlphaKeymapShortcut Label")
@@ -27,12 +43,34 @@ local function post_process()
   vim.cmd("hi! link AlphaDashboard Function")
 
   -- for telescope
-  require("user.telescope_color").set_telescope_color()
+  -- require("user.telescope_color").set_telescope_color()
+
+  -- for aerial
+  vim.cmd("hi link AerialLine Visual")
+
 end
 
+-- setup post process
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
   callback = function()
     post_process()
+  end,
+})
+
+-- set background color for specific windows
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "Outline", "qf", "Trouble", "aerial" },
+  callback = function()
+    require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
+  end,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "help" },
+  callback = function()
+    require("user.utils").set_winhl(
+      { filetype = vim.bo.filetype },
+      "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
+    )
   end,
 })
 

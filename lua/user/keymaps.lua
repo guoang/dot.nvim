@@ -98,18 +98,18 @@ keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                       { 
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                  { silent = true, desc = "find vim Auto commands"      })
 
 -- Terminal
-keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",   { silent = true, desc = "terminal toggle Float" })
-keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
-keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
-keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
-keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
-keymap("n", "<leader>tp", "<cmd>lua require('user.toggleterm').python()<cr>",   { silent = true, desc = "terminal Python" })
+-- keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",   { silent = true, desc = "terminal toggle Float" })
+-- keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
+-- keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
+-- keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
+-- keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
+-- keymap("n", "<leader>tp", "<cmd>lua require('user.toggleterm').python()<cr>",   { silent = true, desc = "terminal Python" })
 
 -- Trouble
-keymap("n", "<leader>tt", "<cmd>TroubleToggle<cr>",                       { silent = true, desc = "trouble toggle"                       })
-keymap("n", "<leader>tw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, desc = "trouble toggle workspace_diagnostics" })
-keymap("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>",              { silent = true, desc = "trouble toggle quickfix"              })
-keymap("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>",               { silent = true, desc = "trouble toggle loclist"               })
+keymap("n", "<leader>tt", "<cmd>Trouble<cr>", { silent = true, desc = "trouble telescope" })
+keymap("n", "<leader>td", "<cmd>Trouble diagnostics<cr>", { silent = true, desc = "trouble diagnostics" })
+keymap("n", "<leader>tq", "<cmd>Trouble qflist<cr>", { silent = true, desc = "trouble quickfix" })
+keymap("n", "<leader>tl", "<cmd>Trouble loclist<cr>", { silent = true, desc = "trouble loclist" })
 
 -- Git
 keymap("n", "<leader>gl", "<cmd>lua require('user.toggleterm').lazygit()<cr>",  { silent = true, desc = "git Lazygit"         })
@@ -177,7 +177,6 @@ keymap("n", "<leader>sd", "<cmd>lua require('user.switch').switch_diagnostic()<c
 keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",      { silent = true, desc = "switch colorColumn" })
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
 keymap("n", "<leader>sh", "<cmd>nohlsearch<cr>",                                      { silent = true, desc = "switch search Highlight" })
-keymap("n", "<leader>st", "<cmd>TableModeToggle<cr>",                                 { silent = true, desc = "switch Table mode" })
 
 -- Cmp
 keymap("n", "<leader>cc", "<cmd>lua require('user.cmp').cmp_toggle_source('copilot')<cr>", { silent = true, desc = "Cmp toggle source copilot" })

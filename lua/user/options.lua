@@ -38,7 +38,7 @@ vim.opt.shortmess:append "c"                    -- hide all the completion messa
 vim.opt.whichwrap:append("<,>,[,],h,l")         -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.list = true
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "0"
 vim.opt.foldmethod = "marker"
 vim.opt.wrapscan = false                        -- don't wrap around when searching
 vim.opt.fillchars={                             -- https://neovim.io/doc/user/options.html#'fillchars'
@@ -61,12 +61,13 @@ vim.opt.foldcolumn = "1"
 vim.opt.path = vim.opt.path + ",**"             -- tell vim to find file recursive in current dir. see :help path
 
 local function colorcolumn_by_ft(ft)
-  -- if vim.tbl_contains({ "python" }, ft) then
-  --   return "120"
-  -- else
-  --   return "80"
-  -- end
-  return "80"
+  if vim.tbl_contains({ "python" }, ft) then
+    return "120"
+  elseif vim.tbl_contains({ "c", "cpp" }, ft) then
+    return "80"
+  else
+    return "0"
+  end
 end
 
 local M = {}

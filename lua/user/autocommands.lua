@@ -31,23 +31,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- set background color for specific windows
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Outline", "qf", "Trouble" },
-  callback = function()
-    require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
-  end,
-})
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "help" },
-  callback = function()
-    require("user.utils").set_winhl(
-      { filetype = vim.bo.filetype },
-      "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
-    )
-  end,
-})
-
 -- dim inactive window
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()

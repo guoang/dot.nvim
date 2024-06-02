@@ -3,6 +3,4 @@ if not status_ok then
   return false
 end
 
-aerial.setup({
-
-})
+aerial.setup({})
