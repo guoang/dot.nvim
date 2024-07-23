@@ -22,6 +22,7 @@ configs.setup({
     "cpp",
     "typescript",
     "vim",
+    "vimdoc",
     "json",
     "cmake",
     "query",

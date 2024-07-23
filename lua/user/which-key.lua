@@ -6,36 +6,26 @@ end
 local setup = {
   plugins = {
     spelling = {
-      enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
       suggestions = 10, -- how many suggestions should be shown in the list?
     },
   }
 }
 
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local mappings = {
-  P = { name = "Packer" },
-  f = { name = "Find" },
-  g = { name = "Git" },
-  l = { name = "Lsp" },
-  d = { name = "Dap/Diagnostic" },
-  t = {
-    name = "Terminal/Trouble",
-  },
-  s = { name = "Switch" },
-  r = { name = "RunIt" },
-  R = { name = "Replace" },
-  b = { name = "Buffer" },
-  z = { name = "Zettelkasten" },
-}
-
 which_key.setup(setup)
-which_key.register(mappings, opts)
+which_key.add({
+  { "<leader>P", group = "Packer",         nowait = true, remap = false },
+  { "<leader>R", group = "Replace",        nowait = true, remap = false },
+  { "<leader>b", group = "Buffer",         nowait = true, remap = false },
+  { "<leader>d", group = "Dap/Diagnostic", nowait = true, remap = false },
+  { "<leader>f", group = "Find",           nowait = true, remap = false },
+  { "<leader>g", group = "Git",            nowait = true, remap = false },
+  { "<leader>l", group = "Lsp",            nowait = true, remap = false },
+  { "<leader>r", group = "RunIt",          nowait = true, remap = false },
+  { "<leader>s", group = "Switch",         nowait = true, remap = false },
+  { "<leader>S", group = "Spectre",        nowait = true, remap = false },
+  { "<leader>t", group = "Trouble",        nowait = true, remap = false },
+  { "<leader>e", group = "Explore",        nowait = true, remap = false },
+  { "<leader>c", group = "Completion",     nowait = true, remap = false },
+  { "<leader>m", group = "Make",           nowait = true, remap = false },
+})

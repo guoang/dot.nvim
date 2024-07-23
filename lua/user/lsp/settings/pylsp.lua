@@ -10,6 +10,9 @@ return {
         },
         rope_autoimport = {
           enabled = false,
+        },
+        autopep8 = {
+          enabled = false,  -- use yapf
         }
       },
     },

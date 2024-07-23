@@ -15,9 +15,9 @@ null_ls.setup({
   debug = false,
   sources = {
     -- lua
-    formatting.stylua.with({
-      extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-    }),
+    -- formatting.stylua.with({
+    --   extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+    -- }),
     -- json/html/markdown/...
     formatting.prettier.with({
       extra_filetypes = { "toml" },

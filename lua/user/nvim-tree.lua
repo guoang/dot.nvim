@@ -91,7 +91,9 @@ nvim_tree.setup {
   },
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_root = {
+      enable = true,
+    },
   },
   renderer = {
     root_folder_modifier = ":t",
