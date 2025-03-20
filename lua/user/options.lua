@@ -59,6 +59,7 @@ vim.opt.fillchars={                             -- https://neovim.io/doc/user/op
 }
 vim.opt.foldcolumn = "1"
 vim.opt.path = vim.opt.path + ",**"             -- tell vim to find file recursive in current dir. see :help path
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"  -- Recommended by auto-session
 
 local function colorcolumn_by_ft(ft)
   if vim.tbl_contains({ "python" }, ft) then

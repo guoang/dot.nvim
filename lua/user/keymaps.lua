@@ -44,10 +44,14 @@ keymap("n", "<C-Up>",    ":resize -2<cr>",                 { silent = true, desc
 keymap("n", "<C-Down>",  ":resize +2<cr>",                 { silent = true, desc = "resize+ horizontal" })
 keymap("n", "<C-Left>",  ":vertical resize -2<cr>",        { silent = true, desc = "resize- vertical"   })
 keymap("n", "<C-Right>", ":vertical resize +2<cr>",        { silent = true, desc = "resize+ vertical"   })
+keymap("n", "<C-,>",     ":vertical resize -2<cr>",        { silent = true, desc = "resize- vertical"   })
+keymap("n", "<C-.>",     ":vertical resize +2<cr>",        { silent = true, desc = "resize+ vertical"   })
 keymap("t", "<C-Up>",    [[<Cmd>:resize -2<CR>]],          { silent = true, noremap = true              })
 keymap("t", "<C-Down>",  [[<Cmd>:resize +2<CR>]],          { silent = true, noremap = true              })
 keymap("t", "<C-Left>",  [[<Cmd>:vertical resize -2<CR>]], { silent = true, noremap = true              })
 keymap("t", "<C-Right>", [[<Cmd>:vertical resize +2<CR>]], { silent = true, noremap = true              })
+keymap("t", "<C-,>",     [[<Cmd>:vertical resize -2<CR>]], { silent = true, noremap = true              })
+keymap("t", "<C-.>",     [[<Cmd>:vertical resize +2<CR>]], { silent = true, noremap = true              })
 
 -- Better paste
 keymap("v", "p", '"_dP', { silent = true, desc = "better paste" })
@@ -220,6 +224,7 @@ keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_togg
 -- Dispatch
 keymap("n", "<leader><cr>", "<cmd>w | Make %<cr>", { silent = true, noremap = true, desc = "dispatch" })
 keymap("n", "<leader>mi", "<cmd>w | Make install<cr>", { silent = true, noremap = true, desc = "dispatch make install" })
+keymap("n", "<leader>mt", "<cmd>w | Make test<cr>", { silent = true, noremap = true, desc = "dispatch make test" })
 
 -- neoclip
 keymap("n", "<C-p>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })
