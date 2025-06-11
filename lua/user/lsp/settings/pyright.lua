@@ -18,9 +18,12 @@ return {
         },
         stubPath = "/Users/lalo/work/block/trunk/game/stub",
         diagnosticSeverityOverrides = {
-          reportMissingModuleSource = "none", -- 忽略 C Module 找不到源码的 warning
+          reportMissingModuleSource = "none",   -- 忽略 C Module 找不到源码的 warning
           reportUnusedExpression = "none",
-          reportGeneralTypeIssues = "none",   -- 关闭类型检查
+          reportGeneralTypeIssues = "none",     -- 关闭类型检查
+          reportAttributeAccessIssue = "none",  -- 忽略 a.b 属性找不到的检查
+          reportOptionalMemberAccess = "none",  -- 忽略 xxx is not a known attribute of "None" 
+          reportArgumentType = "noen",          -- Argument of type xxx cannot be assigned to parameter of type yyy
         },
       },
     },

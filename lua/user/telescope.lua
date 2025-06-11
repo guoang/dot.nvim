@@ -8,6 +8,7 @@ local lga_actions = require("telescope-live-grep-args.actions")
 
 telescope.setup({
   defaults = {
+    -- file_ignore_patterns = {"common/debugger"},
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -55,6 +56,10 @@ telescope.setup({
       "--line-number",
       "--column",
       "--smart-case",
+      "--iglob", "!.git",
+      "--iglob", "!.svn",
+      "--iglob", "!.cache",
+      "--iglob", "!common/debugger",
     },
     prompt_prefix = "   ",
     selection_caret = "> ",
@@ -96,6 +101,7 @@ telescope.setup({
         "--iglob", "!.git",
         "--iglob", "!.svn",
         "--iglob", "!.cache",
+        "--iglob", "!common/debugger",
       },
     },
     grep_string = {
