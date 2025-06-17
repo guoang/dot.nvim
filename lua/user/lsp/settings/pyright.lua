@@ -23,7 +23,7 @@ return {
           reportGeneralTypeIssues = "none",     -- 关闭类型检查
           reportAttributeAccessIssue = "none",  -- 忽略 a.b 属性找不到的检查
           reportOptionalMemberAccess = "none",  -- 忽略 xxx is not a known attribute of "None" 
-          reportArgumentType = "noen",          -- Argument of type xxx cannot be assigned to parameter of type yyy
+          reportArgumentType = "none",          -- Argument of type xxx cannot be assigned to parameter of type yyy
         },
       },
     },
