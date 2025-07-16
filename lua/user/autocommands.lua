@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "tsplayground" },
   callback = function()
     vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR> 
+      nnoremap <silent> <buffer> q :close<CR>
       set nobuflisted
     ]])
   end,
@@ -187,3 +187,47 @@ vim.api.nvim_create_autocmd({ "ExitPre" }, {
 --     vim.cmd("au InsertLeave <buffer> setlocal guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
 --   end,
 -- })
+
+
+-- copy source code to windows machine
+-- 映射表：本地目录 => { 远程地址, 远程目录 }
+local sync_list = {
+  ["/Users/lalo/work/block/trunk/game"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/game" },
+  ["/Users/lalo/work/block/trunk/xpylibs"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/xpylibs" },
+  ["/Users/lalo/work/block/trunk/client/block/Assets/Scripts"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Assets/Scripts" },
+  ["/Users/lalo/work/block/trunk/client/block/Assets/Launch/Scripts"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Assets/Launch/Scripts" },
+  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.block"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.block" },
+  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.xpk"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.xpk" },
+}
+
+-- Register autocmd for BufWritePost
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*",
+  callback = function(args)
+    local filepath = vim.fn.expand("<afile>:p")
+    for watch_dir, remote in pairs(sync_list) do
+      -- Check if the file path starts with the watch_dir
+      if vim.startswith(filepath, watch_dir) then
+        -- 保持目录结构：把 watch_dir 里的文件原样映射到 remote_dir
+        local relative_path = filepath:sub(#watch_dir + 2) -- +2 因为要去掉 '/'
+        local remote_path = remote.remote_dir .. "/" .. relative_path
+
+        -- 构造 SCP 命令
+        local scp_cmd = string.format(
+          "scp '%s' '%s:%s'",
+          filepath, remote.host, remote_path
+        )
+
+        -- 保证目标路径目录已存在，可用 ssh 的 mkdir -p
+        local mkdir_cmd = string.format(
+          "ssh %s 'mkdir -p %s'",
+          remote.host,
+          vim.fn.fnamemodify(remote_path, ":h")
+        )
+        vim.fn.jobstart(mkdir_cmd, { detach = true })
+        vim.fn.jobstart(scp_cmd, { detach = true })
+        break -- 如果一个文件只属于一个 sync 路径, 匹配到了就跳出
+      end
+    end
+  end,
+})
