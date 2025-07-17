@@ -28,7 +28,7 @@ null_ls.setup({
         "--prose-wrap=always",
       },
     }),
-    diagnostics.jsonlint,
+    -- diagnostics.jsonlint,
     -- markdown, config file located in ~/.markdownlintrc
     -- formatting.markdownlint, --use prettier instead
     diagnostics.markdownlint,

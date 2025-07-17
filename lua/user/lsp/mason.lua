@@ -53,5 +53,6 @@ for _, server in pairs(servers) do
 
   -- print all contents of opts
   -- print(server, vim.inspect(opts))
-  lspconfig[server].setup(opts)
+  vim.lsp.enable(server)
+  vim.lsp.config(server, opts)
 end
