@@ -48,7 +48,7 @@ function M.set_winhl(filter, winhl)
 end
 
 function M.set_winhl_nvimtree(filter)
-  M.set_winhl(filter, require("nvim-tree.view").View.winopts.winhl)
+  M.set_winhl(filter, require("nvim-tree.appearance").WIN_HL)
 end
 
 function M.is_qf_open()
