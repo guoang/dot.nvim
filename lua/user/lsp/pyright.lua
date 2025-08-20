@@ -1,6 +1,5 @@
--- config pyright for neovim lsp
-return {
-  root_dir = require("lspconfig").util.root_pattern(".git", ".svn", ".root"),
+vim.lsp.config('pyright', {
+  root_markers = { 'pyrightconfig.json', '.git', '.svn', '.root' },
   settings = {
     python = {
       analysis = {
@@ -14,18 +13,17 @@ return {
           "/Users/lalo/work/block/trunk/xpylibs",
           "/Users/lalo/work/block/trunk/server/dist/Darwin-arm64/lib/python3.11/site-packages",
           "/Users/lalo/work/block/trunk/tools/dist/Darwin-arm64/lib/python3.11/site-packages",
-          "/Users/lalo/work/bbuild/install/RelWithDebInfo/Darwin-arm64/block/lib/python3.11/site-packages",
         },
         stubPath = "/Users/lalo/work/block/trunk/game/stub",
         diagnosticSeverityOverrides = {
-          reportMissingModuleSource = "none",   -- 忽略 C Module 找不到源码的 warning
+          reportMissingModuleSource = "none",  -- 忽略 C Module 找不到源码的 warning
           reportUnusedExpression = "none",
-          reportGeneralTypeIssues = "none",     -- 关闭类型检查
-          reportAttributeAccessIssue = "none",  -- 忽略 a.b 属性找不到的检查
-          reportOptionalMemberAccess = "none",  -- 忽略 xxx is not a known attribute of "None" 
-          reportArgumentType = "none",          -- Argument of type xxx cannot be assigned to parameter of type yyy
+          reportGeneralTypeIssues = "none",    -- 关闭类型检查
+          reportAttributeAccessIssue = "none", -- 忽略 a.b 属性找不到的检查
+          reportOptionalMemberAccess = "none", -- 忽略 xxx is not a known attribute of "None"
+          reportArgumentType = "none",         -- Argument of type xxx cannot be assigned to parameter of type yyy
         },
       },
     },
   },
-}
+})

@@ -1,4 +1,4 @@
-return {
+vim.lsp.config('pylsp', {
   settings = {
     pylsp = {
       plugins = {
@@ -12,9 +12,12 @@ return {
           enabled = false,
         },
         autopep8 = {
-          enabled = false,  -- use yapf
+          enabled = false, -- use yapf
         }
       },
     },
   },
-}
+  on_attach = function(client, bufnr)
+    client.server_capabilities.completionProvider = false
+  end
+})

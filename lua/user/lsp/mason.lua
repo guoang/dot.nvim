@@ -14,12 +14,11 @@ local servers = {
 
 local settings = {
   ui = {
-    border = "none",
     icons = {
-      package_installed = "◍",
-      package_pending = "◍",
-      package_uninstalled = "◍",
-    },
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
   },
   log_level = vim.log.levels.INFO,
   max_concurrent_installers = 4,
@@ -31,28 +30,13 @@ require("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-  return
-end
-
-local opts = {}
-
-for _, server in pairs(servers) do
-  opts = {
-    on_attach = require("user.lsp.handlers").on_attach,
-    capabilities = require("user.lsp.handlers").capabilities,
-  }
-
-  server = vim.split(server, "@")[1]
-
-  local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
-  if require_ok then
-    opts = vim.tbl_deep_extend("force", conf_opts, opts)
+local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if status_ok then
+  for _, server in pairs(servers) do
+    server = vim.split(server, "@")[1]
+    vim.lsp.enable(server)
+    vim.lsp.config(server, {
+      capabilities = cmp_nvim_lsp.default_capabilities(),
+    })
   end
-
-  -- print all contents of opts
-  -- print(server, vim.inspect(opts))
-  vim.lsp.enable(server)
-  vim.lsp.config(server, opts)
 end

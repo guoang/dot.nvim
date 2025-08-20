@@ -31,7 +31,7 @@ end
 
 local extended_schemas = extend(schemas, default_schemas)
 
-local opts = {
+vim.lsp.config('jsonls', {
   settings = {
     json = {
       schemas = extended_schemas,
@@ -46,6 +46,4 @@ local opts = {
       },
     },
   },
-}
-
-return opts
+})

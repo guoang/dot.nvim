@@ -1,12 +1,10 @@
-local opts = {
-  capabilities = {
-    offsetEncoding = "utf-8",
-  },
+vim.lsp.config('clangd', {
   cmd = {
     "clangd",
     "--header-insertion-decorators=false",
     "--header-insertion=never",
   },
-}
-
-return opts
+  capabilities = {
+    offsetEncoding = 'utf-8',
+  },
+})

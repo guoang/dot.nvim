@@ -1,14 +1,12 @@
 local status_ok, illuminate = pcall(require, "illuminate")
 if not status_ok then
-	return
+  return
 end
 
 vim.g.Illuminate_ftblacklist = {'alpha', 'NvimTree'}
 
 illuminate.configure {
   providers = {
-    "lsp",
-    "treesitter",
     "regex",
   },
   delay = 200,
