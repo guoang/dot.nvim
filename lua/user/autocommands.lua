@@ -192,12 +192,12 @@ vim.api.nvim_create_autocmd({ "ExitPre" }, {
 -- copy source code to windows machine
 -- 映射表：本地目录 => { 远程地址, 远程目录 }
 local sync_list = {
-  ["/Users/lalo/work/block/trunk/game"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/game" },
-  ["/Users/lalo/work/block/trunk/xpylibs"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/xpylibs" },
-  ["/Users/lalo/work/block/trunk/client/block/Assets/Scripts"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Assets/Scripts" },
-  ["/Users/lalo/work/block/trunk/client/block/Assets/Launch/Scripts"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Assets/Launch/Scripts" },
-  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.block"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.block" },
-  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.xpk"] = { host = "Admin@10.93.174.161", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.xpk" },
+  ["/Users/lalo/work/block/trunk/game"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/game" },
+  ["/Users/lalo/work/block/trunk/xpylibs"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/xpylibs" },
+  ["/Users/lalo/work/block/trunk/client/block/Assets/Scripts"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Assets/Scripts" },
+  ["/Users/lalo/work/block/trunk/client/block/Assets/Launch/Scripts"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Assets/Launch/Scripts" },
+  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.block"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.block" },
+  ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.xpk"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.xpk" },
 }
 
 -- Register autocmd for BufWritePost
