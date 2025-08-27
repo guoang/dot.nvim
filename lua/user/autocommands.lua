@@ -192,6 +192,7 @@ vim.api.nvim_create_autocmd({ "ExitPre" }, {
 -- copy source code to windows machine
 -- 映射表：本地目录 => { 远程地址, 远程目录 }
 local sync_list = {
+  ["/Users/lalo/work/xcodebase"] = { host = "Admin@100.87.205.123", remote_dir = "D:/xcodebase" },
   ["/Users/lalo/work/block/trunk/game"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/game" },
   ["/Users/lalo/work/block/trunk/xpylibs"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/xpylibs" },
   ["/Users/lalo/work/block/trunk/client/block/Assets/Scripts"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Assets/Scripts" },
@@ -219,12 +220,12 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         )
 
         -- 保证目标路径目录已存在，可用 ssh 的 mkdir -p
-        local mkdir_cmd = string.format(
-          "ssh %s 'mkdir -p %s'",
-          remote.host,
-          vim.fn.fnamemodify(remote_path, ":h")
-        )
-        vim.fn.jobstart(mkdir_cmd, { detach = true })
+        -- local mkdir_cmd = string.format(
+        --   "ssh %s 'mkdir -p %s'",
+        --   remote.host,
+        --   vim.fn.fnamemodify(remote_path, ":h")
+        -- )
+        -- vim.fn.jobstart(mkdir_cmd, { detach = true })
         vim.fn.jobstart(scp_cmd, { detach = true })
         break -- 如果一个文件只属于一个 sync 路径, 匹配到了就跳出
       end
