@@ -113,7 +113,9 @@ keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                    
 keymap("n", "<leader>tt", "<cmd>Trouble<cr>", { silent = true, desc = "trouble telescope" })
 keymap("n", "<leader>td", "<cmd>Trouble diagnostics<cr>", { silent = true, desc = "trouble diagnostics" })
 keymap("n", "<leader>tq", "<cmd>Trouble qflist<cr>", { silent = true, desc = "trouble quickfix" })
-keymap("n", "<leader>tl", "<cmd>Trouble loclist<cr>", { silent = true, desc = "trouble loclist" })
+keymap("n", "<leader>tl", "<cmd>Trouble lsp<cr>", { silent = true, desc = "trouble lsp" })
+keymap("n", "<leader>tr", "<cmd>Trouble lsp_references<cr>", { silent = true, desc = "trouble references" })
+keymap("n", "<leader>ts", "<cmd>Trouble symbols<cr>", { silent = true, desc = "trouble symbols" })
 
 -- Git
 keymap("n", "<leader>gl", "<cmd>lua require('user.toggleterm').lazygit()<cr>",  { silent = true, desc = "git Lazygit"         })
