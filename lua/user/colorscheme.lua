@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 
 -- set background color for specific windows
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Outline", "qf", "Trouble", "aerial" },
+  pattern = { "Outline", "qf", "Trouble", "aerial", "codecompanion" },
   callback = function()
     require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
   end,
