@@ -141,8 +141,8 @@ return packer.startup(function(use)
   -- use { "zbirenbaum/copilot.lua" }
   -- use({ "git@code.byted.org:chenjiaqi.cposture/codeverse.vim.git" })
   use({
-    -- "olimorris/codecompanion.nvim",
-    "~/git/codecompanion.nvim",
+    "olimorris/codecompanion.nvim",
+    -- "~/git/codecompanion.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
