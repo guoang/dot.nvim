@@ -11,7 +11,7 @@ cc.setup({
           env = {
             api_version = "2024-03-01-preview",
             api_key = "__BYTEDANCE_AZURE_OPENAI_API_KEY",
-            endpoint = "__BYTEDANCE_AZURE_OPENAI_API_KEY",
+            endpoint = "__BYTEDANCE_AZURE_OPENAI_ENDPOINT",
           }
         })
       end

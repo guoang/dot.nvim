@@ -16,6 +16,7 @@ im_select.setup({
   im_normal = apple_en,
   im_normal_ft = {
     TelescopePrompt = apple_en,
+    codecompanion = apple_en,
   },
   -- IM will be used in `insert` mode
   im_insert = apple_en,
