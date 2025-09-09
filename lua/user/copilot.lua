@@ -1,3 +1,8 @@
+if vim.fn.exists(':Copilot') ~= 2 then
+  -- not installed
+  return;
+end
+
 vim.g.copilot_no_tab_map = true
 
 local M = {}

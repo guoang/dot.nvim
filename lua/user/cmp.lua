@@ -63,7 +63,7 @@ local cmp_sources = {
     option = {
       convert_case = true,
       loud = true,
-      dict = "/Users/lalo/git/English-Vocabulary-Word-List/Oxford 3000.txt",
+      dict = "/Users/lalo/git/English-Vocabulary-Word-List/Oxford 5000.txt",
     },
   },
 }
@@ -189,59 +189,79 @@ cmp.setup({
     end,
     ["<C-j>"] = function(_)
       if cmp.visible() then
-        cmp.select_next_item()
+        -- codecompanion 的 chat buffer 中, 如果用默认的 cmp.SelectBehavior.Insert,
+        -- 会导致选中的条目直接填充, 补全菜单消失
+        if vim.bo.filetype == "codecompanion" then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          cmp.select_next_item()
+        end
       else
         cmp.complete()
       end
     end,
     ["<C-k>"] = function(_)
       if cmp.visible() then
-        cmp.select_prev_item()
+        if vim.bo.filetype == "codecompanion" then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          cmp.select_prev_item()
+        end
       else
         cmp.complete()
       end
     end,
     ["<C-n>"] = function(_)
       if cmp.visible() then
-        cmp.select_next_item()
+        if vim.bo.filetype == "codecompanion" then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          cmp.select_next_item()
+        end
       else
         cmp.complete()
       end
     end,
     ["<C-p>"] = function(_)
       if cmp.visible() then
-        cmp.select_prev_item()
+        if vim.bo.filetype == "codecompanion" then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          cmp.select_prev_item()
+        end
       else
         cmp.complete()
       end
     end,
-    ["<C-f>"] = function(fallback)
-      if copilot.has_suggestion() then
-        copilot.accept_char(fallback)
-      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
-        -- accept cmp suggestion, and move cursor forward
-        cmp.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
-        }, move_forward)
-      else
-        fallback()
-      end
-    end,
-    ["<C-e>"] = function(fallback)
-      if copilot.has_suggestion() then
-        -- accept copilot suggestion, just current line
-        copilot.accept_line(fallback)
-      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
-        -- accept cmp suggestion, and move cursor to end of line
-        cmp.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
-        }, goto_eol)
-      else
-        fallback()
-      end
-    end,
+
+    -- ["<C-f>"] = function(fallback)
+    --   if copilot.has_suggestion() then
+    --     copilot.accept_char(fallback)
+    --   elseif cmp.visible() and cmp.get_active_entry() ~= nil then
+    --     -- accept cmp suggestion, and move cursor forward
+    --     cmp.confirm({
+    --       behavior = cmp.ConfirmBehavior.Replace,
+    --       select = false,
+    --     }, move_forward)
+    --   else
+    --     fallback()
+    --   end
+    -- end,
+    -- ["<C-e>"] = function(fallback)
+    --   if copilot.has_suggestion() then
+    --     -- accept copilot suggestion, just current line
+    --     copilot.accept_line(fallback)
+    --   elseif cmp.visible() and cmp.get_active_entry() ~= nil then
+    --     -- accept cmp suggestion, and move cursor to end of line
+    --     cmp.confirm({
+    --       behavior = cmp.ConfirmBehavior.Replace,
+    --       select = false,
+    --     }, goto_eol)
+    --   else
+    --     fallback()
+    --   end
+    -- end,
+
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({
@@ -282,7 +302,7 @@ cmp.setup({
           buffer = "[Buffer]",
           path = "[Path]",
           emoji = "[Emoji]",
-          -- copilot = "[Copilot]",
+          copilot = "[Copilot]",
           browser = "[Browser]",
           look = "[Look]",
           ["vim-dadbod-completion"] = "[Dadbod]",

@@ -54,8 +54,8 @@ end
 return packer.startup(function(use)
   -- My plugins here
   use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
-  use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used by lots of plugins
-  use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
+  use({ "nvim-lua/plenary.nvim" })  -- Useful lua functions used by lots of plugins
+  use({ "windwp/nvim-autopairs" })  -- Autopairs, integrates with both cmp and treesitter
   use({ "numToStr/Comment.nvim" })
   use({ "JoosepAlviste/nvim-ts-context-commentstring" })
   use({ "nvim-tree/nvim-web-devicons" })
@@ -93,6 +93,17 @@ return packer.startup(function(use)
       vim.fn["mkdp#util#install"]()
     end,
   })
+  -- use({
+  --   "OXY2DEV/markview.nvim",
+  --   config = function()
+  --     require("markview").setup({
+  --       preview = {
+  --         filetypes = { "markdown", "codecompanion" },
+  --         ignore_buftypes = {},
+  --       }
+  --     })
+  --   end
+  -- })
   use({ "dstein64/vim-startuptime" })
   -- use({ "tweekmonster/startuptime.vim" })
   use({ "RRethy/vim-illuminate" })
@@ -110,9 +121,6 @@ return packer.startup(function(use)
   })
   use({ "rmagatti/auto-session" })
   use({ "AndrewRadev/switch.vim" })
-  use({ "renerocksai/calendar-vim" })
-  -- use({ "renerocksai/telekasten.nvim" })
-  use({ "github/copilot.vim" })
   use({ "kevinhwang91/nvim-bqf", ft = "qf" })
   use({ "AckslD/nvim-neoclip.lua" })
   use({ "anuvyklack/pretty-fold.nvim" })
@@ -127,6 +135,20 @@ return packer.startup(function(use)
   use({ "goolord/alpha-nvim" })
 
   use({ "guoang/im-select.nvim" })
+  use({ "j-hui/fidget.nvim" })
+
+  -- AI
+  -- use { "zbirenbaum/copilot.lua" }
+  -- use({ "git@code.byted.org:chenjiaqi.cposture/codeverse.vim.git" })
+  use({
+    -- "olimorris/codecompanion.nvim",
+    "~/git/codecompanion.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "j-hui/fidget.nvim", -- Display status
+    },
+  })
 
   -- Colorschemes
   use({ "xiyaowong/nvim-transparent" })
@@ -142,9 +164,9 @@ return packer.startup(function(use)
   -- use({ "glepnir/zephyr-nvim" })
 
   -- cmp plugins
-  use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
-  use({ "hrsh7th/cmp-buffer" }) -- buffer completions
-  use({ "hrsh7th/cmp-path" }) -- path completions
+  use({ "hrsh7th/nvim-cmp" })         -- The completion plugin
+  use({ "hrsh7th/cmp-buffer" })       -- buffer completions
+  use({ "hrsh7th/cmp-path" })         -- path completions
   use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
   use({ "hrsh7th/cmp-nvim-lsp" })
   use({ "hrsh7th/cmp-nvim-lsp-signature-help" })
@@ -164,7 +186,7 @@ return packer.startup(function(use)
   use({ "onsails/lspkind.nvim" })
 
   -- snippets
-  use({ "L3MON4D3/LuaSnip" }) --snippet engine
+  use({ "L3MON4D3/LuaSnip" })             --snippet engine
   use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
 
   -- LSP
@@ -177,7 +199,8 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope.nvim" })
   use({
     "nvim-telescope/telescope-fzf-native.nvim",
-    run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    run =
+    "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
   })
   use({ "nvim-telescope/telescope-symbols.nvim" })
   use({ "nvim-telescope/telescope-ui-select.nvim" })
@@ -195,6 +218,10 @@ return packer.startup(function(use)
   -- DAP
   use({ "mfussenegger/nvim-dap" })
   use({ "rcarriga/nvim-dap-ui" })
+
+  -- Telekasten
+  -- use({ "renerocksai/telekasten.nvim" })
+  -- use({ "renerocksai/calendar-vim" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

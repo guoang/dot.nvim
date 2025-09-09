@@ -184,11 +184,11 @@ keymap("n", "<leader>sc", "<cmd>lua require('user.switch').switch_column()<cr>",
 keymap("n", "<leader>sS", "<cmd>lua require('user.switch').switch_spell_check()<cr>", { silent = true, desc = "switch Spell checking" })
 keymap("n", "<leader>sh", "<cmd>nohlsearch<cr>",                                      { silent = true, desc = "switch search Highlight" })
 
--- Cmp
-keymap("n", "<leader>cc", "<cmd>lua require('user.cmp').cmp_toggle_source('copilot')<cr>", { silent = true, desc = "Cmp toggle source copilot" })
-keymap("n", "<leader>cs", "<cmd>lua require('user.cmp').cmp_toggle_source('luasnip')<cr>", { silent = true, desc = "Cmp toggle source snip" })
-keymap("n", "<leader>cb", "<cmd>lua require('user.cmp').cmp_toggle_source('browser')<cr>", { silent = true, desc = "Cmp toggle source browser" })
-keymap("n", "<leader>cl", "<cmd>lua require('user.cmp').cmp_toggle_source('look')<cr>",    { silent = true, desc = "Cmp toggle source look" })
+-- codecompanion
+keymap("n", "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { silent = true, desc = "CodeCompanionChat Toggle" })
+keymap("n", "<leader>ca", "<cmd>Telescope codecompanion<cr>",  { silent = true, desc = "CodeCompanion Action Palette" })
+vim.cmd([[cab CC CodeCompanion]])
+vim.cmd([[cab cc CodeCompanion]])
 
 -- Copilot
 keymap("i", "<C-l>",     "<cmd>lua require('user.copilot').accept_all()<cr>",      { silent = true, desc = "copilot accept suggestion" })
