@@ -123,14 +123,6 @@ return packer.startup(function(use)
   use({ "AndrewRadev/switch.vim" })
   use({ "kevinhwang91/nvim-bqf", ft = "qf" })
   use({ "AckslD/nvim-neoclip.lua" })
-  use({ "anuvyklack/pretty-fold.nvim" })
-  use({
-    "anuvyklack/fold-preview.nvim",
-    requires = "anuvyklack/keymap-amend.nvim",
-    config = function()
-      require("fold-preview").setup({})
-    end,
-  })
   use({ "stevearc/aerial.nvim" })
   use({ "goolord/alpha-nvim" })
 
