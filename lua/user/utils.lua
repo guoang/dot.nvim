@@ -38,19 +38,6 @@ function M.get_winid(filter)
   return vim.fn.bufwinid(bufnr)
 end
 
-function M.set_winhl(filter, winhl)
-  local winid = M.get_winid(filter)
-  if winid == -1 then
-    print("invalid window id: " .. tostring(winid))
-    return
-  end
-  vim.wo[winid].winhl = winhl
-end
-
-function M.set_winhl_nvimtree(filter)
-  M.set_winhl(filter, require("nvim-tree.appearance").WIN_HL)
-end
-
 function M.is_qf_open()
   return M.get_winnr({ filetype = "qf" }) ~= -1
 end

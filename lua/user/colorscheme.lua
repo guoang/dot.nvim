@@ -47,7 +47,6 @@ local function post_process()
 
   -- for aerial
   vim.cmd("hi link AerialLine Visual")
-
 end
 
 -- setup post process
@@ -58,19 +57,27 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 })
 
 -- set background color for specific windows
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Outline", "qf", "Trouble", "aerial", "codecompanion" },
-  callback = function()
-    require("user.utils").set_winhl_nvimtree({ filetype = vim.bo.filetype })
+local target_filetypes = {
+  "codecompanion",
+  "qf",
+  "aerial",
+  "Outline",
+  "Trouble",
+  "help",
+}
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = "*",
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    if vim.tbl_contains(target_filetypes, ft) then
+      vim.wo.winhl = "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
+    end
   end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "help" },
+  pattern = target_filetypes,
   callback = function()
-    require("user.utils").set_winhl(
-      { filetype = vim.bo.filetype },
-      "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
-    )
+    vim.wo.winhl = "Normal:NvimTreeNormal,EndOfBuffer:NvimTreeEndOfBuffer"
   end,
 })
 

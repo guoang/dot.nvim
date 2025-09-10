@@ -6,7 +6,7 @@ end
 cc.setup({
   adapters = {
     http = {
-      azure_openai = function ()
+      azure_openai = function()
         return require("codecompanion.adapters").extend("azure_openai", {
           env = {
             api_version = "2024-03-01-preview",
@@ -24,7 +24,7 @@ cc.setup({
         model = "gpt-4.1-2025-04-14",
       },
       roles = {
-        user = "Lalo",
+        user = "Me",
       },
       keymaps = {
         send = {
@@ -39,31 +39,12 @@ cc.setup({
         },
       },
       slash_commands = {
-        ["buffer"] = {
-          keymaps = {
-            modes = {
-              -- i = "<C-b>",
-            },
-          },
-        },
-        ["fetch"] = {
-          keymaps = {
-            modes = {
-              -- i = "<C-f>",
-            },
-          },
-        },
         ["help"] = {
           opts = {
             max_lines = 1000,
           },
         },
         ["image"] = {
-          keymaps = {
-            modes = {
-              -- i = "<C-i>",
-            },
-          },
           opts = {
             dirs = { "~/Documents/Screenshots" },
           },
@@ -89,6 +70,14 @@ cc.setup({
         tool_success = "󰸞 ",
       },
       fold_context = true,
+      window = {
+        border = "double",
+        width = 80,
+        opts = {
+          number = false,
+          winfixwidth = true,
+        },
+      }
     },
   },
   opts = {
