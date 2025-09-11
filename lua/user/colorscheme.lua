@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 
 -- set background color for specific windows
 local target_filetypes = {
+  "copilot-chat",
   "codecompanion",
   "qf",
   "aerial",

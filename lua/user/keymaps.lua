@@ -118,18 +118,18 @@ keymap("n", "<leader>tr", "<cmd>Trouble lsp_references<cr>", { silent = true, de
 keymap("n", "<leader>ts", "<cmd>Trouble symbols<cr>", { silent = true, desc = "trouble symbols" })
 
 -- Git
-keymap("n", "<leader>gl", "<cmd>lua require('user.toggleterm').lazygit()<cr>",  { silent = true, desc = "git Lazygit"         })
+keymap("n", "<leader>gl", "<cmd>lua require('user.toggleterm').lazygit()<cr>", { silent = true, desc = "git Lazygit"         })
 keymap("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
 keymap("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       { silent = true, desc = "git Prev Hunk"       })
 keymap("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       { silent = true, desc = "git Next Hunk"       })
 keymap("n", "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       { silent = true, desc = "git Prev Hunk"       })
 keymap("n", "<leader>gB", "<cmd>lua require 'gitsigns'.blame_line()<cr>",      { silent = true, desc = "git Blame"           })
-keymap("n", "<leader>gP", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>",    { silent = true, desc = "git Preview Hunk"    })
 keymap("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",      { silent = true, desc = "git Reset Hunk"      })
 keymap("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",    { silent = true, desc = "git Reset Buffer"    })
 keymap("n", "<leader>gS", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",      { silent = true, desc = "git Stage Hunk"      })
 keymap("n", "<leader>gU", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", { silent = true, desc = "git Undo Stage Hunk" })
-keymap("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>",                   { silent = true, desc = "git Diff"            })
+keymap("n", "<leader>gd", "<cmd>Gitsigns preview_hunk_inline<cr>",             { silent = true, desc = "git Diff"            })
+keymap("n", "<leader>gD", "<cmd>Gitsigns diffthis HEAD<cr>",                   { silent = true, desc = "git Diff"            })
 keymap("n", "<leader>gs", "<cmd>Telescope git_status<cr>",                     { silent = true, desc = "git Status"          })
 keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>",                   { silent = true, desc = "git Branches"        })
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    { silent = true, desc = "git Commits"         })
@@ -190,9 +190,15 @@ keymap("n", "<leader>ca", "<cmd>Telescope codecompanion<cr>",  { silent = true, 
 vim.cmd([[cab CC CodeCompanion]])
 vim.cmd([[cab cc CodeCompanion]])
 
+-- CopilotChat
+-- keymap("n", "<leader>cc", "<cmd>CopilotChatToggle<cr>", { silent = true, desc = "CopilotChat Toggle" })
+-- keymap("i", "<C-CR>", "<cmd>CopilotChatSend<cr>", { silent = true, desc = "CopilotChat Send" })
+-- vim.cmd([[cab CC CopilotChat]])
+-- vim.cmd([[cab cc CopilotChat]])
+
 -- Copilot
-keymap("i", "<C-l>",     "<cmd>lua require('user.copilot').accept_all()<cr>",      { silent = true, desc = "copilot accept suggestion" })
-keymap("i", "<C-Space>", "<cmd>lua require('user.copilot').toggle_suggest()<cr>", { silent = true, desc = "copilot toggle suggestion" })
+-- keymap("i", "<C-l>",     "<cmd>lua require('user.copilot').accept_all()<cr>",      { silent = true, desc = "copilot accept suggestion" })
+-- keymap("i", "<C-l>", "<cmd>lua require('user.copilot').toggle_suggest()<cr>", { silent = true, desc = "copilot toggle suggestion" })
 
 -- Telekasten
 -- keymap("n", "<leader>zz", "<cmd>lua require('telekasten').panel()<cr>",                     { silent = true, noremap = true, desc = "Zettelkasten panel" })

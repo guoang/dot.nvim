@@ -93,17 +93,17 @@ return packer.startup(function(use)
       vim.fn["mkdp#util#install"]()
     end,
   })
-  -- use({
-  --   "OXY2DEV/markview.nvim",
-  --   config = function()
-  --     require("markview").setup({
-  --       preview = {
-  --         filetypes = { "markdown", "codecompanion" },
-  --         ignore_buftypes = {},
-  --       }
-  --     })
-  --   end
-  -- })
+  use({
+    "OXY2DEV/markview.nvim",
+    config = function()
+      require("markview").setup({
+        preview = {
+          filetypes = { "markdown", "codecompanion" },
+          ignore_buftypes = {},
+        }
+      })
+    end
+  })
   use({ "dstein64/vim-startuptime" })
   -- use({ "tweekmonster/startuptime.vim" })
   use({ "RRethy/vim-illuminate" })
@@ -130,8 +130,9 @@ return packer.startup(function(use)
   use({ "j-hui/fidget.nvim" })
 
   -- AI
-  -- use { "zbirenbaum/copilot.lua" }
-  -- use({ "git@code.byted.org:chenjiaqi.cposture/codeverse.vim.git" })
+  -- use { "github/copilot.vim" }
+  use({ "zbirenbaum/copilot.lua" })
+  use({ "zbirenbaum/copilot-cmp" })
   use({
     "olimorris/codecompanion.nvim",
     -- "~/git/codecompanion.nvim",
@@ -140,6 +141,10 @@ return packer.startup(function(use)
       "nvim-treesitter/nvim-treesitter",
       "j-hui/fidget.nvim", -- Display status
     },
+  })
+  use({
+    "CopilotC-Nvim/CopilotChat.nvim",
+    run = "make tiktoken",
   })
 
   -- Colorschemes

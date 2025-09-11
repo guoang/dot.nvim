@@ -1,91 +1,73 @@
-if vim.fn.exists(':Copilot') ~= 2 then
-  -- not installed
-  return;
+local co_ok, co = pcall(require, "copilot")
+if not co_ok then
+  return
 end
 
-vim.g.copilot_no_tab_map = true
+co.setup({
+  panel = { enabled = false },
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    keymap = {
+      accept = "<C-CR>",
+      accept_word = false,
+      accept_line = false,
+      next = false,
+      prev = false,
+      dismiss = false,
+    }
+  },
+  filetypes = {
+    cpp   = true,
+    c     = true,
+    py    = true,
+    cmake = true,
+    lua   = true,
+    ["*"] = false,
+  }
+})
 
-local M = {}
+-- local cmp_ok, cmp = pcall(require, "cmp")
+-- if cmp_ok then
+--   cmp.event:on("menu_opened", function()
+--     vim.b.copilot_suggestion_hidden = true
+--   end)
+--
+--   cmp.event:on("menu_closed", function()
+--     vim.b.copilot_suggestion_hidden = false
+--   end)
+-- end
 
-function M.get_suggestion_text()
-  local s = vim.fn["copilot#GetDisplayedSuggestion"]()
-  return s.text
-end
-
-function M.has_suggestion()
-  local s = vim.fn["copilot#GetDisplayedSuggestion"]()
-  return s.text ~= "" and s.text ~= nil
-end
-
-function M.toggle_suggest()
-  if M.has_suggestion() then
-    vim.fn["copilot#Dismiss"]()
+local function copilot_accept_word_or_fallback()
+  local ok, copilot = pcall(require, "copilot.suggestion")
+  if ok and copilot.is_visible() then
+    copilot.accept_word()
   else
-    vim.fn["copilot#Suggest"]()
+    -- Fallback to "move forward"
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, false, true), "n", false)
   end
 end
+vim.keymap.set("i", "<C-f>", copilot_accept_word_or_fallback, { desc = "Copilot Accept Word or <C-f> Fallback" })
 
-function M.accept_line(fallback)
-  -- accept copilot suggestion, just current line
-  local text = M.get_suggestion_text()
-  if text == "" or text == nil then
-    fallback()
-    return
-  end
-  local co_line = text:match(".-\n")
-  if co_line == nil then
-    co_line = text
+local function copilot_accept_line_or_fallback()
+  local ok, copilot = pcall(require, "copilot.suggestion")
+  if ok and copilot.is_visible() then
+    copilot.accept_line()
   else
-    co_line = co_line:sub(1, -2)
-  end
-  if co_line ~= "" then
-    local pos = vim.api.nvim_win_get_cursor(0)[2]
-    local line = vim.api.nvim_get_current_line()
-    co_line = line:sub(0, pos) .. co_line
-    vim.api.nvim_set_current_line(co_line)
-    vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], #co_line })
-  else
-    fallback()
+    -- Fallback to "move to end of line
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<End>", true, false, true), "n", false)
   end
 end
+vim.keymap.set("i", "<C-e>", copilot_accept_line_or_fallback, { desc = "Copilot Accept Line or <C-f> Fallback" })
 
-function M.accept_char(fallback)
-  -- accept copilot suggestion, just next char
-  local text = M.get_suggestion_text()
-  if text == "" or text == nil then
-    fallback()
-    return
-  end
-  local co_line = text:match(".-\n")
-  if co_line == nil then
-    co_line = text
+local function copilot_toggle_suggestion_visibility()
+  local copilot = require("copilot.suggestion")
+  if copilot.is_visible() then
+    copilot.dismiss()
+    vim.notify("Copilot suggestion hidden", vim.log.levels.INFO)
   else
-    co_line = co_line:sub(1, -2)
-  end
-  if co_line ~= "" then
-    local pos = vim.api.nvim_win_get_cursor(0)[2]
-    local line = vim.api.nvim_get_current_line()
-    co_line = line:sub(0, pos) .. co_line:sub(0, 1)
-    vim.api.nvim_set_current_line(co_line)
-    vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], pos + 1 })
-  else
-    fallback()
+    copilot.next()
+    vim.notify("Copilot suggestion shown", vim.log.levels.INFO)
   end
 end
-
-function M.accept_all(fallback)
-  if M.has_suggestion() then
-    require("nvim-autopairs").disable()
-    local co_keys = vim.fn["copilot#Accept"]()
-    if co_keys ~= "" then
-      vim.api.nvim_feedkeys(co_keys, "i", true)
-    end
-    require("nvim-autopairs").enable()
-  elseif fallback then
-    fallback()
-  else
-    vim.fn["copilot#Suggest"]()
-  end
-end
-
-return M
+vim.keymap.set("i", "<C-l>", copilot_toggle_suggestion_visibility, { desc = "Copilot toggle visibility" })
