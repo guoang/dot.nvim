@@ -20,10 +20,10 @@ cc.setup({
   strategies = {
     chat = {
       adapter = {
-        -- name = "azure_openai",
-        -- model = "gpt-4.1-2025-04-14",
-        name = "copilot",
-        model = "gpt-4.1",
+        name = "azure_openai",
+        model = "gpt-4.1-2025-04-14",
+        -- name = "copilot",
+        -- model = "gpt-4.1",
       },
       roles = {
         user = "Me",
@@ -32,11 +32,6 @@ cc.setup({
         send = {
           modes = {
             i = { "<C-CR>" },
-          },
-        },
-        completion = {
-          modes = {
-            i = "<C-x>",
           },
         },
       },
@@ -55,10 +50,10 @@ cc.setup({
     },
     inline = {
       adapter = {
-        -- name = "azure_openai",
-        -- model = "gpt-4.1-2025-04-14",
-        name = "copilot",
-        model = "gpt-4.1",
+        name = "azure_openai",
+        model = "gpt-4.1-2025-04-14",
+        -- name = "copilot",
+        -- model = "gpt-4.1",
       },
     },
   },

@@ -132,7 +132,7 @@ return packer.startup(function(use)
   -- AI
   -- use { "github/copilot.vim" }
   use({ "zbirenbaum/copilot.lua" })
-  use({ "zbirenbaum/copilot-cmp" })
+  -- use({ "zbirenbaum/copilot-cmp" })
   use({
     "olimorris/codecompanion.nvim",
     -- "~/git/codecompanion.nvim",
