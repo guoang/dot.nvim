@@ -33,11 +33,11 @@ cc.setup({
   strategies = {
     chat = {
       adapter = {
-        name = "azure_openai",
-        model = "gpt-5-2025-08-07",
+        -- name = "azure_openai",
+        -- model = "gpt-5-2025-08-07",
 
-        -- name = "copilot",
-        -- model = "gpt-5",
+        name = "copilot",
+        model = "gpt-5",
       },
       roles = {
         user = "👤 Me",
@@ -67,11 +67,11 @@ cc.setup({
     },
     inline = {
       adapter = {
-        name = "azure_openai",
-        model = "gpt-5-2025-08-07",
+        -- name = "azure_openai",
+        -- model = "gpt-5-2025-08-07",
 
-        -- name = "copilot",
-        -- model = "gpt-5",
+        name = "copilot",
+        model = "gpt-5",
       },
     },
   },

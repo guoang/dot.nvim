@@ -13,11 +13,6 @@ if not lspkind_ok then
   return
 end
 
-local co_ok, copilot = pcall(require, "user.copilot")
-if not co_ok then
-  return
-end
-
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -53,7 +48,6 @@ local cmp_sources = {
   { name = "path" },
   { name = "git" },
   { name = "vim-dadbod-completion" },
-  { name = "copilot" },
   { name = "browser", keyword_length = 2, max_item_count = 20 },
   {
     name = "look",
@@ -122,15 +116,6 @@ local function cmp_toggle_source(src)
 end
 
 -- }}}
-
--- add copilot to lspkind.lua
-lspkind.init({
-  symbol_map = {
-    Copilot = "",
-    TypeParameter = "",
-  },
-})
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "Green" })
 
 cmp.setup({
   snippet = {
@@ -231,6 +216,35 @@ cmp.setup({
         end
       else
         cmp.complete()
+      end
+    end,
+
+    ["<C-f>"] = function(fallback)
+      local co_ok, copilot = pcall(require, "copilot.suggestion")
+      if co_ok and copilot.is_visible() then
+        copilot.accept_word()
+      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
+        -- accept cmp suggestion, and move cursor forward
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }, move_forward)
+      else
+        fallback()
+      end
+    end,
+    ["<C-e>"] = function(fallback)
+      local co_ok, copilot = pcall(require, "copilot.suggestion")
+      if co_ok and copilot.is_visible() then
+        copilot.accept_line()
+      elseif cmp.visible() and cmp.get_active_entry() ~= nil then
+        -- accept cmp suggestion, and move cursor to end of line
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }, goto_eol)
+      else
+        fallback()
       end
     end,
 
