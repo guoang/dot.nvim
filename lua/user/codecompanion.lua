@@ -12,6 +12,19 @@ cc.setup({
             api_version = "2024-03-01-preview",
             api_key = "__BYTEDANCE_AZURE_OPENAI_API_KEY",
             endpoint = "__BYTEDANCE_AZURE_OPENAI_ENDPOINT",
+          },
+          schema = {
+            model = {
+              default = "gpt-5-2025-08-07",
+              -- default = "gpt-4.1-2025-04-14",
+            },
+            -- gpt-5 is a reasoning model no need to worry about the temperature
+            -- temperature = {
+            --   default = 0.2,
+            -- },
+            max_tokens = {
+              default = 16384,
+            },
           }
         })
       end
@@ -21,12 +34,16 @@ cc.setup({
     chat = {
       adapter = {
         name = "azure_openai",
-        model = "gpt-4.1-2025-04-14",
+        model = "gpt-5-2025-08-07",
+
         -- name = "copilot",
-        -- model = "gpt-4.1",
+        -- model = "gpt-5",
       },
       roles = {
-        user = "Me",
+        user = "👤 Me",
+        llm = function(adapter)
+          return "🤖 CodeCompanion (" .. adapter.formatted_name .. ")"
+        end
       },
       keymaps = {
         send = {
@@ -51,9 +68,10 @@ cc.setup({
     inline = {
       adapter = {
         name = "azure_openai",
-        model = "gpt-4.1-2025-04-14",
+        model = "gpt-5-2025-08-07",
+
         -- name = "copilot",
-        -- model = "gpt-4.1",
+        -- model = "gpt-5",
       },
     },
   },

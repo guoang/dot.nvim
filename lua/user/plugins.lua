@@ -93,17 +93,17 @@ return packer.startup(function(use)
       vim.fn["mkdp#util#install"]()
     end,
   })
-  use({
-    "OXY2DEV/markview.nvim",
-    config = function()
-      require("markview").setup({
-        preview = {
-          filetypes = { "markdown", "codecompanion" },
-          ignore_buftypes = {},
-        }
-      })
-    end
-  })
+  -- use({
+  --   "OXY2DEV/markview.nvim",
+  --   config = function()
+  --     require("markview").setup({
+  --       preview = {
+  --         filetypes = { "markdown", "codecompanion" },
+  --         ignore_buftypes = {},
+  --       }
+  --     })
+  --   end
+  -- })
   use({ "dstein64/vim-startuptime" })
   -- use({ "tweekmonster/startuptime.vim" })
   use({ "RRethy/vim-illuminate" })

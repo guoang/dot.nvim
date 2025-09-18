@@ -233,6 +233,7 @@ keymap("n", "<leader>bz", "<cmd>lua require('user.bufferline').buffer_group_togg
 keymap("n", "<leader><cr>", "<cmd>w | Make %<cr>", { silent = true, noremap = true, desc = "dispatch" })
 keymap("n", "<leader>mi", "<cmd>w | Make install<cr>", { silent = true, noremap = true, desc = "dispatch make install" })
 keymap("n", "<leader>mt", "<cmd>w | Make test<cr>", { silent = true, noremap = true, desc = "dispatch make test" })
+keymap("n", "<leader>ma", "<cmd>w | Make all<cr>", { silent = true, noremap = true, desc = "dispatch make all" })
 
 -- neoclip
 keymap("n", "<C-p>", "<cmd>Telescope neoclip<cr>", { silent = true, noremap = true, desc = "neoclip paste" })
