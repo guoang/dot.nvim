@@ -25,7 +25,7 @@ co.setup({
     lua   = true,
     ["*"] = false,
   },
-  copilot_model = "gpt-5",
+  -- copilot_model = "gpt-5",
 })
 
 -- local cmp_ok, cmp = pcall(require, "cmp")

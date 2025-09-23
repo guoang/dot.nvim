@@ -48,7 +48,7 @@ local cmp_sources = {
   { name = "path" },
   { name = "git" },
   { name = "vim-dadbod-completion" },
-  { name = "browser", keyword_length = 2, max_item_count = 20 },
+  -- { name = "browser", keyword_length = 2, max_item_count = 20 },
   {
     name = "look",
     keyword_length = 2,
