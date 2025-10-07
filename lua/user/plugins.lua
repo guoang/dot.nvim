@@ -128,6 +128,7 @@ return packer.startup(function(use)
 
   use({ "guoang/im-select.nvim" })
   use({ "j-hui/fidget.nvim" })
+  use('mrjones2014/smart-splits.nvim')
 
   -- AI
   -- use { "github/copilot.vim" }

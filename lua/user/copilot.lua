@@ -3,6 +3,9 @@ if not co_ok then
   return
 end
 
+-- Copilot proxy: https://github.com/github/copilot.vim/blob/1358e8e45ecedc53daf971924a0541ddf6224faf/doc/copilot.txt#L77-L91
+vim.g.copilot_proxy = "http://127.0.0.1:1087"
+
 co.setup({
   panel = { enabled = false },
   suggestion = {

@@ -24,7 +24,7 @@ which_key.add({
   { "<leader>r", group = "RunIt",          nowait = true, remap = false },
   { "<leader>s", group = "Switch",         nowait = true, remap = false },
   { "<leader>S", group = "Spectre",        nowait = true, remap = false },
-  { "<leader>t", group = "Trouble",        nowait = true, remap = false },
+  { "<leader>t", group = "Trouble/Term",   nowait = true, remap = false },
   { "<leader>e", group = "Explore",        nowait = true, remap = false },
   { "<leader>c", group = "Completion",     nowait = true, remap = false },
   { "<leader>m", group = "Make",           nowait = true, remap = false },

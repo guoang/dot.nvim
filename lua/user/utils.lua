@@ -51,4 +51,44 @@ function M.toggle_qf()
   end
 end
 
+function M.move_to_window_right()
+  -- Try to move to the right window, if it fails, try to move to zellij right pane
+  local old_bufnr = vim.api.nvim_get_current_buf()
+  vim.cmd.wincmd('l')
+  local new_bufnr = vim.api.nvim_get_current_buf()
+  if old_bufnr == new_bufnr then
+    vim.fn.system("zellij action move-focus right")
+  end
+end
+
+function M.move_to_window_left()
+  -- Try to move to the left window, if it fails, try to move to zellij left pane
+  local old_bufnr = vim.api.nvim_get_current_buf()
+  vim.cmd.wincmd('h')
+  local new_bufnr = vim.api.nvim_get_current_buf()
+  if old_bufnr == new_bufnr then
+    vim.fn.system("zellij action move-focus left")
+  end
+end
+
+function M.move_to_window_up()
+  -- Try to move to the upper window, if it fails, try to move to zellij upper pane
+  local old_bufnr = vim.api.nvim_get_current_buf()
+  vim.cmd.wincmd('k')
+  local new_bufnr = vim.api.nvim_get_current_buf()
+  if old_bufnr == new_bufnr then
+    vim.fn.system("zellij action move-focus up")
+  end
+end
+
+function M.move_to_window_down()
+  -- Try to move to the down window, if it fails, try to move to zellij down pane
+  local old_bufnr = vim.api.nvim_get_current_buf()
+  vim.cmd.wincmd('j')
+  local new_bufnr = vim.api.nvim_get_current_buf()
+  if old_bufnr == new_bufnr then
+    vim.fn.system("zellij action move-focus down")
+  end
+end
+
 return M

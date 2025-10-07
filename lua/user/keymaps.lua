@@ -14,14 +14,16 @@ vim.g.mapleader = " "
 --   command_mode = "c",
 
 -- Navigate windows
-keymap("n", "<C-h>", "<C-w>h",             { silent = true, desc = "move to window on the left"  })
-keymap("n", "<C-l>", "<C-w>l",             { silent = true, desc = "move to window on the right" })
-keymap("n", "<C-j>", "<C-w>j",             { silent = true, desc = "move to window below"        })
-keymap("n", "<C-k>", "<C-w>k",             { silent = true, desc = "move to window above"        })
-keymap('t', '<C-h>', [[<C-\><C-n><C-W>h]], { silent = true, noremap = true                       })
-keymap('t', '<C-j>', [[<C-\><C-n><C-W>j]], { silent = true, noremap = true                       })
-keymap('t', '<C-k>', [[<C-\><C-n><C-W>k]], { silent = true, noremap = true                       })
-keymap('t', '<C-l>', [[<C-\><C-n><C-W>l]], { silent = true, noremap = true                       })
+keymap("n", "<C-h>", require('smart-splits').move_cursor_left,  { silent = true, desc = "move to window on the left"  })
+keymap("n", "<C-l>", require('smart-splits').move_cursor_right, { silent = true, desc = "move to window on the right" })
+keymap("n", "<C-j>", require('smart-splits').move_cursor_down,  { silent = true, desc = "move to window below"        })
+keymap("n", "<C-k>", require('smart-splits').move_cursor_up,    { silent = true, desc = "move to window above"        })
+
+-- Resize windows
+keymap("n", "<A-h>", require('smart-splits').resize_left,  { silent = true, desc = "resize left" })
+keymap("n", "<A-l>", require('smart-splits').resize_right, { silent = true, desc = "resize right" })
+keymap("n", "<A-j>", require('smart-splits').resize_up,    { silent = true, desc = "resize up"   })
+keymap("n", "<A-k>", require('smart-splits').resize_down,  { silent = true, desc = "resize down"   })
 
 -- Navigate buffers
 keymap("n", "<S-l>", "<cmd>lua require'user.bufferline'.buffer_next()<cr>", { silent = true, desc = "buffer next" })
@@ -38,20 +40,6 @@ keymap({"i", "c"}, "<C-e>", "<end>",   { silent = true, desc = "<end>"   })
 keymap({"i", "c"}, "<C-a>", "<home>",  { silent = true, desc = "<home>"  })
 keymap({"c"}, "<C-p>", "<up>",    { silent = true, desc = "prev cmd"  })
 keymap({"c"}, "<C-n>", "<down>",  { silent = true, desc = "next cmd"  })
-
--- Resize with arrows
-keymap("n", "<C-Up>",    ":resize -2<cr>",                 { silent = true, desc = "resize- horizontal" })
-keymap("n", "<C-Down>",  ":resize +2<cr>",                 { silent = true, desc = "resize+ horizontal" })
-keymap("n", "<C-Left>",  ":vertical resize -2<cr>",        { silent = true, desc = "resize- vertical"   })
-keymap("n", "<C-Right>", ":vertical resize +2<cr>",        { silent = true, desc = "resize+ vertical"   })
-keymap("n", "<C-,>",     ":vertical resize -2<cr>",        { silent = true, desc = "resize- vertical"   })
-keymap("n", "<C-.>",     ":vertical resize +2<cr>",        { silent = true, desc = "resize+ vertical"   })
-keymap("t", "<C-Up>",    [[<Cmd>:resize -2<CR>]],          { silent = true, noremap = true              })
-keymap("t", "<C-Down>",  [[<Cmd>:resize +2<CR>]],          { silent = true, noremap = true              })
-keymap("t", "<C-Left>",  [[<Cmd>:vertical resize -2<CR>]], { silent = true, noremap = true              })
-keymap("t", "<C-Right>", [[<Cmd>:vertical resize +2<CR>]], { silent = true, noremap = true              })
-keymap("t", "<C-,>",     [[<Cmd>:vertical resize -2<CR>]], { silent = true, noremap = true              })
-keymap("t", "<C-.>",     [[<Cmd>:vertical resize +2<CR>]], { silent = true, noremap = true              })
 
 -- Better paste
 keymap("v", "p", '"_dP', { silent = true, desc = "better paste" })
@@ -102,12 +90,12 @@ keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>",                         
 keymap("n", "<leader>fa", "<cmd>Telescope autocommands<cr>",                                          { silent = true, desc = "find vim Auto commands"      })
 
 -- Terminal
--- keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",   { silent = true, desc = "terminal toggle Float" })
--- keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
--- keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
--- keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
--- keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
--- keymap("n", "<leader>tp", "<cmd>lua require('user.toggleterm').python()<cr>",   { silent = true, desc = "terminal Python" })
+keymap("n", "<leader>tf", "<cmd>exe v:count1 . 'ToggleTerm direction=float'<cr>",   { silent = true, desc = "terminal toggle Float" })
+keymap("n", "<leader>th", "<cmd>exe v:count1 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle Horizontal" })
+keymap("n", "<leader>tv", "<cmd>exe v:count1 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle Vertical" })
+keymap("n", "<leader>tH", "<cmd>exe 1 . 'ToggleTerm direction=horizontal'<cr><cmd>exe 2 . 'ToggleTerm direction=horizontal'<cr>", { silent = true, desc = "terminal toggle 2 Horizontal" })
+keymap("n", "<leader>tV", "<cmd>exe 1 . 'ToggleTerm direction=vertical'<cr><cmd>exe 2 . 'ToggleTerm direction=vertical'<cr>",   { silent = true, desc = "terminal toggle 2 Vertical" })
+keymap("n", "<leader>tp", "<cmd>lua require('user.toggleterm').python()<cr>",   { silent = true, desc = "terminal Python" })
 
 -- Trouble
 keymap("n", "<leader>tt", "<cmd>Trouble<cr>", { silent = true, desc = "trouble telescope" })

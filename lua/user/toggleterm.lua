@@ -24,20 +24,20 @@ toggleterm.setup({
   float_opts = {
     border = "none",
   },
-  on_create = function(_)
-    vim.cmd("set nocursorline")
-    vim.cmd("set guicursor=a:ver90")
-  end,
-  on_open = function(_)
-    vim.cmd("set nocursorline")
-    vim.cmd("set guicursor=a:ver90")
-  end,
-  on_close = function(_)
-    vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
-  end,
-  on_exit = function(_, _, _, _)
-    vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
-  end,
+  -- on_create = function(_)
+  --   vim.cmd("set nocursorline")
+  --   vim.cmd("set guicursor=a:ver90")
+  -- end,
+  -- on_open = function(_)
+  --   vim.cmd("set nocursorline")
+  --   vim.cmd("set guicursor=a:ver90")
+  -- end,
+  -- on_close = function(_)
+  --   vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+  -- end,
+  -- on_exit = function(_, _, _, _)
+  --   vim.cmd("set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20")
+  -- end,
 })
 
 local M = {}
