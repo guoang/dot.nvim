@@ -60,6 +60,7 @@ telescope.setup({
       "--iglob", "!.svn",
       "--iglob", "!.cache",
       "--iglob", "!common/debugger",
+      "--iglob", "!CMakeFiles",
     },
     prompt_prefix = "   ",
     selection_caret = "> ",

@@ -154,6 +154,22 @@ vim.api.nvim_create_autocmd({ "ExitPre" }, {
 --   end,
 -- })
 
+-- 自动检测文件变化并重新加载
+-- 当光标移动、进入缓冲区或获得焦点时检查文件是否被修改
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- 文件被外部修改时的通知
+vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
+  callback = function()
+    vim.notify("文件已在外部被修改，已自动重新加载", vim.log.levels.WARN)
+  end,
+})
 
 -- copy source code to windows machine
 -- 映射表：本地目录 => { 远程地址, 远程目录 }
@@ -167,10 +183,30 @@ local sync_list = {
   ["/Users/lalo/work/block/trunk/client/block/Packages/com.bytedance.xpk"] = { host = "Admin@100.87.205.123", remote_dir = "D:/block/trunk/client/block/Packages/com.bytedance.xpk" },
 }
 
+-- 同步功能开关，默认关闭
+local sync_enabled = false
+
+-- 创建命令来开启同步功能
+vim.api.nvim_create_user_command("StartSyncWin", function()
+  sync_enabled = true
+  vim.notify("Windows 同步功能已开启", vim.log.levels.INFO)
+end, { desc = "开启 Windows 同步功能" })
+
+-- 创建命令来关闭同步功能（可选）
+vim.api.nvim_create_user_command("StopSyncWin", function()
+  sync_enabled = false
+  vim.notify("Windows 同步功能已关闭", vim.log.levels.INFO)
+end, { desc = "关闭 Windows 同步功能" })
+
 -- Register autocmd for BufWritePost
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*",
   callback = function(args)
+    -- 检查同步功能是否已开启
+    if not sync_enabled then
+      return
+    end
+    
     local filepath = vim.fn.expand("<afile>:p")
     for watch_dir, remote in pairs(sync_list) do
       -- Check if the file path starts with the watch_dir
