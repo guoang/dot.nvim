@@ -164,6 +164,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   end,
 })
 
+-- 每 0.5 秒自动检查一次文件变化
+local check_time_timer = vim.loop.new_timer()
+check_time_timer:start(500, 500, vim.schedule_wrap(function()
+  -- 避免在命令行模式下检查，以免干扰输入
+  if vim.fn.mode() ~= 'c' then
+    pcall(vim.cmd, "checktime")
+  end
+end))
+
 -- 文件被外部修改时的通知
 vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
   callback = function()

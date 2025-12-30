@@ -24,9 +24,9 @@ im_select.setup({
   im_insert_ft = {
     TelescopePrompt = apple_en,
     -- markdown = "com.apple.inputmethod.SCIM.Shuangpin",
-    markdown = apple_cn,
-    html = apple_cn,
-    rst = apple_cn,
+    markdown = sougou,
+    html = sougou,
+    rst = sougou,
   },
   -- Create auto command to select `im_normal` when `InsertLeave`
   auto_select_normal = true,
