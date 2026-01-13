@@ -14,10 +14,10 @@ vim.g.mapleader = " "
 --   command_mode = "c",
 
 -- Navigate windows
-keymap("n", "<C-h>", require('smart-splits').move_cursor_left,  { silent = true, desc = "move to window on the left"  })
-keymap("n", "<C-l>", require('smart-splits').move_cursor_right, { silent = true, desc = "move to window on the right" })
-keymap("n", "<C-j>", require('smart-splits').move_cursor_down,  { silent = true, desc = "move to window below"        })
-keymap("n", "<C-k>", require('smart-splits').move_cursor_up,    { silent = true, desc = "move to window above"        })
+keymap("n", "<C-S-h>", require('smart-splits').move_cursor_left,  { silent = true, desc = "move to window on the left"  })
+keymap("n", "<C-S-l>", require('smart-splits').move_cursor_right, { silent = true, desc = "move to window on the right" })
+keymap("n", "<C-S-j>", require('smart-splits').move_cursor_down,  { silent = true, desc = "move to window below"        })
+keymap("n", "<C-S-k>", require('smart-splits').move_cursor_up,    { silent = true, desc = "move to window above"        })
 
 -- Resize windows
 keymap("n", "<A-h>", require('smart-splits').resize_left,  { silent = true, desc = "resize left" })
