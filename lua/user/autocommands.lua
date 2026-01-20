@@ -164,6 +164,20 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   end,
 })
 
+-- 从 zellij 切回 neovim 时自动切换到英文输入法
+-- 需要先安装 macism: brew install macism
+if vim.fn.executable("macism") == 1 then
+  local last_switch = 0
+  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+    callback = function()
+      local now = vim.uv.now()
+      if now - last_switch < 100 then return end
+      last_switch = now
+      vim.uv.spawn("macism", { args = { "com.apple.keylayout.ABC" } })
+    end,
+  })
+end
+
 -- 每 0.5 秒自动检查一次文件变化
 local check_time_timer = vim.loop.new_timer()
 check_time_timer:start(500, 500, vim.schedule_wrap(function()
