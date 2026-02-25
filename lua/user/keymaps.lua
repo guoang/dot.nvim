@@ -29,10 +29,6 @@ keymap("n", "<A-k>", require('smart-splits').resize_down,  { silent = true, desc
 keymap("n", "<S-l>", "<cmd>lua require'user.bufferline'.buffer_next()<cr>", { silent = true, desc = "buffer next" })
 keymap("n", "<S-h>", "<cmd>lua require'user.bufferline'.buffer_prev()<cr>", { silent = true, desc = "buffer prev" })
 
--- Navigate tabs
-keymap("n", "<tab>", "<cmd>tabnext<cr>", { silent = true, desc = "tab next"})
-keymap("n", "<S-tab>", "<cmd>tabprevious<cr>", { silent = true, desc = "tab previous"})
-
 -- Navigate in Insert Mode
 keymap({"i", "c"}, "<C-b>", "<left>",  { silent = true, desc = "<left>"  })
 keymap({"i", "c"}, "<C-f>", "<right>", { silent = true, desc = "<right>" })
