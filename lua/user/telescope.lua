@@ -94,15 +94,12 @@ telescope.setup({
   pickers = {
     find_files = {
       find_command = {
-        "rg",
-        "--no-ignore",
-        -- "-L",  -- follow symbolic link
-        "--files",
-        "--hidden",
-        "--iglob", "!.git",
-        "--iglob", "!.svn",
-        "--iglob", "!.cache",
-        "--iglob", "!common/debugger",
+        "fd", "--type", "f", "--hidden",
+        "--strip-cwd-prefix",
+        "--exclude", ".git",
+        "--exclude", ".svn",
+        "--exclude", ".cache",
+        "--exclude", "common/debugger",
       },
     },
     grep_string = {
