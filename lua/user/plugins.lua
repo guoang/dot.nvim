@@ -192,6 +192,7 @@ return packer.startup(function(use)
   use({ "williamboman/mason.nvim" })
   use({ "williamboman/mason-lspconfig.nvim" })
   use({ "nvimtools/none-ls.nvim" }) -- for formatters and linters
+  use({ "seblyng/roslyn.nvim" })    -- C# LSP (Microsoft Roslyn, VSCode C# Dev Kit 同款)
 
   -- Telescope
   use({ "nvim-telescope/telescope.nvim" })

@@ -32,9 +32,5 @@ im_select.setup({
   auto_select_normal = true,
   -- Create auto command to select `im_insert` when `InsertEnter`
   auto_select_insert = false,
-  -- keymaps
-  keymaps = {
-    toggle_auto_select_normal = "",
-    toggle_auto_select_insert = "",
-  },
+  -- keymaps (不设置, 用默认的 <Plug>ImSelect_* 即可)
 })
