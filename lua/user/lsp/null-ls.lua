@@ -26,12 +26,16 @@ null_ls.setup({
         "--single-quote",
         "--jsx-single-quote",
         "--prose-wrap=always",
+        "--config",
+        vim.fn.expand("~/.prettierrc"),
       },
     }),
     -- diagnostics.jsonlint,
     -- markdown, config file located in ~/.markdownlintrc
     -- formatting.markdownlint, --use prettier instead
-    diagnostics.markdownlint,
+    diagnostics.markdownlint.with({
+      extra_args = { "--config", vim.fn.expand("~/.markdownlintrc") },
+    }),
     -- python
     -- formatting.reorder_python_imports,
     -- formatting.autopep8,
