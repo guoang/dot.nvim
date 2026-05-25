@@ -1,4 +1,5 @@
-local colorscheme = "sonokai"
+-- local colorscheme = "sonokai"
+local colorscheme = "tokyonight-storm"
 
 -- setup for nord
 vim.g.nord_contrast = true
