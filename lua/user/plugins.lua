@@ -206,9 +206,15 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 
   -- Treesitter
-  use({ "nvim-treesitter/nvim-treesitter" })
-  use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-  use({ "nvim-treesitter/playground" })
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    run = ":TSUpdate",
+  })
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+  })
 
   -- Git
   use({ "lewis6991/gitsigns.nvim" })
