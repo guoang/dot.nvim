@@ -117,6 +117,11 @@ keymap("n", "<leader>gD", "<cmd>Gitsigns diffthis HEAD<cr>",                   {
 keymap("n", "<leader>gs", "<cmd>Telescope git_status<cr>",                     { silent = true, desc = "git Status"          })
 keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>",                   { silent = true, desc = "git Branches"        })
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>",                    { silent = true, desc = "git Commits"         })
+keymap("n", "<leader>gv", "<cmd>DiffviewOpen<cr>",                             { silent = true, desc = "git Diffview"        })
+keymap("n", "<leader>gV", "<cmd>DiffviewOpen HEAD^!<cr>",                     { silent = true, desc = "git Review HEAD"     })
+keymap("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>",                    { silent = true, desc = "git File History"    })
+keymap("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>",                      { silent = true, desc = "git History"         })
+keymap("n", "<leader>gq", "<cmd>DiffviewClose<cr>",                            { silent = true, desc = "git Close Diffview"  })
 
 -- Spectre
 keymap("n", "<leader>SS", "viw:lua require('spectre').open()<cr>",             { silent = true, desc = "spectre Substitute" })
