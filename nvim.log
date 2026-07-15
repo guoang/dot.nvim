@@ -1,0 +1,3 @@
+WRN 2026-06-03T11:27:53.199 ?.749      server_start:197: Failed to start server: operation not permitted: /tmp/claude-501/nvim.lalo/mP3N6W/nvim.749.0
+WRN 2026-07-13T19:32:54.084 ?.50202    server_start:197: Failed to start server: operation not permitted: /var/folders/jc/gqgy6bc55d5bnzl06d8xzvfm0000gn/T/nvim.lalo/4ERBut/nvim.50202.0
+WRN 2026-07-14T22:58:19.522 ?.31752    server_start:197: Failed to start server: operation not permitted: /var/folders/jc/gqgy6bc55d5bnzl06d8xzvfm0000gn/T/nvim.lalo/r0MUDz/nvim.31752.0
